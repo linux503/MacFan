@@ -6,172 +6,286 @@
   <title>MacFan — 精准控制 Mac 风扇</title>
   <meta name="description" content="MacFan 是原生 macOS 风扇控制工具。最大转速、单风扇手动调节、场景模式，支持 Apple Silicon 与 Intel。" />
   <meta property="og:title" content="MacFan — 精准控制 Mac 风扇" />
-  <meta property="og:description" content="原生 SwiftUI · Universal Binary · Signal Night 设计 · 场景智能散热" />
+  <meta property="og:description" content="原生 SwiftUI · Universal Binary · 场景智能散热 · 深浅双主题" />
   <meta property="og:image" content="assets/poster-og.png" />
   <link rel="icon" href="assets/logo-512.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="more-apps.css?v=2" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=4" />
+  <link rel="stylesheet" href="more-apps.css?v=3" />
 </head>
 <body>
-  <div class="noise" aria-hidden="true"></div>
-  <div class="aurora" aria-hidden="true"></div>
+  <div class="mesh" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
 
-  <header class="nav">
+  <header class="nav" id="nav">
     <a class="brand" href="#top">
-      <img src="assets/logo-512.png" alt="" width="28" height="28" />
+      <img src="assets/logo-512.png" alt="" width="30" height="30" class="brand-logo" />
       <span>MacFan</span>
     </a>
-    <nav>
-      <a href="#gallery" data-i18n="nav.gallery">海报</a>
+    <nav class="nav-links">
+      <a href="#showcase" data-i18n="nav.showcase">界面</a>
       <a href="#features" data-i18n="nav.features">功能</a>
       <a href="#scenes" data-i18n="nav.scenes">场景</a>
       <a href="#start" data-i18n="nav.start">开始</a>
       <span data-more-apps="macfan"></span>
-      <button type="button" class="lang-toggle" id="langToggle" aria-label="Language">中文</button>
-      <a class="nav-cta" href="https://github.com/linux503/MacFan" target="_blank" rel="noreferrer">GitHub</a>
+      <button type="button" class="pill-btn" id="langToggle" aria-label="Language">中文</button>
+      <a class="pill-btn pill-accent" href="assets/MacFan-1.1.0-macos.zip" data-i18n="nav.download">下载</a>
     </nav>
+    <button class="nav-burger" id="navBurger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
   </header>
 
   <main id="top">
+    <!-- Hero -->
     <section class="hero">
-      <div class="hero-copy">
-        <p class="eyebrow" data-i18n="hero.eyebrow">v1.1 · macOS · Intel &amp; Apple Silicon</p>
-        <h1 class="brand-mark">MacFan</h1>
-        <p class="lede" data-i18n="hero.lede">精准控制每一寸气流。最大转速、单风扇手调，以及会跟着你工作方式变化的智能场景。</p>
-        <div class="cta-row">
-          <a class="btn primary" href="assets/MacFan-1.1.0-macos.zip" data-i18n="hero.ctaDownload">下载 1.1</a>
-          <a class="btn ghost" href="https://github.com/linux503/MacFan" target="_blank" rel="noreferrer" data-i18n="hero.ctaSource">查看源码</a>
+      <div class="hero-grid reveal">
+        <div class="hero-text">
+          <div class="chip">
+            <span class="chip-dot"></span>
+            <span data-i18n="hero.badge">v1.1 · Universal Binary · 深浅主题</span>
+          </div>
+          <h1>
+            <span data-i18n="hero.title1">让 Mac 的风扇</span>
+            <span class="gradient-text" data-i18n="hero.title2">听你的</span>
+          </h1>
+          <p class="hero-desc" data-i18n="hero.lede">原生 SwiftUI 风扇控制。最大转速、逐风扇手调、六种智能场景——实机读数，一键授权，真正写入 SMC。</p>
+          <div class="hero-btns">
+            <a class="btn btn-mint" href="assets/MacFan-1.1.0-macos.zip">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span data-i18n="hero.ctaDownload">免费下载</span>
+            </a>
+            <a class="btn btn-outline" href="https://github.com/linux503/MacFan" target="_blank" rel="noreferrer" data-i18n="hero.ctaSource">GitHub</a>
+          </div>
+          <div class="hero-metrics">
+            <div class="metric-card">
+              <strong>4</strong>
+              <span data-i18n="stat.modes">控制模式</span>
+            </div>
+            <div class="metric-card">
+              <strong>6</strong>
+              <span data-i18n="stat.scenes">智能场景</span>
+            </div>
+            <div class="metric-card">
+              <strong>2</strong>
+              <span data-i18n="stat.arch">芯片架构</span>
+            </div>
+          </div>
         </div>
-        <p class="hero-note" data-i18n="hero.note">Signal Night 全新配色 · 菜单栏更快识别 · 一键授权实控</p>
+        <div class="hero-media">
+          <div class="hero-glow"></div>
+          <img src="assets/hero-home.png" alt="MacFan 应用界面" width="1400" height="900" class="hero-img" />
+          <div class="float-card float-a">
+            <span class="float-k">CPU</span>
+            <span class="float-v" id="liveCpu">47°</span>
+          </div>
+          <div class="float-card float-b">
+            <span class="float-k">RPM</span>
+            <span class="float-v" id="liveRpm">2460</span>
+          </div>
+        </div>
       </div>
-      <div class="hero-visual">
-        <img class="hero-shot" src="assets/poster-dashboard.png" alt="MacFan 应用界面预览" width="1360" height="850" />
-      </div>
-    </section>
-
-    <section id="gallery" class="section gallery">
-      <div class="section-head">
-        <h2 data-i18n="gallery.title">产品海报</h2>
-        <p data-i18n="gallery.sub">为官网与发布页准备的界面海报，展示控制方式与场景引擎。</p>
-      </div>
-      <div class="poster-grid">
-        <figure>
-          <img src="assets/poster-dashboard.png" alt="Dashboard poster" loading="lazy" />
-          <figcaption data-i18n="gallery.dash">主界面 · 实机读数</figcaption>
-        </figure>
-        <figure>
-          <img src="assets/poster-modes.png" alt="Modes poster" loading="lazy" />
-          <figcaption data-i18n="gallery.modes">四种控制方式</figcaption>
-        </figure>
-        <figure>
-          <img src="assets/poster-scenes.png" alt="Scenes poster" loading="lazy" />
-          <figcaption data-i18n="gallery.scenes">六种开箱场景</figcaption>
-        </figure>
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker-inner">
+          <span>Apple Silicon</span><span>Intel</span><span>SwiftUI</span><span>SMC</span><span>Menu Bar</span><span>Scene Engine</span><span>Dark &amp; Light</span><span>Live RPM</span>
+          <span>Apple Silicon</span><span>Intel</span><span>SwiftUI</span><span>SMC</span><span>Menu Bar</span><span>Scene Engine</span><span>Dark &amp; Light</span><span>Live RPM</span>
+        </div>
       </div>
     </section>
 
-    <section id="features" class="section">
-      <div class="section-head">
-        <h2 data-i18n="features.title">为一台真正在干活的 Mac 而设计</h2>
-        <p data-i18n="features.sub">不是一堆开关，而是四种控制方式与一套可扩展的场景引擎。</p>
+    <!-- Showcase -->
+    <section id="showcase" class="section">
+      <div class="section-intro reveal">
+        <span class="label" data-i18n="showcase.tag">Interface</span>
+        <h2 data-i18n="showcase.title">界面清晰，信息到位</h2>
+        <p data-i18n="showcase.sub">侧边栏切换模式，主面板看温度、风扇与曲线——深浅双主题，白天夜晚都舒服。</p>
       </div>
-      <div class="feature-rail">
-        <article>
+      <div class="gallery reveal">
+        <figure class="gallery-main glass-card">
+          <img src="assets/hero-home.png" alt="Dashboard" loading="lazy" />
+          <figcaption>
+            <span data-i18n="gallery.dash">主界面 · 实机读数</span>
+            <em data-i18n="gallery.dashHint">Dashboard</em>
+          </figcaption>
+        </figure>
+        <figure class="gallery-side glass-card">
+          <img src="assets/poster-modes.png" alt="Modes" loading="lazy" />
+          <figcaption>
+            <span data-i18n="gallery.modes">四种控制方式</span>
+            <em>Control</em>
+          </figcaption>
+        </figure>
+        <figure class="gallery-side glass-card">
+          <img src="assets/poster-scenes.png" alt="Scenes" loading="lazy" />
+          <figcaption>
+            <span data-i18n="gallery.scenes">六种开箱场景</span>
+            <em>Scenes</em>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="section section-alt">
+      <div class="section-intro reveal">
+        <span class="label" data-i18n="features.tag">Control</span>
+        <h2 data-i18n="features.title">四种方式，一种直觉</h2>
+        <p data-i18n="features.sub">不必在系统设置里翻找——MacFan 把散热控制收进一个原生 App。</p>
+      </div>
+      <div class="cards-4 reveal">
+        <article class="glass-card feature-card feature-card-hero">
+          <div class="feature-icon feature-icon-hot">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
           <h3 data-i18n="f1.t">最大转速</h3>
-          <p data-i18n="f1.p">一键拉满全部风扇，编译、导出、游戏掉温时立刻加压。</p>
+          <p data-i18n="f1.p">编译、导出、游戏掉温——一键拉满全部风扇，立刻加压散热。</p>
         </article>
-        <article>
+        <article class="glass-card feature-card">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>
+          </div>
           <h3 data-i18n="f2.t">手动调节</h3>
-          <p data-i18n="f2.p">逐风扇滑动设定目标 RPM，读数与滑杆实时对应。</p>
+          <p data-i18n="f2.p">逐风扇滑动设定 RPM，读数与滑杆实时对应。</p>
         </article>
-        <article>
+        <article class="glass-card feature-card">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          </div>
           <h3 data-i18n="f3.t">系统自动</h3>
-          <p data-i18n="f3.p">随时把温控交还 macOS SMC，安全收尾。</p>
+          <p data-i18n="f3.p">随时交还 macOS SMC 温控，安全收尾。</p>
         </article>
-        <article>
+        <article class="glass-card feature-card feature-card-wide">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
           <h3 data-i18n="f4.t">场景模式</h3>
-          <p data-i18n="f4.p">按温度曲线运行，并可联动 App 与夜间时段。</p>
+          <p data-i18n="f4.p">按温度曲线运行，支持 App 联动与夜间调度。</p>
+          <div class="tag-row">
+            <span data-i18n="f4.a">App 联动</span>
+            <span data-i18n="f4.b">夜间调度</span>
+            <span data-i18n="f4.c">温度曲线</span>
+          </div>
         </article>
       </div>
     </section>
 
-    <section id="scenes" class="section scenes">
-      <div class="section-head">
-        <h2 data-i18n="scenes.title">六种开箱即用的场景</h2>
-        <p data-i18n="scenes.sub">从静音办公到极速散热，覆盖你一天里最常见的热负载。</p>
+    <!-- Scenes -->
+    <section id="scenes" class="section">
+      <div class="section-intro reveal">
+        <span class="label" data-i18n="scenes.tag">Scenes</span>
+        <h2 data-i18n="scenes.title">六种场景，覆盖全天</h2>
+        <p data-i18n="scenes.sub">从静音办公到极速散热，Mac 一天里的热负载都有对应策略。</p>
       </div>
-      <ul class="scene-list">
-        <li><strong data-i18n="s1.t">静音办公</strong><span data-i18n="s1.p">文档与会议，优先低噪</span></li>
-        <li><strong data-i18n="s2.t">影音观影</strong><span data-i18n="s2.p">安静优先，温度略升也可接受</span></li>
-        <li><strong data-i18n="s3.t">创作渲染</strong><span data-i18n="s3.p">Xcode / Final Cut / PS 自动加压</span></li>
-        <li><strong data-i18n="s4.t">游戏竞技</strong><span data-i18n="s4.p">高风量压制帧率掉温</span></li>
-        <li><strong data-i18n="s5.t">极速散热</strong><span data-i18n="s5.p">全风扇最大，极限降温</span></li>
-        <li><strong data-i18n="s6.t">夜间静音</strong><span data-i18n="s6.p">23:00–07:00 自动压转速</span></li>
-      </ul>
+      <div class="scene-cards reveal">
+        <article class="glass-card scene-item" data-level="28">
+          <header><span class="scene-id">01</span><h3 data-i18n="s1.t">静音办公</h3></header>
+          <p data-i18n="s1.p">文档与会议，优先低噪</p>
+          <div class="bar"><i style="width:28%"></i></div>
+        </article>
+        <article class="glass-card scene-item" data-level="32">
+          <header><span class="scene-id">02</span><h3 data-i18n="s2.t">影音观影</h3></header>
+          <p data-i18n="s2.p">安静优先，温度略升也可</p>
+          <div class="bar"><i style="width:32%"></i></div>
+        </article>
+        <article class="glass-card scene-item" data-level="62">
+          <header><span class="scene-id">03</span><h3 data-i18n="s3.t">创作渲染</h3></header>
+          <p data-i18n="s3.p">Xcode / Final Cut 自动加压</p>
+          <div class="bar"><i style="width:62%"></i></div>
+        </article>
+        <article class="glass-card scene-item" data-level="78">
+          <header><span class="scene-id">04</span><h3 data-i18n="s4.t">游戏竞技</h3></header>
+          <p data-i18n="s4.p">高风量压制帧率掉温</p>
+          <div class="bar"><i style="width:78%"></i></div>
+        </article>
+        <article class="glass-card scene-item scene-hot" data-level="100">
+          <header><span class="scene-id">05</span><h3 data-i18n="s5.t">极速散热</h3></header>
+          <p data-i18n="s5.p">全风扇最大，极限降温</p>
+          <div class="bar bar-hot"><i style="width:100%"></i></div>
+        </article>
+        <article class="glass-card scene-item" data-level="22">
+          <header><span class="scene-id">06</span><h3 data-i18n="s6.t">夜间静音</h3></header>
+          <p data-i18n="s6.p">23:00–07:00 自动压转速</p>
+          <div class="bar"><i style="width:22%"></i></div>
+        </article>
+      </div>
     </section>
 
-    <section class="section split">
-      <div>
-        <h2 data-i18n="arch.title">双架构原生</h2>
-        <p data-i18n="arch.sub">Universal Binary，同一套界面与场景引擎同时服务 Apple Silicon 与 Intel。底层按芯片映射风扇键值，菜单栏与程序坞图标一并就绪。</p>
-      </div>
-      <div class="chips" aria-label="平台支持">
-        <span>Apple Silicon</span>
-        <span>Intel</span>
-        <span>macOS 14+</span>
-        <span>SwiftUI</span>
-        <span>Menu Bar</span>
-        <span>v1.1</span>
+    <!-- Arch -->
+    <section class="section">
+      <div class="glass-card arch-banner reveal">
+        <div class="arch-text">
+          <span class="label" data-i18n="arch.tag">Native</span>
+          <h2 data-i18n="arch.title">双架构，一份 App</h2>
+          <p data-i18n="arch.sub">Universal Binary 同时服务 Apple Silicon 与 Intel。芯片感知 SMC 键值、菜单栏快捷入口、深浅双主题。</p>
+        </div>
+        <div class="pill-row">
+          <span>Apple Silicon</span>
+          <span>Intel</span>
+          <span>macOS 14+</span>
+          <span>SwiftUI</span>
+          <span>Menu Bar</span>
+          <span data-i18n="arch.theme">深浅主题</span>
+        </div>
       </div>
     </section>
 
-    <section id="start" class="section start">
-      <div class="section-head">
-        <h2 data-i18n="start.title">三步开始</h2>
-        <p data-i18n="start.sub">克隆仓库，用 Xcode 运行；实控风扇时授权管理员权限。</p>
+    <!-- Start -->
+    <section id="start" class="section section-alt">
+      <div class="section-intro reveal">
+        <span class="label" data-i18n="start.tag">Get Started</span>
+        <h2 data-i18n="start.title">三步上手</h2>
+        <p data-i18n="start.sub">克隆、运行、授权——不到一分钟体验界面，授权后即可真正调速。</p>
       </div>
-      <ol class="steps">
-        <li>
-          <span class="step-n">01</span>
-          <div>
-            <h3 data-i18n="step1.t">克隆</h3>
-            <pre><code>git clone https://github.com/linux503/MacFan.git
-cd MacFan
-open MacFan.xcodeproj</code></pre>
-          </div>
-        </li>
-        <li>
-          <span class="step-n">02</span>
-          <div>
-            <h3 data-i18n="step2.t">运行</h3>
-            <p data-i18n="step2.p">Xcode 选择 My Mac，⌘R。首次可先体验界面与场景逻辑。</p>
-          </div>
-        </li>
-        <li>
-          <span class="step-n">03</span>
-          <div>
-            <h3 data-i18n="step3.t">授权实控</h3>
-            <p data-i18n="step3.p">在 App 内点击「授权管理员权限」，输入密码后即可写入 SMC 真正调速。</p>
-          </div>
-        </li>
-      </ol>
-      <p class="fineprint" data-i18n="fineprint">长时间手动控温后，请切回「系统自动」。Apple Silicon（尤其 M3/M4）可能受 thermalmonitord 约束，MacFan 已内置解锁流程。</p>
+      <div class="steps reveal">
+        <article class="glass-card step">
+          <span class="step-id">01</span>
+          <h3 data-i18n="step1.t">克隆</h3>
+          <pre><code>git clone https://github.com/linux503/MacFan.git
+cd MacFan && open MacFan.xcodeproj</code></pre>
+        </article>
+        <article class="glass-card step">
+          <span class="step-id">02</span>
+          <h3 data-i18n="step2.t">运行</h3>
+          <p data-i18n="step2.p">Xcode 选择 My Mac，⌘R。首次可先体验界面与场景逻辑。</p>
+        </article>
+        <article class="glass-card step">
+          <span class="step-id">03</span>
+          <h3 data-i18n="step3.t">授权实控</h3>
+          <p data-i18n="step3.p">点击「授权管理员权限」，输入密码后即可写入 SMC 真正调速。</p>
+        </article>
+      </div>
+      <p class="note reveal" data-i18n="fineprint">长时间手动控温后，请切回「系统自动」。Apple Silicon（M3/M4）可能受 thermalmonitord 约束，MacFan 已内置解锁流程。</p>
+    </section>
+
+    <!-- CTA -->
+    <section class="section">
+      <div class="glass-card cta reveal">
+        <img src="assets/logo-512.png" alt="" width="56" height="56" class="cta-logo" />
+        <div class="cta-text">
+          <h2 data-i18n="cta.title">让 Mac 凉下来</h2>
+          <p data-i18n="cta.sub">免费开源 · MIT · Intel &amp; Apple Silicon</p>
+        </div>
+        <a class="btn btn-mint btn-lg" href="assets/MacFan-1.1.0-macos.zip" data-i18n="cta.download">立即下载</a>
+      </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="footer-brand">
-      <img src="assets/logo-512.png" alt="" width="24" height="24" />
+    <div class="footer-left">
+      <img src="assets/logo-512.png" alt="" width="22" height="22" />
       <span>MacFan</span>
+      <span class="footer-sep">·</span>
+      <span>MIT · v1.1.0</span>
     </div>
-    <p>MIT License · v1.1.0</p>
-    <a href="https://github.com/linux503/MacFan" target="_blank" rel="noreferrer">Star on GitHub →</a>
+    <div class="footer-right">
+      <a href="https://github.com/linux503/MacFan" target="_blank" rel="noreferrer">GitHub</a>
+      <a href="assets/MacFan-1.1.0-macos.zip" data-i18n="footer.download">下载</a>
+    </div>
   </footer>
 
-  <script src="script.js"></script>
-  <script src="more-apps.js?v=2" defer></script>
+  <script src="script.js?v=4"></script>
+  <script src="more-apps.js?v=3" defer></script>
 </body>
 </html>

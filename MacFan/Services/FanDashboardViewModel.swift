@@ -221,9 +221,7 @@ final class FanDashboardViewModel {
         Task { [weak self] in
             guard let self else { return }
             do {
-                try await Task.detached(priority: .userInitiated) {
-                    try PrivilegedElevator.startHelper()
-                }.value
+                try PrivilegedElevator.startHelper()
                 controller.refreshPrivilege()
                 isPrivileged = controller.isPrivileged
                 if isPrivileged {

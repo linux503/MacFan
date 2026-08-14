@@ -186,11 +186,7 @@ enum SMCHelperClient {
 }
 
 enum PrivilegedElevator {
-    private static let launcherPath = "/tmp/macfan-install-helper.sh"
-    private static let daemonPath = "/tmp/macfan-daemon.py"
-    private static let installedHelperPath = "/Library/PrivilegedHelperTools/com.macfan.smc"
-
-    /// Shows the system password dialog and installs/starts the root SMC helper.
+    /// Shows the system password dialog and installs a root LaunchDaemon helper.
     static func startHelper() throws {
         if SMCHelperClient.isReady { return }
 
@@ -199,20 +195,44 @@ enum PrivilegedElevator {
         }
         let exe = exeURL.resolvingSymlinksInPath().path
 
+        guard let installer = Bundle.main.url(forResource: "install-smc-helper", withExtension: "sh") else {
+            throw SMCHelperError.elevationFailed(L10n.t("admin.missingInstaller"))
+        }
+
         try? SMCHelperClient.send("QUIT")
         usleep(200_000)
 
-        try writeDaemonScript()
-        try writeInstallScript(sourceExe: exe)
+        try runInstaller(script: installer.path, executable: exe)
 
-        let escapedLauncher = launcherPath.replacingOccurrences(of: "'", with: "'\\''")
-        let appleScript = "do shell script \"'\(escapedLauncher)'\" with administrator privileges"
+        if SMCHelperClient.isReady { return }
+        for _ in 0..<50 {
+            if SMCHelperClient.isReady { return }
+            usleep(100_000)
+        }
+
+        throw SMCHelperError.elevationFailed(failureMessage(executable: exe))
+    }
+
+    private static func runInstaller(script: String, executable: String) throws {
+        let cmd = "/bin/sh \(shellQuote(script)) \(shellQuote(executable))"
+        let prompt = L10n.t("admin.osascriptPrompt")
+        let source = """
+        do shell script \(appleString(cmd)) with administrator privileges with prompt \(appleString(prompt))
+        """
 
         var error: NSDictionary?
-        guard let script = NSAppleScript(source: appleScript) else {
-            throw SMCHelperError.elevationFailed(L10n.t("admin.failed"))
+        let result: NSAppleEventDescriptor
+        if Thread.isMainThread {
+            result = executeAppleScript(source, error: &error)
+        } else {
+            var boxed: NSAppleEventDescriptor?
+            var boxedError: NSDictionary?
+            DispatchQueue.main.sync {
+                boxed = executeAppleScript(source, error: &boxedError)
+            }
+            error = boxedError
+            result = boxed ?? NSAppleEventDescriptor()
         }
-        let result = script.executeAndReturnError(&error)
 
         if let error {
             let msg = error[NSAppleScript.errorMessage] as? String ?? ""
@@ -223,135 +243,54 @@ enum PrivilegedElevator {
         }
 
         let output = result.stringValue?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        if output == "OK", SMCHelperClient.isReady { return }
-
-        for _ in 0..<100 {
-            if SMCHelperClient.isReady { return }
-            usleep(120_000)
+        if output.contains("OK") { return }
+        if !output.isEmpty {
+            throw SMCHelperError.elevationFailed(output + "\n" + failureMessage(executable: executable))
         }
-
-        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?"
-        throw SMCHelperError.elevationFailed(
-            L10n.t("admin.helperNotReady") + " (v\(version))\n" + helperLogTail()
-        )
     }
 
-    /// Install script also pkill's stale helpers and legacy launchd jobs.
-    private static func writeDaemonScript() throws {
-        let script = """
-        #!/usr/bin/env python3
-        import os, sys
-
-        exe, log_path = sys.argv[1], sys.argv[2]
-
-        pid = os.fork()
-        if pid < 0:
-            sys.exit(1)
-        if pid > 0:
-            sys.exit(0)
-
-        os.setsid()
-        pid2 = os.fork()
-        if pid2 < 0:
-            os._exit(1)
-        if pid2 > 0:
-            os._exit(0)
-
-        os.chdir("/")
-        os.umask(0o022)
-        with open(log_path, "a", buffering=1) as log:
-            os.dup2(log.fileno(), 1)
-            os.dup2(log.fileno(), 2)
-            os.execv(exe, [exe, "--smc-helper"])
-        """
-        try script.write(toFile: daemonPath, atomically: true, encoding: .utf8)
-        try FileManager.default.setAttributes([.posixPermissions: 0o755], ofItemAtPath: daemonPath)
-    }
-
-    /// Copy signed helper to /Library, then daemonize — never use nohup inside `do shell script`.
-    private static func writeInstallScript(sourceExe: String) throws {
-        let log = SMCHelperServer.logPath
-        let socket = SMCHelperServer.socketPath
-        let script = """
-        #!/bin/sh
-        SRC='\(shellQuote(sourceExe))'
-        HELPER='\(installedHelperPath)'
-        LOG='\(log)'
-        SOCKET='\(socket)'
-
-        log() { printf '[installer] %s\\n' "$1" >>"$LOG"; }
-
-        rm -f "$LOG" '\(SMCHelperServer.pidPath)'
-        : >"$LOG"
-        rm -f "$SOCKET"
-
-        if [ ! -f "$SRC" ]; then
-          log "source not found: $SRC"
-          exit 1
-        fi
-
-        mkdir -p /Library/PrivilegedHelperTools
-        cp -f "$SRC" "$HELPER" || { log "copy failed"; exit 1; }
-        chmod 755 "$HELPER"
-        chown root:wheel "$HELPER"
-        xattr -cr "$HELPER" 2>/dev/null || true
-        if ! /usr/bin/codesign -f -s - --options runtime "$HELPER" >>"$LOG" 2>&1; then
-          log "codesign failed"
-          exit 1
-        fi
-        log "installed $HELPER"
-
-        launchctl bootout system/com.macfan.smchelper 2>/dev/null || launchctl unload /Library/LaunchDaemons/com.macfan.smchelper.plist 2>/dev/null || true
-        pkill -f 'com.macfan.smc.*--smc-helper' 2>/dev/null || true
-        pkill -f 'MacFan.*--smc-helper' 2>/dev/null || true
-        sleep 0.15
-
-        if ! /usr/bin/python3 '\(daemonPath)' "$HELPER" "$LOG"; then
-          log "daemon bootstrap failed"
-          exit 1
-        fi
-        log "daemon started"
-
-        i=0
-        while [ "$i" -lt 100 ]; do
-          if [ -S "$SOCKET" ]; then
-            chmod 666 "$SOCKET" "$LOG" 2>/dev/null || true
-            log "socket ready"
-            echo OK
-            exit 0
-          fi
-          sleep 0.12
-          i=$((i + 1))
-        done
-
-        log "timeout; log tail:"
-        tail -8 "$LOG" 2>/dev/null | while IFS= read -r line; do log "  $line"; done
-        exit 1
-        """
-        try script.write(toFile: launcherPath, atomically: true, encoding: .utf8)
-        try FileManager.default.setAttributes([.posixPermissions: 0o755], ofItemAtPath: launcherPath)
+    private static func executeAppleScript(_ source: String, error: inout NSDictionary?) -> NSAppleEventDescriptor {
+        guard let script = NSAppleScript(source: source) else {
+            error = [NSAppleScript.errorMessage: L10n.t("admin.failed")] as NSDictionary
+            return NSAppleEventDescriptor()
+        }
+        return script.executeAndReturnError(&error)
     }
 
     private static func shellQuote(_ value: String) -> String {
         "'" + value.replacingOccurrences(of: "'", with: "'\\''") + "'"
     }
 
+    private static func appleString(_ value: String) -> String {
+        "\"" + value
+            .replacingOccurrences(of: "\\", with: "\\\\")
+            .replacingOccurrences(of: "\"", with: "\\\"") + "\""
+    }
+
+    private static func failureMessage(executable: String) -> String {
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?"
+        var parts = [
+            L10n.t("admin.helperNotReady") + " (v\(version))",
+            executable
+        ]
+        parts.append(helperLogTail())
+        return parts.joined(separator: "\n")
+    }
+
     private static func helperLogTail() -> String {
-        guard let text = try? String(contentsOfFile: SMCHelperServer.logPath, encoding: .utf8) else {
+        guard let text = try? String(contentsOfFile: SMCHelperServer.logPath, encoding: .utf8),
+              !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             return L10n.t("admin.noLog")
+        }
+        if !text.contains("[installer]") && text.lowercased().contains("nohup") {
+            return L10n.t("admin.staleLog")
         }
         let lines = text
             .split(whereSeparator: \.isNewline)
             .map(String.init)
             .filter { !$0.lowercased().contains("nohup") }
-
-        if lines.isEmpty, text.lowercased().contains("nohup") {
-            return L10n.t("admin.staleLog")
-        }
-        if lines.isEmpty {
-            return L10n.t("admin.noLog")
-        }
-        return lines.suffix(10).joined(separator: "\n")
+        if lines.isEmpty { return L10n.t("admin.staleLog") }
+        return lines.suffix(12).joined(separator: "\n")
     }
 }
 

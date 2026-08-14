@@ -20,6 +20,7 @@
 		A1000000000000000000000B /* MacFan-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000B /* MacFan-logo.png */; };
 		A1000000000000000000000F /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000014 /* AppIcon.icns */; };
 		A10000000000000000000010 /* MenuBarIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000015 /* MenuBarIcon.png */; };
+		A10000000000000000000015 /* install-smc-helper.sh in Resources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000001A /* install-smc-helper.sh */; };
 
 		A1000000000000000000000C /* smc.c in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000F /* smc.c */; };
 		A1000000000000000000000D /* SMCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000010 /* SMCClient.swift */; };
@@ -56,6 +57,7 @@
 		A20000000000000000000017 /* UpdateChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateChecker.swift; sourceTree = "<group>"; };
 		A20000000000000000000018 /* PrivilegedSMCHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivilegedSMCHelper.swift; sourceTree = "<group>"; };
 		A20000000000000000000019 /* AdminAuthorizationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminAuthorizationCard.swift; sourceTree = "<group>"; };
+		A2000000000000000000001A /* install-smc-helper.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "install-smc-helper.sh"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 				A2000000000000000000000B /* MacFan-logo.png */,
 				A20000000000000000000014 /* AppIcon.icns */,
 				A20000000000000000000015 /* MenuBarIcon.png */,
+				A2000000000000000000001A /* install-smc-helper.sh */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 				A1000000000000000000000B /* MacFan-logo.png in Resources */,
 				A1000000000000000000000F /* AppIcon.icns in Resources */,
 				A10000000000000000000010 /* MenuBarIcon.png in Resources */,
+				A10000000000000000000015 /* install-smc-helper.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,7 +295,7 @@
 				CODE_SIGN_ENTITLEMENTS = MacFan/MacFan.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MacFan/Info.plist;
@@ -299,7 +303,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.4;
+				MARKETING_VERSION = 1.1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macfan.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -330,7 +334,7 @@
 				CODE_SIGN_ENTITLEMENTS = MacFan/MacFan.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MacFan/Info.plist;
@@ -338,7 +342,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.4;
+				MARKETING_VERSION = 1.1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macfan.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;

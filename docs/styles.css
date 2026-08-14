@@ -528,6 +528,9 @@ main,
   .nav nav a:not(.nav-cta) {
     display: none;
   }
+  .nav .more-apps {
+    display: inline-flex;
+  }
 }
 
 @media (max-width: 560px) {

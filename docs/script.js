@@ -136,6 +136,10 @@
     });
     const btn = document.getElementById("langToggle");
     if (btn) btn.textContent = table.langBtn;
+    document.querySelectorAll("[data-more-apps]").forEach((el) => {
+      el.setAttribute("data-lang", lang);
+    });
+    if (window.Linux503MoreApps) window.Linux503MoreApps.refresh();
   };
 
   document.getElementById("langToggle")?.addEventListener("click", () => {

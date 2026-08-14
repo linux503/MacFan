@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MacFan — 精准控制 Mac 风扇</title>
+  <meta name="description" content="MacFan 是原生 macOS 风扇控制工具。最大转速、单风扇手动调节、场景模式，支持 Apple Silicon 与 Intel。" />
+  <meta property="og:title" content="MacFan — 精准控制 Mac 风扇" />
+  <meta property="og:description" content="原生 SwiftUI · Universal Binary · 场景智能散热" />
+  <meta property="og:image" content="assets/logo-512.png" />
+  <link rel="icon" href="assets/logo-512.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a class="brand" href="#top">
+      <img src="assets/logo-512.png" alt="" width="28" height="28" />
+      <span>MacFan</span>
+    </a>
+    <nav>
+      <a href="#features">功能</a>
+      <a href="#scenes">场景</a>
+      <a href="#start">开始</a>
+      <a class="nav-cta" href="https://github.com/linux503/MacFan" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">macOS · Intel &amp; Apple Silicon</p>
+        <h1 class="brand-mark">MacFan</h1>
+        <p class="lede">精准控制每一寸气流。最大转速、单风扇手调，以及会跟着你工作方式变化的智能场景。</p>
+        <div class="cta-row">
+          <a class="btn primary" href="https://github.com/linux503/MacFan" target="_blank" rel="noreferrer">查看源码</a>
+          <a class="btn ghost" href="#start">本地运行</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="orb"></div>
+        <img class="hero-logo" src="assets/logo-512.png" alt="" />
+        <div class="ring"></div>
+      </div>
+    </section>
+
+    <section id="features" class="section">
+      <div class="section-head">
+        <h2>为一台真正在干活的 Mac 而设计</h2>
+        <p>不是一堆开关，而是四种控制方式与一套可扩展的场景引擎。</p>
+      </div>
+      <div class="feature-rail">
+        <article>
+          <h3>最大转速</h3>
+          <p>一键拉满全部风扇，编译、导出、游戏掉温时立刻加压。</p>
+        </article>
+        <article>
+          <h3>手动调节</h3>
+          <p>逐风扇滑动设定目标 RPM，读数与滑杆实时对应。</p>
+        </article>
+        <article>
+          <h3>系统自动</h3>
+          <p>随时把温控交还 macOS SMC，安全收尾。</p>
+        </article>
+        <article>
+          <h3>场景模式</h3>
+          <p>按温度曲线运行，并可联动 App 与夜间时段。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="scenes" class="section scenes">
+      <div class="section-head">
+        <h2>六种开箱即用的场景</h2>
+        <p>从静音办公到极速散热，覆盖你一天里最常见的热负载。</p>
+      </div>
+      <ul class="scene-list">
+        <li><strong>静音办公</strong><span>文档与会议，优先低噪</span></li>
+        <li><strong>影音观影</strong><span>安静优先，温度略升也可接受</span></li>
+        <li><strong>创作渲染</strong><span>Xcode / Final Cut / PS 自动加压</span></li>
+        <li><strong>游戏竞技</strong><span>高风量压制帧率掉温</span></li>
+        <li><strong>极速散热</strong><span>全风扇最大，极限降温</span></li>
+        <li><strong>夜间静音</strong><span>23:00–07:00 自动压转速</span></li>
+      </ul>
+    </section>
+
+    <section class="section split">
+      <div>
+        <h2>双架构原生</h2>
+        <p>Universal Binary，同一套界面与场景引擎同时服务 Apple Silicon 与 Intel。底层按芯片映射风扇键值，菜单栏与程序坞图标一并就绪。</p>
+      </div>
+      <div class="chips" aria-label="平台支持">
+        <span>Apple Silicon</span>
+        <span>Intel</span>
+        <span>macOS 14+</span>
+        <span>SwiftUI</span>
+        <span>Menu Bar</span>
+      </div>
+    </section>
+
+    <section id="start" class="section start">
+      <div class="section-head">
+        <h2>三步开始</h2>
+        <p>克隆仓库，用 Xcode 运行；实控风扇时授予管理员权限。</p>
+      </div>
+      <ol class="steps">
+        <li>
+          <span class="step-n">01</span>
+          <div>
+            <h3>克隆</h3>
+            <pre><code>git clone https://github.com/linux503/MacFan.git
+cd MacFan
+open MacFan.xcodeproj</code></pre>
+          </div>
+        </li>
+        <li>
+          <span class="step-n">02</span>
+          <div>
+            <h3>运行</h3>
+            <p>Xcode 选择 My Mac，⌘R。首次可先体验界面与场景逻辑。</p>
+          </div>
+        </li>
+        <li>
+          <span class="step-n">03</span>
+          <div>
+            <h3>提权实控</h3>
+            <p>在 App 内点击「以管理员身份启动」，即可写入 SMC 真正调速。</p>
+          </div>
+        </li>
+      </ol>
+      <p class="fineprint">长时间手动控温后，请切回「系统自动」。Apple Silicon（尤其 M3/M4）可能受 thermalmonitord 约束，MacFan 已内置解锁流程。</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-brand">
+      <img src="assets/logo-512.png" alt="" width="24" height="24" />
+      <span>MacFan</span>
+    </div>
+    <p>MIT License · 开源散热控制</p>
+    <a href="https://github.com/linux503/MacFan" target="_blank" rel="noreferrer">Star on GitHub →</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

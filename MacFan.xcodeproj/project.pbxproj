@@ -1,0 +1,376 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10000000000000000000001 /* MacFanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000001 /* MacFanApp.swift */; };
+		A10000000000000000000002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000002 /* ContentView.swift */; };
+		A10000000000000000000003 /* FanModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000003 /* FanModels.swift */; };
+		A10000000000000000000004 /* FanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000004 /* FanController.swift */; };
+		A10000000000000000000005 /* AppLinkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000005 /* AppLinkMonitor.swift */; };
+		A10000000000000000000006 /* FanDashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000006 /* FanDashboardViewModel.swift */; };
+		A10000000000000000000007 /* SidebarPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000007 /* SidebarPanel.swift */; };
+		A10000000000000000000008 /* MainDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000008 /* MainDashboard.swift */; };
+		A10000000000000000000009 /* MenuBarFanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000009 /* MenuBarFanView.swift */; };
+		A1000000000000000000000A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000A /* Assets.xcassets */; };
+		A1000000000000000000000B /* MacFan-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000B /* MacFan-logo.png */; };
+		A1000000000000000000000F /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000014 /* AppIcon.icns */; };
+		A10000000000000000000010 /* MenuBarIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000015 /* MenuBarIcon.png */; };
+
+		A1000000000000000000000C /* smc.c in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000F /* smc.c */; };
+		A1000000000000000000000D /* SMCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000010 /* SMCClient.swift */; };
+		A1000000000000000000000E /* MFTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000013 /* MFTheme.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A20000000000000000000001 /* MacFanApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacFanApp.swift; sourceTree = "<group>"; };
+		A20000000000000000000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A20000000000000000000003 /* FanModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FanModels.swift; sourceTree = "<group>"; };
+		A20000000000000000000004 /* FanController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FanController.swift; sourceTree = "<group>"; };
+		A20000000000000000000005 /* AppLinkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLinkMonitor.swift; sourceTree = "<group>"; };
+		A20000000000000000000006 /* FanDashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FanDashboardViewModel.swift; sourceTree = "<group>"; };
+		A20000000000000000000007 /* SidebarPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarPanel.swift; sourceTree = "<group>"; };
+		A20000000000000000000008 /* MainDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDashboard.swift; sourceTree = "<group>"; };
+		A20000000000000000000009 /* MenuBarFanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarFanView.swift; sourceTree = "<group>"; };
+		A2000000000000000000000A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A2000000000000000000000B /* MacFan-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MacFan-logo.png"; sourceTree = "<group>"; };
+		A2000000000000000000000C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A2000000000000000000000D /* MacFan.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacFan.entitlements; sourceTree = "<group>"; };
+		A2000000000000000000000E /* MacFan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacFan.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2000000000000000000000F /* smc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = smc.c; sourceTree = "<group>"; };
+		A20000000000000000000010 /* SMCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMCClient.swift; sourceTree = "<group>"; };
+		A20000000000000000000011 /* smc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = smc.h; sourceTree = "<group>"; };
+		A20000000000000000000012 /* MacFan-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MacFan-Bridging-Header.h"; sourceTree = "<group>"; };
+		A20000000000000000000013 /* MFTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFTheme.swift; sourceTree = "<group>"; };
+		A20000000000000000000014 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
+		A20000000000000000000015 /* MenuBarIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuBarIcon.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A30000000000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A40000000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				A40000000000000000000002 /* MacFan */,
+				A40000000000000000000007 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A40000000000000000000002 /* MacFan */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000001 /* MacFanApp.swift */,
+				A20000000000000000000002 /* ContentView.swift */,
+				A40000000000000000000008 /* SMC */,
+				A20000000000000000000012 /* MacFan-Bridging-Header.h */,
+				A40000000000000000000003 /* Models */,
+				A40000000000000000000004 /* Services */,
+				A40000000000000000000005 /* Views */,
+				A40000000000000000000006 /* Resources */,
+				A2000000000000000000000A /* Assets.xcassets */,
+				A2000000000000000000000C /* Info.plist */,
+				A2000000000000000000000D /* MacFan.entitlements */,
+			);
+			path = MacFan;
+			sourceTree = "<group>";
+		};
+		A40000000000000000000003 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000003 /* FanModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A40000000000000000000004 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000004 /* FanController.swift */,
+				A20000000000000000000005 /* AppLinkMonitor.swift */,
+				A20000000000000000000006 /* FanDashboardViewModel.swift */,
+				A20000000000000000000010 /* SMCClient.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A40000000000000000000005 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000013 /* MFTheme.swift */,
+				A20000000000000000000007 /* SidebarPanel.swift */,
+				A20000000000000000000008 /* MainDashboard.swift */,
+				A20000000000000000000009 /* MenuBarFanView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A40000000000000000000006 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A2000000000000000000000B /* MacFan-logo.png */,
+				A20000000000000000000014 /* AppIcon.icns */,
+				A20000000000000000000015 /* MenuBarIcon.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A40000000000000000000007 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A2000000000000000000000E /* MacFan.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+
+		A40000000000000000000008 /* SMC */ = {
+			isa = PBXGroup;
+			children = (
+				A2000000000000000000000F /* smc.c */,
+				A20000000000000000000011 /* smc.h */,
+			);
+			path = SMC;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A50000000000000000000001 /* MacFan */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A70000000000000000000003 /* Build configuration list for PBXNativeTarget "MacFan" */;
+			buildPhases = (
+				A50000000000000000000002 /* Sources */,
+				A30000000000000000000001 /* Frameworks */,
+				A50000000000000000000003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacFan;
+			productName = MacFan;
+			productReference = A2000000000000000000000E /* MacFan.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A60000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					A50000000000000000000001 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = A70000000000000000000001 /* Build configuration list for PBXProject "MacFan" */;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = "zh-Hans";
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				"zh-Hans",
+			);
+			mainGroup = A40000000000000000000001;
+			productRefGroup = A40000000000000000000007 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A50000000000000000000001 /* MacFan */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A50000000000000000000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000000000000000000000A /* Assets.xcassets in Resources */,
+				A1000000000000000000000B /* MacFan-logo.png in Resources */,
+				A1000000000000000000000F /* AppIcon.icns in Resources */,
+				A10000000000000000000010 /* MenuBarIcon.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A50000000000000000000002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000000000000000000001 /* MacFanApp.swift in Sources */,
+				A10000000000000000000002 /* ContentView.swift in Sources */,
+				A10000000000000000000003 /* FanModels.swift in Sources */,
+				A10000000000000000000004 /* FanController.swift in Sources */,
+				A10000000000000000000005 /* AppLinkMonitor.swift in Sources */,
+				A10000000000000000000006 /* FanDashboardViewModel.swift in Sources */,
+				A10000000000000000000007 /* SidebarPanel.swift in Sources */,
+				A10000000000000000000008 /* MainDashboard.swift in Sources */,
+				A10000000000000000000009 /* MenuBarFanView.swift in Sources */,
+				A1000000000000000000000C /* smc.c in Sources */,
+				A1000000000000000000000D /* SMCClient.swift in Sources */,
+				A1000000000000000000000E /* MFTheme.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A80000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A80000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		A80000000000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MacFan/MacFan.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MacFan/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macfan.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "MacFan/MacFan-Bridging-Header.h";
+				SWIFT_STRICT_CONCURRENCY = targeted;
+				SWIFT_VERSION = 5.0;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/MacFan",
+					"$(SRCROOT)/MacFan/SMC",
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					IOKit,
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				ARCHS = (
+					arm64,
+					x86_64,
+				);
+			};
+			name = Debug;
+		};
+		A80000000000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MacFan/MacFan.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MacFan/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macfan.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "MacFan/MacFan-Bridging-Header.h";
+				SWIFT_STRICT_CONCURRENCY = targeted;
+				SWIFT_VERSION = 5.0;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/MacFan",
+					"$(SRCROOT)/MacFan/SMC",
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					IOKit,
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				ARCHS = (
+					arm64,
+					x86_64,
+				);
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A70000000000000000000001 /* Build configuration list for PBXProject "MacFan" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A80000000000000000000001 /* Debug */,
+				A80000000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A70000000000000000000003 /* Build configuration list for PBXNativeTarget "MacFan" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A80000000000000000000003 /* Debug */,
+				A80000000000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A60000000000000000000001 /* Project object */;
+}

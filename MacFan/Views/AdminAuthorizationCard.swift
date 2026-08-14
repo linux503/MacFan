@@ -64,6 +64,11 @@ struct AdminAuthorizationCard: View {
                     .foregroundStyle(MFTheme.mistDim)
                     .padding(.top, 14)
             }
+
+            Text(appVersionLine)
+                .font(.system(size: 10, weight: .semibold, design: .rounded))
+                .foregroundStyle(MFTheme.mistDim.opacity(0.85))
+                .padding(.top, 10)
         }
         .padding(20)
         .background(
@@ -86,5 +91,10 @@ struct AdminAuthorizationCard: View {
         if viewModel.isBusy { return l10n.t("admin.passwordHint") }
         if let error = viewModel.lastError, viewModel.needsAdminToControl { return error }
         return l10n.t("admin.passwordHint")
+    }
+
+    private var appVersionLine: String {
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?"
+        return "MacFan v\(version)"
     }
 }

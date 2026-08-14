@@ -187,48 +187,23 @@ enum SMCHelperClient {
 
 enum PrivilegedElevator {
     private static let launcherPath = "/tmp/macfan-install-helper.sh"
-    private static let stagingPlistPath = "/tmp/com.macfan.smchelper.plist"
+    private static let daemonPath = "/tmp/macfan-daemon.py"
     private static let installedHelperPath = "/Library/PrivilegedHelperTools/com.macfan.smc"
-    private static let launchdPlistPath = "/Library/LaunchDaemons/com.macfan.smchelper.plist"
-    private static let launchdLabel = "com.macfan.smchelper"
 
-    private static let launchdPlist = """
-    <?xml version="1.0" encoding="UTF-8"?>
-    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-    <plist version="1.0">
-    <dict>
-        <key>Label</key>
-        <string>com.macfan.smchelper</string>
-        <key>ProgramArguments</key>
-        <array>
-            <string>/Library/PrivilegedHelperTools/com.macfan.smc</string>
-            <string>--smc-helper</string>
-        </array>
-        <key>RunAtLoad</key>
-        <true/>
-        <key>KeepAlive</key>
-        <false/>
-        <key>StandardOutPath</key>
-        <string>/tmp/macfan-helper.log</string>
-        <key>StandardErrorPath</key>
-        <string>/tmp/macfan-helper.log</string>
-    </dict>
-    </plist>
-    """
-
-    /// Shows the system password dialog and installs/starts the root SMC helper via launchd.
+    /// Shows the system password dialog and installs/starts the root SMC helper.
     static func startHelper() throws {
         if SMCHelperClient.isReady { return }
 
-        guard let exe = Bundle.main.executableURL?.path else {
+        guard let exeURL = Bundle.main.executableURL else {
             throw SMCHelperError.missingExecutable
         }
+        let exe = exeURL.resolvingSymlinksInPath().path
 
         try? SMCHelperClient.send("QUIT")
         usleep(200_000)
 
+        try writeDaemonScript()
         try writeInstallScript(sourceExe: exe)
-        try launchdPlist.write(toFile: stagingPlistPath, atomically: true, encoding: .utf8)
 
         let escapedLauncher = launcherPath.replacingOccurrences(of: "'", with: "'\\''")
         let appleScript = "do shell script \"'\(escapedLauncher)'\" with administrator privileges"
@@ -250,19 +225,50 @@ enum PrivilegedElevator {
         let output = result.stringValue?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         if output == "OK", SMCHelperClient.isReady { return }
 
-        for _ in 0..<80 {
+        for _ in 0..<100 {
             if SMCHelperClient.isReady { return }
-            usleep(150_000)
+            usleep(120_000)
         }
 
-        let logTail = helperLogTail()
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?"
         throw SMCHelperError.elevationFailed(
-            L10n.t("admin.helperNotReady") + " (v\(version))" + (logTail.isEmpty ? "" : "\n\(logTail)")
+            L10n.t("admin.helperNotReady") + " (v\(version))\n" + helperLogTail()
         )
     }
 
-    /// Copy helper into /Library and register a LaunchDaemon — avoids quarantine/translocation exec failures.
+    /// Install script also pkill's stale helpers and legacy launchd jobs.
+    private static func writeDaemonScript() throws {
+        let script = """
+        #!/usr/bin/env python3
+        import os, sys
+
+        exe, log_path = sys.argv[1], sys.argv[2]
+
+        pid = os.fork()
+        if pid < 0:
+            sys.exit(1)
+        if pid > 0:
+            sys.exit(0)
+
+        os.setsid()
+        pid2 = os.fork()
+        if pid2 < 0:
+            os._exit(1)
+        if pid2 > 0:
+            os._exit(0)
+
+        os.chdir("/")
+        os.umask(0o022)
+        with open(log_path, "a", buffering=1) as log:
+            os.dup2(log.fileno(), 1)
+            os.dup2(log.fileno(), 2)
+            os.execv(exe, [exe, "--smc-helper"])
+        """
+        try script.write(toFile: daemonPath, atomically: true, encoding: .utf8)
+        try FileManager.default.setAttributes([.posixPermissions: 0o755], ofItemAtPath: daemonPath)
+    }
+
+    /// Copy signed helper to /Library, then daemonize — never use nohup inside `do shell script`.
     private static func writeInstallScript(sourceExe: String) throws {
         let log = SMCHelperServer.logPath
         let socket = SMCHelperServer.socketPath
@@ -270,18 +276,17 @@ enum PrivilegedElevator {
         #!/bin/sh
         SRC='\(shellQuote(sourceExe))'
         HELPER='\(installedHelperPath)'
-        PLIST='\(launchdPlistPath)'
-        LABEL='\(launchdLabel)'
         LOG='\(log)'
         SOCKET='\(socket)'
 
         log() { printf '[installer] %s\\n' "$1" >>"$LOG"; }
 
+        rm -f "$LOG" '\(SMCHelperServer.pidPath)'
         : >"$LOG"
-        rm -f "$SOCKET" '\(SMCHelperServer.pidPath)'
+        rm -f "$SOCKET"
 
-        if [ ! -x "$SRC" ]; then
-          log "source missing or not executable: $SRC"
+        if [ ! -f "$SRC" ]; then
+          log "source not found: $SRC"
           exit 1
         fi
 
@@ -290,35 +295,37 @@ enum PrivilegedElevator {
         chmod 755 "$HELPER"
         chown root:wheel "$HELPER"
         xattr -cr "$HELPER" 2>/dev/null || true
-        log "installed helper to $HELPER"
-
-        cp -f '\(stagingPlistPath)' "$PLIST" || { log "plist copy failed"; exit 1; }
-        chmod 644 "$PLIST"
-        chown root:wheel "$PLIST"
-        log "wrote launchd plist"
-
-        launchctl bootout "system/$LABEL" 2>/dev/null || launchctl unload "$PLIST" 2>/dev/null || true
-        sleep 0.2
-        if ! launchctl bootstrap system "$PLIST" 2>/dev/null; then
-          launchctl load -w "$PLIST" 2>/dev/null || { log "launchctl load failed"; exit 1; }
+        if ! /usr/bin/codesign -f -s - --options runtime "$HELPER" >>"$LOG" 2>&1; then
+          log "codesign failed"
+          exit 1
         fi
-        log "launchd bootstrap ok"
+        log "installed $HELPER"
+
+        launchctl bootout system/com.macfan.smchelper 2>/dev/null || launchctl unload /Library/LaunchDaemons/com.macfan.smchelper.plist 2>/dev/null || true
+        pkill -f 'com.macfan.smc.*--smc-helper' 2>/dev/null || true
+        pkill -f 'MacFan.*--smc-helper' 2>/dev/null || true
+        sleep 0.15
+
+        if ! /usr/bin/python3 '\(daemonPath)' "$HELPER" "$LOG"; then
+          log "daemon bootstrap failed"
+          exit 1
+        fi
+        log "daemon started"
 
         i=0
-        while [ "$i" -lt 80 ]; do
+        while [ "$i" -lt 100 ]; do
           if [ -S "$SOCKET" ]; then
-            chmod 666 "$SOCKET" 2>/dev/null || true
-            chmod 666 "$LOG" 2>/dev/null || true
-            log "helper socket ready"
+            chmod 666 "$SOCKET" "$LOG" 2>/dev/null || true
+            log "socket ready"
             echo OK
             exit 0
           fi
-          sleep 0.15
+          sleep 0.12
           i=$((i + 1))
         done
 
-        log "timeout waiting for socket"
-        tail -5 "$LOG" 2>/dev/null | while IFS= read -r line; do log "log: $line"; done
+        log "timeout; log tail:"
+        tail -8 "$LOG" 2>/dev/null | while IFS= read -r line; do log "  $line"; done
         exit 1
         """
         try script.write(toFile: launcherPath, atomically: true, encoding: .utf8)
@@ -331,13 +338,20 @@ enum PrivilegedElevator {
 
     private static func helperLogTail() -> String {
         guard let text = try? String(contentsOfFile: SMCHelperServer.logPath, encoding: .utf8) else {
-            return ""
+            return L10n.t("admin.noLog")
         }
         let lines = text
             .split(whereSeparator: \.isNewline)
             .map(String.init)
-            .filter { !$0.contains("nohup:") }
-        return lines.suffix(8).joined(separator: "\n").trimmingCharacters(in: .whitespacesAndNewlines)
+            .filter { !$0.lowercased().contains("nohup") }
+
+        if lines.isEmpty, text.lowercased().contains("nohup") {
+            return L10n.t("admin.staleLog")
+        }
+        if lines.isEmpty {
+            return L10n.t("admin.noLog")
+        }
+        return lines.suffix(10).joined(separator: "\n")
     }
 }
 

@@ -23,7 +23,7 @@
 </p>
 
 <p align="center">
-  <a href="https://linux503.github.io/MacFan/assets/MacFan-1.1.7-macos.zip"><b>Download v1.1.7</b></a>
+  <a href="https://linux503.github.io/MacFan/assets/MacFan-1.1.7-macos.dmg"><b>Download v1.1.7</b></a>
   ·
   <a href="https://linux503.github.io/MacFan/">Website</a>
   ·
@@ -42,7 +42,7 @@
 
 MacFan is a native fan controller for **macOS 14+**. It talks to the SMC: live RPM and temperatures, and real target writes.
 
-Universal Binary for **Apple Silicon** and **Intel**. Do not authorize an Xcode Debug build. Use the [website zip](https://linux503.github.io/MacFan/assets/MacFan-1.1.7-macos.zip).
+Universal Binary for **Apple Silicon** and **Intel**. Do not authorize an Xcode Debug build. Use the [website DMG](https://linux503.github.io/MacFan/assets/MacFan-1.1.7-macos.dmg).
 
 <table>
 <tr>
@@ -104,8 +104,8 @@ Universal Binary for **Apple Silicon** and **Intel**. Do not authorize an Xcode 
 
 **Needs:** macOS 14.0+ · live speed writes need administrator rights (SMC)
 
-1. Download **[MacFan-1.1.7-macos.zip](https://linux503.github.io/MacFan/assets/MacFan-1.1.7-macos.zip)**
-2. Drag `MacFan.app` into **Applications**
+1. Download **[MacFan-1.1.7-macos.dmg](https://linux503.github.io/MacFan/assets/MacFan-1.1.7-macos.dmg)**
+2. Open the disk image and drag `MacFan.app` into **Applications**
 3. If macOS blocks it: right-click the icon → **Open**
 4. Click **Authorize Administrator** and enter your password  
    The card must show **MacFan v1.1.7**
@@ -154,7 +154,7 @@ Quitting the app **does not** stop the helper, so the next launch should not nee
 
 <br />
 
-You are probably on an Xcode Debug build or an old zip. Then:
+You are probably on an Xcode Debug build or an old installer. Then:
 
 1. Choose **Quit MacFan** in the menu bar; confirm Activity Monitor shows no MacFan
 2. Install v1.1.7 from the website into Applications

@@ -117,9 +117,9 @@
       "start.title": "三步上手",
       "start.sub": "下载、放到应用程序、授权——不用 Xcode。",
       "step1.t": "下载",
-      "step1.p": "获取 Universal Binary，Apple Silicon 与 Intel 都能用。",
+      "step1.p": "下载 DMG 安装包，Apple Silicon 与 Intel 都能用。",
       "step2.t": "拖到应用程序",
-      "step2.p": "拖进「应用程序」。若提示无法打开，右键图标选择「打开」。",
+      "step2.p": "打开磁盘映像，把 MacFan 拖进「应用程序」。若提示无法打开，右键图标选择「打开」。",
       "step3.t": "授权实控",
       "step3.p": "点击授权并输入密码，助手以 LaunchDaemon 写入 SMC。",
       "start.dev": "开发者可从 GitHub 克隆源码。",
@@ -188,9 +188,9 @@
       "start.title": "Up in three steps",
       "start.sub": "Download, move to Applications, authorize — no Xcode required.",
       "step1.t": "Download",
-      "step1.p": "Grab the Universal Binary for Apple Silicon and Intel.",
+      "step1.p": "Download the DMG. Universal Binary for Apple Silicon and Intel.",
       "step2.t": "Move to Applications",
-      "step2.p": "Drop it in Applications. If macOS blocks it, right-click the icon and choose Open.",
+      "step2.p": "Open the disk image and drag MacFan into Applications. If macOS blocks it, right-click the icon and choose Open.",
       "step3.t": "Authorize",
       "step3.p": "Tap authorize, enter your password. A LaunchDaemon writes SMC for real.",
       "start.dev": "Developers can clone the source from GitHub.",
@@ -274,9 +274,9 @@
         const suffix = lang === "zh" ? "原生 macOS" : "Native macOS";
         badgeEl.textContent = `v${data.version} · ${suffix}`;
       }
-      const zip = `assets/MacFan-${data.version}-macos.zip`;
-      document.querySelectorAll('a[href*="macos.zip"]').forEach((a) => {
-        a.setAttribute("href", zip);
+      const file = data.download || `assets/MacFan-${data.version}-macos.dmg`;
+      document.querySelectorAll('a[href*="macos.zip"], a[href*="macos.dmg"]').forEach((a) => {
+        a.setAttribute("href", file);
       });
     })
     .catch(() => {});

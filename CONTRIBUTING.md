@@ -17,7 +17,7 @@
 
 1. Fork，分支用 `feature/xxx` 或 `fix/xxx`
 2. 改动尽量小，一次只做一件事
-3. 在真机上用 **Release** 或官网 zip 验证授权与写转速
+3. 在真机上用 **Release** 或官网 DMG 验证授权与写转速
 4. 不要用 DerivedData 里的 Debug 包测管理员助手
 5. Commit 写清「为什么」
 6. 开 Pull Request

@@ -1,8 +1,9 @@
 {
   "version": "1.1.7",
-  "notes": "New brand mark, Quit in the menu bar extra, and a more compact menu bar panel.",
-  "notes_zh": "新 Logo，菜单栏可退出，下拉面板更紧凑。",
+  "notes": "Installer is a DMG. New brand mark, Quit in the menu bar extra, compact panel, single instance.",
+  "notes_zh": "改为 DMG 安装包。新 Logo，菜单栏可退出，下拉更紧凑，系统里只开一份。",
   "website": "https://linux503.github.io/MacFan/",
+  "download": "assets/MacFan-1.1.7-macos.dmg",
   "release_url": "https://github.com/linux503/MacFan/releases/latest",
   "min_macos": "14.0"
 }

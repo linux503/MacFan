@@ -17,7 +17,7 @@ Thanks for looking at [MacFan](README.en.md). Read the product notes before chan
 
 1. Fork, branch as `feature/xxx` or `fix/xxx`
 2. Keep the diff small; one job per PR
-3. Verify authorize + RPM writes on hardware with **Release** or the website zip
+3. Verify authorize + RPM writes on hardware with **Release** or the website DMG
 4. Do not test the admin helper from a DerivedData Debug build
 5. Commits should say **why**
 6. Open a Pull Request

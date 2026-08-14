@@ -11,7 +11,7 @@
 
 ### 支持范围
 
-当前 `main` 上的正式版本（官网 zip / GitHub Releases）为积极维护对象。Xcode Debug / DerivedData 包不在支持范围。
+当前 `main` 上的正式版本（官网 DMG / GitHub Releases）为积极维护对象。Xcode Debug / DerivedData 包不在支持范围。
 
 ### 如何报告
 
@@ -36,7 +36,7 @@ Issues 里请只写「存在一类权限问题」，不要贴可复现攻击。
 
 ### Supported versions
 
-The current `main` release (website zip / GitHub Releases) is actively maintained. Xcode Debug / DerivedData builds are unsupported.
+The current `main` release (website DMG / GitHub Releases) is actively maintained. Xcode Debug / DerivedData builds are unsupported.
 
 ### Reporting
 

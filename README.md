@@ -23,7 +23,7 @@
 </p>
 
 <p align="center">
-  <a href="https://linux503.github.io/MacFan/assets/MacFan-1.1.7-macos.zip"><b>下载 v1.1.7</b></a>
+  <a href="https://linux503.github.io/MacFan/assets/MacFan-1.1.7-macos.dmg"><b>下载 v1.1.7</b></a>
   ·
   <a href="https://linux503.github.io/MacFan/">官网</a>
   ·
@@ -42,7 +42,7 @@
 
 MacFan 是给 **macOS 14+** 的原生风扇控制工具。它直接读写 SMC：能看到真实转速和温度，也能把目标 RPM 写回去。
 
-支持 **Apple Silicon（M 系列）** 与 **Intel** Universal Binary。不要用 Xcode Debug 包去授权，请用[官网安装包](https://linux503.github.io/MacFan/assets/MacFan-1.1.7-macos.zip)。
+支持 **Apple Silicon（M 系列）** 与 **Intel** Universal Binary。不要用 Xcode Debug 包去授权，请用[官网安装包](https://linux503.github.io/MacFan/assets/MacFan-1.1.7-macos.dmg)。
 
 <table>
 <tr>
@@ -104,8 +104,8 @@ MacFan 是给 **macOS 14+** 的原生风扇控制工具。它直接读写 SMC：
 
 **要求：** macOS 14.0+ · 实机调速需要管理员权限（写入 SMC）
 
-1. 下载 **[MacFan-1.1.7-macos.zip](https://linux503.github.io/MacFan/assets/MacFan-1.1.7-macos.zip)**
-2. 把 `MacFan.app` 拖进 **「应用程序」**
+1. 下载 **[MacFan-1.1.7-macos.dmg](https://linux503.github.io/MacFan/assets/MacFan-1.1.7-macos.dmg)**
+2. 打开磁盘映像，把 `MacFan.app` 拖进 **「应用程序」**
 3. 若提示无法打开：右键图标 → **打开**
 4. 打开后点 **「授权管理员权限」**，在系统密码框里输入密码  
    卡片上必须显示 **MacFan v1.1.7**

@@ -2,30 +2,26 @@
 <html lang="zh-Hans">
 <head>
   <meta charset="utf-8" />
-  <title>MacFan Scenes</title>
-  <link rel="stylesheet" href="base.css" />
+  <title>MacFan Scenes Poster</title>
+  <link rel="stylesheet" href="poster.css" />
   <style>
-    body {
-      width: 1400px; height: 900px; padding: 56px 72px 48px;
-      background:
-        radial-gradient(ellipse 40% 40% at 0% 100%, rgba(232,168,92,0.12), transparent 50%),
-        linear-gradient(165deg, #0b1419 0%, #05090d 100%);
-    }
-    header { margin-bottom: 36px; display: flex; justify-content: space-between; align-items: end; }
-    header .kicker { font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 10px; }
-    h1 { font-size: 48px; font-weight: 800; letter-spacing: -0.04em; }
-    header p { font-size: 16px; color: var(--mist); max-width: 320px; line-height: 1.5; }
-    .list { display: flex; flex-direction: column; gap: 0; }
+    body { width: 1400px; height: 900px; }
+    .mat { height: 100%; padding: 56px 72px 40px; display: flex; flex-direction: column; }
+    header { display: flex; justify-content: space-between; align-items: end; margin-bottom: 28px; }
+    .kicker { font-size: 13px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 10px; }
+    h1 { font-size: 56px; font-weight: 800; letter-spacing: -0.05em; }
+    header p { font-size: 17px; color: rgba(238,246,248,0.68); max-width: 300px; line-height: 1.5; }
+    .list { display: flex; flex-direction: column; flex: 1; }
     .row {
-      display: grid; grid-template-columns: 72px 1fr 220px 88px;
-      align-items: center; gap: 20px;
-      padding: 22px 0; border-top: 1px solid var(--line);
+      display: grid; grid-template-columns: 64px 1fr 240px 96px;
+      align-items: center; gap: 18px;
+      padding: 20px 0; border-top: 1px solid rgba(255,255,255,0.12);
     }
-    .id { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: var(--mist-dim); }
-    h2 { font-size: 22px; font-weight: 700; }
-    .row p { font-size: 14px; color: var(--mist); }
-    .pct { font-size: 15px; font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
-    .bar { height: 4px; background: rgba(255,255,255,0.08); }
+    .id { font-size: 13px; font-weight: 700; letter-spacing: 0.14em; color: rgba(238,246,248,0.42); }
+    h2 { font-size: 24px; font-weight: 700; }
+    .row p { font-size: 15px; color: rgba(238,246,248,0.62); }
+    .pct { font-size: 16px; font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+    .bar { height: 3px; background: rgba(255,255,255,0.12); }
     .bar i { display: block; height: 100%; }
     .h-low .bar i { background: var(--good); }
     .h-low .pct { color: var(--good); }
@@ -33,26 +29,31 @@
     .h-mid .pct { color: var(--accent); }
     .h-high .bar i { background: var(--amber); }
     .h-high .pct { color: var(--amber); }
-    .h-max { border-color: rgba(224,114,98,0.35); }
+    .h-max { border-color: rgba(224,114,98,0.4); }
     .h-max .bar i { background: var(--coral); }
     .h-max .pct, .h-max h2 { color: var(--coral); }
   </style>
 </head>
-<body>
-  <header>
-    <div>
-      <span class="kicker">Scenes</span>
-      <h1>六种智能场景</h1>
+<body class="poster">
+  <div class="photo mist" style="background-image:url('bg/desk.jpg')"></div>
+  <div class="veil"></div>
+  <div class="grain"></div>
+  <div class="mat">
+    <header>
+      <div>
+        <span class="kicker">Scenes</span>
+        <h1>六种智能场景</h1>
+      </div>
+      <p>从静音办公到极速散热，覆盖 Mac 全天热负载。</p>
+    </header>
+    <div class="list">
+      <div class="row h-low"><span class="id">01</span><h2>静音办公</h2><p>文档与会议，优先低噪</p><div><div class="bar"><i style="width:28%"></i></div></div><div class="pct">28%</div></div>
+      <div class="row h-low"><span class="id">02</span><h2>影音观影</h2><p>安静优先，温度略升也可</p><div><div class="bar"><i style="width:32%"></i></div></div><div class="pct">32%</div></div>
+      <div class="row h-mid"><span class="id">03</span><h2>创作渲染</h2><p>Xcode / Final Cut 自动加压</p><div><div class="bar"><i style="width:62%"></i></div></div><div class="pct">62%</div></div>
+      <div class="row h-high"><span class="id">04</span><h2>游戏竞技</h2><p>高风量压制帧率掉温</p><div><div class="bar"><i style="width:78%"></i></div></div><div class="pct">78%</div></div>
+      <div class="row h-max"><span class="id">05</span><h2>极速散热</h2><p>全风扇最大，极限降温</p><div><div class="bar"><i style="width:100%"></i></div></div><div class="pct">100%</div></div>
+      <div class="row h-low"><span class="id">06</span><h2>夜间静音</h2><p>23:00–07:00 自动压转速</p><div><div class="bar"><i style="width:22%"></i></div></div><div class="pct">22%</div></div>
     </div>
-    <p>从静音办公到极速散热，覆盖 Mac 全天热负载。</p>
-  </header>
-  <div class="list">
-    <div class="row h-low"><span class="id">01</span><h2>静音办公</h2><p>文档与会议，优先低噪</p><div><div class="bar"><i style="width:28%"></i></div></div><div class="pct">28%</div></div>
-    <div class="row h-low"><span class="id">02</span><h2>影音观影</h2><p>安静优先，温度略升也可</p><div><div class="bar"><i style="width:32%"></i></div></div><div class="pct">32%</div></div>
-    <div class="row h-mid"><span class="id">03</span><h2>创作渲染</h2><p>Xcode / Final Cut 自动加压</p><div><div class="bar"><i style="width:62%"></i></div></div><div class="pct">62%</div></div>
-    <div class="row h-high"><span class="id">04</span><h2>游戏竞技</h2><p>高风量压制帧率掉温</p><div><div class="bar"><i style="width:78%"></i></div></div><div class="pct">78%</div></div>
-    <div class="row h-max"><span class="id">05</span><h2>极速散热</h2><p>全风扇最大，极限降温</p><div><div class="bar"><i style="width:100%"></i></div></div><div class="pct">100%</div></div>
-    <div class="row h-low"><span class="id">06</span><h2>夜间静音</h2><p>23:00–07:00 自动压转速</p><div><div class="bar"><i style="width:22%"></i></div></div><div class="pct">22%</div></div>
   </div>
 </body>
 </html>

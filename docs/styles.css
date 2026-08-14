@@ -11,8 +11,8 @@
   --muted: #5a6d76;
   --line: rgba(7, 16, 21, 0.10);
   --on-accent: #f4fcfd;
-  --font: "Source Sans 3", "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", sans-serif;
-  --display: "Sora", "PingFang SC", "Hiragino Sans GB", sans-serif;
+  --font: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", sans-serif;
+  --display: "Bricolage Grotesque", "PingFang SC", "Hiragino Sans GB", sans-serif;
   --nav-h: 64px;
   --max: 1120px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -178,10 +178,10 @@ h1, h2, h3, .hero-brand, .kicker, .btn, .nav .brand {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 72% center;
-  transform: scale(1.08);
-  filter: blur(16px) saturate(1.18) brightness(0.82) contrast(1.08);
-  animation: heroSettle 1.6s var(--ease) both;
+  object-position: center 42%;
+  transform: scale(1.06);
+  filter: blur(6px) saturate(1.12) brightness(0.88) contrast(1.06);
+  animation: heroSettle 2.2s var(--ease) both;
 }
 .hero-photo::after {
   content: "";
@@ -303,9 +303,9 @@ h1, h2, h3, .hero-brand, .kicker, .btn, .nav .brand {
   height: auto;
   max-height: 78vh;
   object-fit: cover;
-  object-position: top center;
-  transform: scale(1.06);
-  filter: blur(8px) saturate(1.12) brightness(0.88) contrast(1.06);
+  object-position: center center;
+  transform: scale(1.02);
+  filter: saturate(1.08) brightness(0.94) contrast(1.04);
 }
 .bleed::after {
   content: "";
@@ -329,8 +329,8 @@ h1, h2, h3, .hero-brand, .kicker, .btn, .nav .brand {
   background: #071015;
 }
 .split-visuals img {
-  transform: scale(1.05);
-  filter: blur(5px) saturate(1.1) brightness(0.9);
+  transform: scale(1.01);
+  filter: saturate(1.06) brightness(0.95);
 }
 .split-visuals figcaption {
   margin-top: 12px;
@@ -477,8 +477,8 @@ h1, h2, h3, .hero-brand, .kicker, .btn, .nav .brand {
 .reveal.visible { opacity: 1; transform: none; }
 
 @keyframes heroSettle {
-  from { transform: scale(1.14); filter: blur(22px) saturate(1.18) brightness(0.82) contrast(1.08); }
-  to { transform: scale(1.08); filter: blur(16px) saturate(1.18) brightness(0.82) contrast(1.08); }
+  from { transform: scale(1.14); filter: blur(14px) saturate(1.12) brightness(0.8) contrast(1.06); }
+  to { transform: scale(1.06); filter: blur(6px) saturate(1.12) brightness(0.88) contrast(1.06); }
 }
 
 @media (max-width: 860px) {

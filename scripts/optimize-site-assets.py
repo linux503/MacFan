@@ -49,6 +49,10 @@ def main() -> None:
 
     for name in JPEG_TARGETS:
         png_to_jpg(name)
+        png = ASSETS / f"{name}.png"
+        if png.exists():
+            png.unlink()
+            print(f"removed {name}.png")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8" />
+  <title>MacFan Dashboard Poster</title>
+  <link rel="stylesheet" href="poster.css" />
+  <style>
+    body { width: 1600px; height: 1000px; }
+    .mat {
+      height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 48px;
+    }
+    .window {
+      width: 1440px;
+      height: 860px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.10);
+      display: grid;
+      grid-template-rows: 38px 1fr;
+      background: rgba(16, 26, 32, 0.78);
+      box-shadow: 0 40px 90px rgba(0,0,0,0.45);
+    }
+    .titlebar {
+      display: flex; align-items: center; padding: 0 16px; gap: 8px;
+      background: rgba(5, 9, 13, 0.88); border-bottom: 1px solid var(--line);
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot.r { background: #ff5f57; } .dot.y { background: #febc2e; } .dot.g { background: #28c840; }
+    .titlebar span { margin-left: 10px; font-size: 12px; color: var(--mist); font-weight: 600; letter-spacing: 0.04em; }
+    .layout { display: grid; grid-template-columns: 248px 1fr; height: 100%; }
+    .sidebar {
+      background: rgba(11, 20, 25, 0.72); border-right: 1px solid var(--line);
+      padding: 22px 16px; display: flex; flex-direction: column; gap: 22px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+    .brand img { width: 42px; height: 42px; border-radius: 10px; }
+    .brand h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.03em; }
+    .brand p { font-size: 10px; color: var(--mist-dim); margin-top: 3px; }
+    .section-title { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; color: var(--mist-dim); text-transform: uppercase; margin-bottom: 10px; }
+    .mode { display: flex; align-items: center; gap: 10px; padding: 9px 10px; margin-bottom: 2px; }
+    .mode.on { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--accent); }
+    .mode .ico { width: 24px; height: 24px; display: grid; place-items: center; color: var(--mist); }
+    .mode.on .ico { color: var(--accent); }
+    .mode .t { font-size: 13px; font-weight: 650; }
+    .mode .sub { display: block; font-size: 10px; color: var(--mist-dim); margin-top: 2px; font-weight: 500; }
+    .main { padding: 24px 28px; display: flex; flex-direction: column; gap: 16px; }
+    .admin {
+      display: flex; align-items: center; gap: 16px; padding: 18px 20px;
+      background: linear-gradient(90deg, rgba(232,168,92,0.14), rgba(22,34,40,0.25));
+      border-left: 3px solid var(--amber);
+    }
+    .admin h2 { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+    .admin p { font-size: 12px; color: var(--mist); max-width: 520px; line-height: 1.5; }
+    .admin .btn { margin-left: auto; padding: 10px 18px; background: var(--accent); color: #051014; font-size: 12px; font-weight: 700; }
+    .panel { padding: 20px 22px; border: 1px solid var(--line); background: rgba(22,34,40,0.45); display: flex; align-items: center; gap: 24px; }
+    .panel h3 { font-size: 28px; font-weight: 700; letter-spacing: -0.03em; }
+    .panel .desc { font-size: 13px; color: var(--mist); margin-top: 4px; }
+    .metrics { display: flex; gap: 28px; margin-top: 16px; }
+    .metric .k { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; color: var(--mist-dim); text-transform: uppercase; }
+    .metric .v { font-size: 22px; font-weight: 700; margin-top: 4px; font-variant-numeric: tabular-nums; }
+    .gauge { margin-left: auto; width: 108px; height: 108px; position: relative; flex-shrink: 0; }
+    .gauge svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .gauge .pct { position: absolute; inset: 0; display: grid; place-items: center; font-size: 18px; font-weight: 700; color: var(--accent); }
+    .fans { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .fan { padding: 16px 18px; border: 1px solid var(--line); background: rgba(11,20,25,0.4); }
+    .fan header { display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; margin-bottom: 12px; }
+    .fan .rpm { color: var(--accent); font-size: 20px; font-weight: 700; }
+    .slider { height: 4px; background: rgba(255,255,255,0.08); position: relative; }
+    .slider i { display: block; height: 100%; background: linear-gradient(90deg, var(--accent-deep), var(--accent)); }
+    .chart { padding: 14px 18px; border: 1px solid var(--line); }
+    .chart h4 { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mist-dim); margin-bottom: 8px; }
+    .chart svg { width: 100%; height: 92px; }
+  </style>
+</head>
+<body class="poster">
+  <div class="photo soft" style="background-image:url('bg/vents.jpg')"></div>
+  <div class="veil"></div>
+  <div class="grain"></div>
+  <div class="mat">
+    <div class="window">
+      <div class="titlebar">
+        <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+        <span>MacFan</span>
+      </div>
+      <div class="layout">
+        <aside class="sidebar">
+          <div class="brand">
+            <img src="../assets/logo-512.png" alt="" />
+            <div><h1>MacFan</h1><p>Arctic Ice · Intel / Apple Silicon</p></div>
+          </div>
+          <div>
+            <div class="section-title">Control</div>
+            <div class="mode"><div class="ico">▲</div><div><div class="t">最大转速</div><span class="sub">全部风扇拉满</span></div></div>
+            <div class="mode"><div class="ico">≡</div><div><div class="t">手动调节</div><span class="sub">逐风扇设定 RPM</span></div></div>
+            <div class="mode"><div class="ico">↻</div><div><div class="t">系统自动</div><span class="sub">交还 macOS SMC</span></div></div>
+            <div class="mode on"><div class="ico">◇</div><div><div class="t">场景模式</div><span class="sub">智能温度曲线</span></div></div>
+          </div>
+        </aside>
+        <main class="main">
+          <div class="admin">
+            <div>
+              <h2>需要管理员权限</h2>
+              <p>写入 SMC 才能真正调速。把 App 放到「应用程序」后点授权即可。</p>
+            </div>
+            <div class="btn">授权管理员权限</div>
+          </div>
+          <div class="panel">
+            <div>
+              <h3>创作渲染</h3>
+              <div class="desc">Xcode / Final Cut 自动加压散热</div>
+              <div class="metrics">
+                <div class="metric"><div class="k">CPU</div><div class="v" style="color:var(--good)">47°</div></div>
+                <div class="metric"><div class="k">GPU</div><div class="v" style="color:var(--good)">52°</div></div>
+                <div class="metric"><div class="k">Chassis</div><div class="v" style="color:var(--amber)">58°</div></div>
+                <div class="metric"><div class="k">Thermal</div><div class="v" style="color:var(--amber)">Warm</div></div>
+              </div>
+            </div>
+            <div class="gauge">
+              <svg viewBox="0 0 120 120">
+                <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#e8a85c"/><stop offset="100%" stop-color="#3ec8dc"/></linearGradient></defs>
+                <circle cx="60" cy="60" r="50" fill="none" stroke="#1e2e36" stroke-width="8"/>
+                <circle cx="60" cy="60" r="50" fill="none" stroke="url(#g)" stroke-width="8" stroke-linecap="round" stroke-dasharray="196 314"/>
+              </svg>
+              <div class="pct">62%</div>
+            </div>
+          </div>
+          <div class="fans">
+            <div class="fan"><header><span>左排气风扇</span><span class="rpm">2,460</span></header><div class="slider"><i style="width:62%"></i></div></div>
+            <div class="fan"><header><span>右排气风扇</span><span class="rpm">2,180</span></header><div class="slider"><i style="width:55%"></i></div></div>
+          </div>
+          <div class="chart">
+            <h4>Thermal trail</h4>
+            <svg viewBox="0 0 900 88" preserveAspectRatio="none">
+              <defs><linearGradient id="fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(62,200,220,0.32)"/><stop offset="100%" stop-color="rgba(62,200,220,0)"/></linearGradient></defs>
+              <path d="M0,66 L60,60 L120,56 L180,62 L240,52 L300,46 L360,42 L420,48 L480,40 L540,36 L600,38 L660,32 L720,36 L780,30 L840,28 L900,24 L900,88 L0,88 Z" fill="url(#fill)"/>
+              <path d="M0,66 L60,60 L120,56 L180,62 L240,52 L300,46 L360,42 L420,48 L480,40 L540,36 L600,38 L660,32 L720,36 L780,30 L840,28 L900,24" fill="none" stroke="#3ec8dc" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M0,70 L60,68 L120,64 L180,66 L240,60 L300,58 L360,54 L420,56 L480,50 L540,48 L600,46 L660,44 L720,42 L780,40 L840,38 L900,36" fill="none" stroke="#e8a85c" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+            </svg>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

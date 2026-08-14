@@ -2,33 +2,37 @@
 <html lang="zh-Hans">
 <head>
   <meta charset="utf-8" />
-  <title>MacFan OG</title>
-  <link rel="stylesheet" href="base.css" />
+  <title>MacFan OG Poster</title>
+  <link rel="stylesheet" href="poster.css" />
   <style>
-    body {
-      width: 1200px; height: 630px;
-      display: grid; grid-template-columns: 1.15fr 0.85fr;
-      background:
-        radial-gradient(ellipse 70% 80% at 0% 50%, rgba(62,200,220,0.18), transparent 58%),
-        linear-gradient(135deg, #05090d 0%, #0b1419 100%);
+    body { width: 1200px; height: 630px; }
+    .mat {
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
     }
     .copy { padding: 72px 56px; display: flex; flex-direction: column; justify-content: center; }
-    .brand { font-size: 72px; font-weight: 800; letter-spacing: -0.06em; line-height: 0.9; }
+    .brand { font-size: 84px; font-weight: 800; letter-spacing: -0.07em; line-height: 0.86; }
     .brand em { font-style: normal; color: var(--accent); }
-    .tag { margin-top: 22px; font-size: 22px; color: var(--mist); line-height: 1.4; max-width: 480px; }
-    .meta { margin-top: 28px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mist-dim); }
-    .preview { display: grid; place-items: center; position: relative; }
-    .icon { width: 180px; height: 180px; border-radius: 40px; position: relative; z-index: 1; }
+    .tag { margin-top: 22px; font-size: 22px; color: rgba(238,246,248,0.72); line-height: 1.4; max-width: 460px; }
+    .meta { margin-top: 28px; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(238,246,248,0.45); }
+    .preview { display: grid; place-items: center; }
+    .icon { width: 196px; height: 196px; border-radius: 44px; }
   </style>
 </head>
-<body>
-  <div class="copy">
-    <div class="brand">Mac<br><em>Fan</em></div>
-    <p class="tag">原生风扇控制。实机读数，一键授权写入 SMC。</p>
-    <div class="meta">v1.1.5 · Universal Binary · macOS 14+</div>
-  </div>
-  <div class="preview">
-    <img class="icon" src="../assets/logo-512.png" alt="" />
+<body class="poster">
+  <div class="photo mist" style="background-image:url('bg/blades.jpg')"></div>
+  <div class="veil"></div>
+  <div class="grain"></div>
+  <div class="mat">
+    <div class="copy">
+      <div class="brand">Mac<br><em>Fan</em></div>
+      <p class="tag">原生风扇控制。实机读数，一键授权写入 SMC。</p>
+      <div class="meta">v1.1.5 · Universal Binary · macOS 14+</div>
+    </div>
+    <div class="preview">
+      <img class="icon" src="../assets/logo-512.png" alt="" />
+    </div>
   </div>
 </body>
 </html>

@@ -186,10 +186,37 @@ enum SMCHelperClient {
 }
 
 enum PrivilegedElevator {
-    private static let launcherPath = "/tmp/macfan-start-helper.sh"
-    private static let daemonPath = "/tmp/macfan-daemon.py"
+    private static let launcherPath = "/tmp/macfan-install-helper.sh"
+    private static let stagingPlistPath = "/tmp/com.macfan.smchelper.plist"
+    private static let installedHelperPath = "/Library/PrivilegedHelperTools/com.macfan.smc"
+    private static let launchdPlistPath = "/Library/LaunchDaemons/com.macfan.smchelper.plist"
+    private static let launchdLabel = "com.macfan.smchelper"
 
-    /// Shows the system password dialog and starts the root SMC helper (GUI stays as the current user).
+    private static let launchdPlist = """
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+    <dict>
+        <key>Label</key>
+        <string>com.macfan.smchelper</string>
+        <key>ProgramArguments</key>
+        <array>
+            <string>/Library/PrivilegedHelperTools/com.macfan.smc</string>
+            <string>--smc-helper</string>
+        </array>
+        <key>RunAtLoad</key>
+        <true/>
+        <key>KeepAlive</key>
+        <false/>
+        <key>StandardOutPath</key>
+        <string>/tmp/macfan-helper.log</string>
+        <key>StandardErrorPath</key>
+        <string>/tmp/macfan-helper.log</string>
+    </dict>
+    </plist>
+    """
+
+    /// Shows the system password dialog and installs/starts the root SMC helper via launchd.
     static func startHelper() throws {
         if SMCHelperClient.isReady { return }
 
@@ -197,12 +224,11 @@ enum PrivilegedElevator {
             throw SMCHelperError.missingExecutable
         }
 
-        // Stop any stale helper before relaunching.
         try? SMCHelperClient.send("QUIT")
         usleep(200_000)
 
-        try writeDaemonScript()
-        try writeLauncher(exe: exe)
+        try writeInstallScript(sourceExe: exe)
+        try launchdPlist.write(toFile: stagingPlistPath, atomically: true, encoding: .utf8)
 
         let escapedLauncher = launcherPath.replacingOccurrences(of: "'", with: "'\\''")
         let appleScript = "do shell script \"'\(escapedLauncher)'\" with administrator privileges"
@@ -222,7 +248,7 @@ enum PrivilegedElevator {
         }
 
         let output = result.stringValue?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        if output == "OK" { return }
+        if output == "OK", SMCHelperClient.isReady { return }
 
         for _ in 0..<80 {
             if SMCHelperClient.isReady { return }
@@ -230,69 +256,59 @@ enum PrivilegedElevator {
         }
 
         let logTail = helperLogTail()
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?"
         throw SMCHelperError.elevationFailed(
-            L10n.t("admin.helperNotReady") + (logTail.isEmpty ? "" : "\n\(logTail)")
+            L10n.t("admin.helperNotReady") + " (v\(version))" + (logTail.isEmpty ? "" : "\n\(logTail)")
         )
     }
 
-    /// Python double-fork daemon — never use `nohup` inside `do shell script` (macOS 15+ breaks).
-    private static func writeDaemonScript() throws {
-        let script = """
-        #!/usr/bin/env python3
-        import os, sys
-
-        exe, log_path = sys.argv[1], sys.argv[2]
-
-        pid = os.fork()
-        if pid < 0:
-            sys.exit(1)
-        if pid > 0:
-            sys.exit(0)
-
-        os.setsid()
-        pid2 = os.fork()
-        if pid2 < 0:
-            os._exit(1)
-        if pid2 > 0:
-            os._exit(0)
-
-        os.chdir("/")
-        os.umask(0o022)
-        with open(log_path, "a", buffering=1) as log:
-            os.dup2(log.fileno(), 1)
-            os.dup2(log.fileno(), 2)
-            os.execv(exe, [exe, "--smc-helper"])
-        """
-        try script.write(toFile: daemonPath, atomically: true, encoding: .utf8)
-        try FileManager.default.setAttributes([.posixPermissions: 0o755], ofItemAtPath: daemonPath)
-    }
-
-    private static func writeLauncher(exe: String) throws {
+    /// Copy helper into /Library and register a LaunchDaemon — avoids quarantine/translocation exec failures.
+    private static func writeInstallScript(sourceExe: String) throws {
         let log = SMCHelperServer.logPath
         let socket = SMCHelperServer.socketPath
-        let pidFile = SMCHelperServer.pidPath
         let script = """
         #!/bin/sh
+        SRC='\(shellQuote(sourceExe))'
+        HELPER='\(installedHelperPath)'
+        PLIST='\(launchdPlistPath)'
+        LABEL='\(launchdLabel)'
         LOG='\(log)'
         SOCKET='\(socket)'
-        EXE='\(shellQuote(exe))'
 
-        log() { printf '[launcher] %s\\n' "$1" >>"$LOG"; }
+        log() { printf '[installer] %s\\n' "$1" >>"$LOG"; }
 
         : >"$LOG"
-        rm -f "$SOCKET" '\(pidFile)'
-        pkill -f 'MacFan.*--smc-helper' 2>/dev/null || true
-        sleep 0.2
-        log "starting helper: $EXE"
+        rm -f "$SOCKET" '\(SMCHelperServer.pidPath)'
 
-        if ! /usr/bin/python3 '\(daemonPath)' "$EXE" "$LOG"; then
-          log "daemon bootstrap failed"
+        if [ ! -x "$SRC" ]; then
+          log "source missing or not executable: $SRC"
           exit 1
         fi
 
+        mkdir -p /Library/PrivilegedHelperTools
+        cp -f "$SRC" "$HELPER" || { log "copy failed"; exit 1; }
+        chmod 755 "$HELPER"
+        chown root:wheel "$HELPER"
+        xattr -cr "$HELPER" 2>/dev/null || true
+        log "installed helper to $HELPER"
+
+        cp -f '\(stagingPlistPath)' "$PLIST" || { log "plist copy failed"; exit 1; }
+        chmod 644 "$PLIST"
+        chown root:wheel "$PLIST"
+        log "wrote launchd plist"
+
+        launchctl bootout "system/$LABEL" 2>/dev/null || launchctl unload "$PLIST" 2>/dev/null || true
+        sleep 0.2
+        if ! launchctl bootstrap system "$PLIST" 2>/dev/null; then
+          launchctl load -w "$PLIST" 2>/dev/null || { log "launchctl load failed"; exit 1; }
+        fi
+        log "launchd bootstrap ok"
+
         i=0
-        while [ "$i" -lt 60 ]; do
+        while [ "$i" -lt 80 ]; do
           if [ -S "$SOCKET" ]; then
+            chmod 666 "$SOCKET" 2>/dev/null || true
+            chmod 666 "$LOG" 2>/dev/null || true
             log "helper socket ready"
             echo OK
             exit 0
@@ -302,6 +318,7 @@ enum PrivilegedElevator {
         done
 
         log "timeout waiting for socket"
+        tail -5 "$LOG" 2>/dev/null | while IFS= read -r line; do log "log: $line"; done
         exit 1
         """
         try script.write(toFile: launcherPath, atomically: true, encoding: .utf8)
@@ -316,7 +333,11 @@ enum PrivilegedElevator {
         guard let text = try? String(contentsOfFile: SMCHelperServer.logPath, encoding: .utf8) else {
             return ""
         }
-        return String(text.suffix(500)).trimmingCharacters(in: .whitespacesAndNewlines)
+        let lines = text
+            .split(whereSeparator: \.isNewline)
+            .map(String.init)
+            .filter { !$0.contains("nohup:") }
+        return lines.suffix(8).joined(separator: "\n").trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }
 

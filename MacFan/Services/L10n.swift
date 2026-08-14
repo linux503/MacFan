@@ -86,7 +86,7 @@ enum L10n {
         "toggle.appLink": "应用联动",
         "toggle.schedule": "夜间调度",
         "admin.title": "需要管理员权限",
-        "admin.body": "写入 SMC 才能真正调速。点击后输入密码授权（界面不用重启）。",
+        "admin.body": "写入 SMC 需要管理员权限。请先把 MacFan 拖到「应用程序」，再点授权（无需重启应用）。",
         "admin.button": "授权管理员权限",
         "admin.authorizing": "正在请求管理员密码…",
         "admin.passwordHint": "请在系统密码框中输入密码；若没看到，可能被挡在其他窗口后面。",

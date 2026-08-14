@@ -1,7 +1,7 @@
 {
-  "version": "1.1.1",
-  "notes": "Fix admin SMC helper launch on macOS 15+ (no nohup); Python daemon + home dashboard auth card.",
-  "notes_zh": "修复 macOS 15+ 管理员授权助手启动失败（移除 nohup）；Python 守护进程 + 首页授权卡片。",
+  "version": "1.1.2",
+  "notes": "Install SMC helper via LaunchDaemon into /Library/PrivilegedHelperTools (fixes quarantine/translocation).",
+  "notes_zh": "通过 LaunchDaemon 安装 SMC 助手到系统目录，修复隔离/ translocation 导致授权后助手无法启动。",
   "website": "https://linux503.github.io/MacFan/",
   "release_url": "https://github.com/linux503/MacFan/releases/latest",
   "min_macos": "14.0"

@@ -171,21 +171,42 @@ h1, h2, h3, .hero-brand, .kicker, .btn, .nav .brand {
 }
 .hero-photo {
   position: absolute;
-  inset: 0;
+  inset: -8%;
+  overflow: hidden;
 }
 .hero-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: 72% center;
-  animation: heroSettle 1.4s var(--ease) both;
+  transform: scale(1.08);
+  filter: blur(16px) saturate(1.18) brightness(0.82) contrast(1.08);
+  animation: heroSettle 1.6s var(--ease) both;
+}
+.hero-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 65% at 70% 45%, transparent 20%, rgba(7, 16, 21, 0.45) 100%),
+    linear-gradient(180deg, rgba(7, 16, 21, 0.2), transparent 30%, rgba(7, 16, 21, 0.35));
+  mix-blend-mode: multiply;
 }
 .hero-veil {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(7, 16, 21, 0.92) 0%, rgba(7, 16, 21, 0.72) 36%, rgba(7, 16, 21, 0.18) 62%, transparent 82%),
-    linear-gradient(180deg, rgba(7, 16, 21, 0.25) 0%, transparent 28%, rgba(7, 16, 21, 0.45) 100%);
+    linear-gradient(90deg, rgba(7, 16, 21, 0.88) 0%, rgba(7, 16, 21, 0.58) 38%, rgba(7, 16, 21, 0.22) 64%, rgba(7, 16, 21, 0.28) 100%),
+    linear-gradient(180deg, rgba(7, 16, 21, 0.28) 0%, transparent 32%, rgba(7, 16, 21, 0.5) 100%);
+}
+.hero-veil::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.09;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
 }
 .hero-copy {
   position: relative;
@@ -273,6 +294,9 @@ h1, h2, h3, .hero-brand, .kicker, .btn, .nav .brand {
 
 .bleed {
   margin: 0;
+  position: relative;
+  overflow: hidden;
+  background: #071015;
 }
 .bleed img {
   width: 100%;
@@ -280,6 +304,17 @@ h1, h2, h3, .hero-brand, .kicker, .btn, .nav .brand {
   max-height: 78vh;
   object-fit: cover;
   object-position: top center;
+  transform: scale(1.06);
+  filter: blur(8px) saturate(1.12) brightness(0.88) contrast(1.06);
+}
+.bleed::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 75% 70% at 50% 40%, transparent 30%, rgba(7, 16, 21, 0.38) 100%),
+    linear-gradient(180deg, rgba(7, 16, 21, 0.12), transparent 24%, rgba(7, 16, 21, 0.28));
 }
 .split-visuals {
   display: grid;
@@ -288,7 +323,15 @@ h1, h2, h3, .hero-brand, .kicker, .btn, .nav .brand {
   padding-top: 36px;
   padding-bottom: 24px;
 }
-.split-visuals figure { margin: 0; }
+.split-visuals figure {
+  margin: 0;
+  overflow: hidden;
+  background: #071015;
+}
+.split-visuals img {
+  transform: scale(1.05);
+  filter: blur(5px) saturate(1.1) brightness(0.9);
+}
 .split-visuals figcaption {
   margin-top: 12px;
   font-family: var(--display);
@@ -434,8 +477,8 @@ h1, h2, h3, .hero-brand, .kicker, .btn, .nav .brand {
 .reveal.visible { opacity: 1; transform: none; }
 
 @keyframes heroSettle {
-  from { transform: scale(1.04); }
-  to { transform: scale(1); }
+  from { transform: scale(1.14); filter: blur(22px) saturate(1.18) brightness(0.82) contrast(1.08); }
+  to { transform: scale(1.08); filter: blur(16px) saturate(1.18) brightness(0.82) contrast(1.08); }
 }
 
 @media (max-width: 860px) {

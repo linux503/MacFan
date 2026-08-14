@@ -48,12 +48,10 @@ final class FanDashboardViewModel {
     }
 
     func refreshLocalizedStatus() {
-        if !isLiveHardware {
-            fans = fans.map { fan in
-                var copy = fan
-                copy.name = SimulatedFanHardware.previewName(id: fan.id, architecture: machine.architecture)
-                return copy
-            }
+        fans = fans.map { fan in
+            var copy = fan
+            copy.name = SimulatedFanHardware.previewName(id: fan.id, architecture: machine.architecture)
+            return copy
         }
 
         scenes = scenes.map { scene in
@@ -123,12 +121,10 @@ final class FanDashboardViewModel {
     }
 
     func bootstrap() async {
-        isBusy = true
-        defer { isBusy = false }
         controller.refreshPrivilege()
         isPrivileged = controller.isPrivileged
         do {
-            fans = try await controller.discoverFans()
+            adoptFans(try await controller.discoverFans())
             isLiveHardware = controller.usingLiveSMC
             thermal = try await controller.readThermals()
             if isLiveHardware && isPrivileged {
@@ -147,16 +143,20 @@ final class FanDashboardViewModel {
 
     func tick() async {
         do {
+            controller.refreshPrivilege()
+            isPrivileged = controller.isPrivileged
             thermal = try await controller.readThermals()
             history.append(thermal)
             if history.count > 90 { history.removeFirst(history.count - 90) }
-            fans = try await controller.discoverFans()
+            adoptFans(try await controller.discoverFans())
             isLiveHardware = controller.usingLiveSMC
             if mode == .scene, isPrivileged, isLiveHardware {
                 await applySceneLogic(force: false)
             }
         } catch {
-            lastError = error.localizedDescription
+            if !needsAdminToControl {
+                lastError = error.localizedDescription
+            }
         }
     }
 
@@ -178,7 +178,7 @@ final class FanDashboardViewModel {
             case .scene:
                 await applySceneLogic(force: true)
             }
-            fans = try await controller.discoverFans()
+            adoptFans(try await controller.discoverFans())
         } catch {
             lastError = error.localizedDescription
         }
@@ -188,7 +188,7 @@ final class FanDashboardViewModel {
         mode = .manual
         do {
             try await controller.setManual(fanID: id, rpm: rpm)
-            fans = try await controller.discoverFans()
+            adoptFans(try await controller.discoverFans())
             if let index = fans.firstIndex(where: { $0.id == id }) {
                 fans[index].targetRPM = rpm
                 fans[index].isManual = true
@@ -221,7 +221,7 @@ final class FanDashboardViewModel {
         Task { [weak self] in
             guard let self else { return }
             do {
-                try PrivilegedElevator.startHelper()
+                try await PrivilegedElevator.startHelper()
                 controller.refreshPrivilege()
                 isPrivileged = controller.isPrivileged
                 if isPrivileged {
@@ -268,7 +268,7 @@ final class FanDashboardViewModel {
                 let rpm = fan.minRPM + (fan.maxRPM - fan.minRPM) * percent
                 try await controller.setManual(fanID: fan.id, rpm: rpm)
             }
-            fans = try await controller.discoverFans()
+            adoptFans(try await controller.discoverFans())
             if force || changed {
                 statusMessage = String(
                     format: L10n.t("status.scene"),
@@ -279,6 +279,14 @@ final class FanDashboardViewModel {
             lastError = nil
         } catch {
             lastError = error.localizedDescription
+        }
+    }
+
+    private func adoptFans(_ incoming: [FanInfo]) {
+        fans = incoming.map { fan in
+            var copy = fan
+            copy.name = SimulatedFanHardware.previewName(id: fan.id, architecture: machine.architecture)
+            return copy
         }
     }
 }

@@ -1,7 +1,7 @@
 {
-  "version": "1.1.5",
-  "notes": "Fix admin helper for real: LaunchDaemon install (no nohup, no python3 stub), password dialog on main thread.",
-  "notes_zh": "彻底修复管理员助手：用 LaunchDaemon 安装（不再用 nohup / python3 桩），密码框在主线程弹出。",
+  "version": "1.1.6",
+  "notes": "Fix Debug-build confusion, keep the helper alive after quit, and stop the auth spinner during startup.",
+  "notes_zh": "修复 Debug 包误导、退出后助手被杀掉、启动时授权按钮假转圈。请用官网包放到「应用程序」后再授权。",
   "website": "https://linux503.github.io/MacFan/",
   "release_url": "https://github.com/linux503/MacFan/releases/latest",
   "min_macos": "14.0"

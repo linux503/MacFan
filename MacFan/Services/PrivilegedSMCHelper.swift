@@ -187,7 +187,7 @@ enum SMCHelperClient {
 
 enum PrivilegedElevator {
     /// Shows the system password dialog and installs a root LaunchDaemon helper.
-    static func startHelper() throws {
+    static func startHelper() async throws {
         if SMCHelperClient.isReady { return }
 
         guard let exeURL = Bundle.main.executableURL else {
@@ -200,14 +200,14 @@ enum PrivilegedElevator {
         }
 
         try? SMCHelperClient.send("QUIT")
-        usleep(200_000)
+        try await Task.sleep(nanoseconds: 200_000_000)
 
         try runInstaller(script: installer.path, executable: exe)
 
         if SMCHelperClient.isReady { return }
         for _ in 0..<50 {
             if SMCHelperClient.isReady { return }
-            usleep(100_000)
+            try await Task.sleep(nanoseconds: 100_000_000)
         }
 
         throw SMCHelperError.elevationFailed(failureMessage(executable: exe))
@@ -273,6 +273,9 @@ enum PrivilegedElevator {
             L10n.t("admin.helperNotReady") + " (v\(version))",
             executable
         ]
+        if executable.contains("/DerivedData/") || executable.contains("/Build/Products/Debug/") {
+            parts.append(L10n.t("admin.debugBuild"))
+        }
         parts.append(helperLogTail())
         return parts.joined(separator: "\n")
     }

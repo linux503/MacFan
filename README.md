@@ -2,7 +2,7 @@
 
 **精准控制 Mac 风扇转速。**  
 原生 SwiftUI 工具，支持 **Apple Silicon（M 系列）** 与 **Intel** Universal Binary。  
-当前版本 **1.1.0** · [官网](https://linux503.github.io/MacFan/) · [下载](https://linux503.github.io/MacFan/assets/MacFan-1.1.0-macos.zip)
+当前版本 **1.1.6** · [官网](https://linux503.github.io/MacFan/) · [下载](https://linux503.github.io/MacFan/assets/MacFan-1.1.6-macos.zip)
 
 <p align="center">
   <img src="MacFan-logo.png" width="160" alt="MacFan logo" />
@@ -11,15 +11,14 @@
 <p align="center">
   <a href="https://linux503.github.io/MacFan/">官网</a> ·
   <a href="#功能">功能</a> ·
-  <a href="#安装与运行">安装</a> ·
+  <a href="#安装">安装</a> ·
   <a href="#权限说明">权限</a>
 </p>
 
-### 1.1 更新
-- **Arctic Ice** 冰青 + 热琥珀配色  
-- 菜单栏图标更大更清晰  
-- 管理员授权改为后台 SMC 助手（无需整应用以 root 重启）  
-- 官网海报与直接下载包  
+### 1.1.6
+- 管理员助手改为 **LaunchDaemon** 安装（不再使用 `nohup` / python3 桩）
+- 密码框在主线程弹出
+- 请使用官网下载包，不要用 Xcode Debug 跑出来的旧包授权
 
 ---
 
@@ -58,27 +57,31 @@
 
 ---
 
-## 安装与运行
+## 安装
 
 ### 要求
 - macOS 14.0+
-- Xcode 15+（本地构建）
 - 实机调速需管理员权限（写入 SMC）
 
-### 用 Xcode 运行
+### 普通使用（推荐）
+1. 从[官网](https://linux503.github.io/MacFan/assets/MacFan-1.1.6-macos.zip)下载 **v1.1.6**
+2. 把 `MacFan.app` 拖到 **「应用程序」**
+3. 若提示无法打开：右键图标 → **打开**
+4. 在 App 内点 **「授权管理员权限」**，输入密码  
+   卡片上应显示 **MacFan v1.1.6**。不要用 Xcode / DerivedData 里的 Debug 包去授权。
+
+### 从源码运行
 ```bash
 git clone https://github.com/linux503/MacFan.git
 cd MacFan
 open MacFan.xcodeproj
 ```
-选择 **My Mac**，按 ⌘R。
+选择 **My Mac**，先 **Product → Clean Build Folder**，再 ⌘R。  
+请确认窗口里显示的是 **v1.1.6**，否则还是旧的 Debug 包。
 
-### 命令行构建
 ```bash
 xcodebuild -scheme MacFan -configuration Release -destination 'platform=macOS' build
 ```
-
-首次实控风扇时，在 App 内点击 **「以管理员身份启动」** 并输入密码。
 
 ---
 
@@ -87,7 +90,7 @@ xcodebuild -scheme MacFan -configuration Release -destination 'platform=macOS' b
 | 能力 | 是否需要管理员 |
 |------|----------------|
 | 读取风扇转速 / 温度 | 通常不需要 |
-| 写入目标转速 / 最大转速 | **需要**（root） |
+| 写入目标转速 / 最大转速 | **需要**（root LaunchDaemon） |
 | Apple Silicon（尤其 M3/M4） | 可能需 `Ftst` 解锁以绕过 `thermalmonitord` |
 
 > 长时间手动控温后，请切回 **系统自动**，把温控交还系统。
@@ -100,7 +103,7 @@ xcodebuild -scheme MacFan -configuration Release -destination 'platform=macOS' b
 MacFan/
 ├── MacFan/                 # SwiftUI App
 │   ├── Models/             # 场景、风扇、温度模型
-│   ├── Services/           # SMC 客户端、联动、ViewModel
+│   ├── Services/           # SMC 客户端、助手、ViewModel
 │   ├── SMC/                # AppleSMC C 桥接（读/写风扇）
 │   └── Views/              # 侧栏、仪表盘、菜单栏、主题
 ├── docs/                   # 官网（GitHub Pages）
@@ -109,13 +112,13 @@ MacFan/
 
 - **UI**：SwiftUI + `MenuBarExtra`  
 - **硬件**：`AdaptiveFanController` + `SMCClient`（Intel / Apple Silicon）  
+- **写转速**：`/Library/LaunchDaemons/com.macfan.smchelper.plist` → Unix socket `/tmp/macfan-smc.sock`  
 - **架构**：`arm64` + `x86_64` Universal  
 
 ---
 
 ## 官网
 
-营销页与产品介绍：  
 **https://linux503.github.io/MacFan/**
 
 本地预览：

@@ -456,7 +456,7 @@ h1, h2, h3, .hero-brand, .kicker, .btn, .nav .brand, .mode-list span, .heat-list
   to { opacity: 1; transform: none; }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 1040px) {
   .hero-copy {
     max-width: none;
     margin-left: auto;
@@ -473,13 +473,16 @@ h1, h2, h3, .hero-brand, .kicker, .btn, .nav .brand, .mode-list span, .heat-list
     position: absolute;
     top: var(--nav-h);
     left: 0; right: 0;
+    z-index: 41;
     flex-direction: column;
     align-items: stretch;
     padding: 16px 20px 24px;
     background: rgba(231, 234, 236, 0.98);
     border-bottom: 1px solid var(--line);
+    color: var(--muted);
   }
   .nav-links.open { display: flex; }
+  .nav-links.open .btn { width: 100%; }
   .nav-burger { display: flex; }
   .mode-list li { grid-template-columns: 56px 1fr; }
 }

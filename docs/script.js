@@ -68,20 +68,6 @@
     }, 1800);
   }
 
-  const heroMedia = document.querySelector(".hero-media");
-  const heroImg = document.querySelector(".hero-img");
-  if (heroMedia && heroImg && window.matchMedia("(pointer: fine)").matches) {
-    heroMedia.addEventListener("mousemove", (e) => {
-      const r = heroMedia.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
-      heroImg.style.transform = `rotateY(${-3 + x * 5}deg) rotateX(${1.5 - y * 3}deg)`;
-    });
-    heroMedia.addEventListener("mouseleave", () => {
-      heroImg.style.transform = "rotateY(-3deg) rotateX(1.5deg)";
-    });
-  }
-
   const dict = {
     zh: {
       "nav.showcase": "界面",
@@ -133,7 +119,7 @@
       "step1.t": "下载",
       "step1.p": "获取 Universal Binary，Apple Silicon 与 Intel 都能用。",
       "step2.t": "拖到应用程序",
-      "step2.p": "放到「应用程序」文件夹，然后执行 xattr -cr 再打开。",
+      "step2.p": "拖进「应用程序」。若提示无法打开，右键图标选择「打开」。",
       "step3.t": "授权实控",
       "step3.p": "点击授权并输入密码，助手以 LaunchDaemon 写入 SMC。",
       "start.dev": "开发者可从 GitHub 克隆源码。",
@@ -204,7 +190,7 @@
       "step1.t": "Download",
       "step1.p": "Grab the Universal Binary for Apple Silicon and Intel.",
       "step2.t": "Move to Applications",
-      "step2.p": "Drop it in Applications, run xattr -cr, then open it.",
+      "step2.p": "Drop it in Applications. If macOS blocks it, right-click the icon and choose Open.",
       "step3.t": "Authorize",
       "step3.p": "Tap authorize, enter your password. A LaunchDaemon writes SMC for real.",
       "start.dev": "Developers can clone the source from GitHub.",
@@ -275,19 +261,23 @@
 (() => {
   const versionEl = document.getElementById("heroVersion");
   const badgeEl = document.getElementById("heroBadge");
-  if (!versionEl && !badgeEl) return;
+  const footerEl = document.getElementById("footerMeta");
   fetch("version.json")
     .then((r) => (r.ok ? r.json() : null))
     .then((data) => {
       if (!data?.version) return;
       const macos = data.min_macos ? ` · macOS ${data.min_macos}+` : "";
       if (versionEl) versionEl.textContent = `v${data.version}${macos}`;
+      if (footerEl) footerEl.textContent = `MacFan · MIT · v${data.version}`;
       if (badgeEl) {
         const lang = document.documentElement.lang.startsWith("zh") ? "zh" : "en";
-        const prefix = lang === "zh" ? "v" + data.version + " · " : "v" + data.version + " · ";
         const suffix = lang === "zh" ? "原生 macOS" : "Native macOS";
-        badgeEl.textContent = prefix + suffix;
+        badgeEl.textContent = `v${data.version} · ${suffix}`;
       }
+      const zip = `assets/MacFan-${data.version}-macos.zip`;
+      document.querySelectorAll('a[href*="macos.zip"]').forEach((a) => {
+        a.setAttribute("href", zip);
+      });
     })
     .catch(() => {});
 })();

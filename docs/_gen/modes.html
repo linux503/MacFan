@@ -7,27 +7,26 @@
   <style>
     body { width: 1400px; height: 900px; }
     .mat { height: 100%; padding: 64px 72px 56px; display: flex; flex-direction: column; }
-    .kicker { font-size: 13px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); }
-    h1 { margin: 14px 0 8px; font-size: 64px; font-weight: 800; letter-spacing: -0.055em; line-height: 0.95; }
-    .lede { font-size: 20px; color: rgba(238,246,248,0.72); margin-bottom: 48px; }
-    .row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid rgba(255,255,255,0.16); flex: 1; }
-    .col { padding: 36px 28px 0 0; border-right: 1px solid rgba(255,255,255,0.10); }
-    .col:last-child { border-right: 0; padding-right: 0; }
-    .num { font-size: 14px; font-weight: 700; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 28px; }
-    .c3 .num, .c3 h2 { color: var(--amber); }
+    .kicker { font-family: var(--display); font-size: 15px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent-deep); }
+    h1 { margin: 10px 0 8px; font-size: 64px; font-weight: 800; letter-spacing: -0.04em; line-height: 0.95; }
+    .lede { font-size: 20px; color: #5c646a; margin-bottom: 48px; }
+    .row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 2px solid #16181b; flex: 1; }
+    .col { padding: 36px 28px 0 0; }
+    .num { font-family: var(--display); font-size: 18px; font-weight: 800; letter-spacing: 0.08em; color: var(--accent-deep); margin-bottom: 24px; }
+    .c3 .num, .c3 h2 { color: #8a5a10; }
     .c4 .num, .c4 h2 { color: var(--coral); }
     h2 { font-size: 30px; font-weight: 750; letter-spacing: -0.03em; margin-bottom: 16px; }
-    .col p { font-size: 16px; color: rgba(238,246,248,0.68); line-height: 1.55; max-width: 240px; }
-    .meter { margin-top: 56px; height: 3px; background: rgba(255,255,255,0.12); }
+    .col p { font-size: 16px; color: #5c646a; line-height: 1.55; max-width: 240px; }
+    .meter { margin-top: 56px; height: 4px; background: rgba(22,24,27,0.12); }
     .meter i { display: block; height: 100%; }
     .c1 .meter i { width: 100%; background: var(--accent); }
     .c2 .meter i { width: 68%; background: var(--accent); }
-    .c3 .meter i { width: 42%; background: var(--amber); }
+    .c3 .meter i { width: 42%; background: #8a5a10; }
     .c4 .meter i { width: 86%; background: var(--coral); }
   </style>
 </head>
 <body class="poster">
-  <div class="photo mist" style="background-image:url('bg/blades.jpg')"></div>
+  <div class="photo mist" style="background-image:url('bg/daylight.jpg')"></div>
   <div class="veil"></div>
   <div class="grain"></div>
   <div class="mat">

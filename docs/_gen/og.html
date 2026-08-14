@@ -6,22 +6,18 @@
   <link rel="stylesheet" href="poster.css" />
   <style>
     body { width: 1200px; height: 630px; }
-    .mat {
-      height: 100%;
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-    }
+    .mat { height: 100%; display: grid; grid-template-columns: 1.15fr 0.85fr; }
     .copy { padding: 72px 56px; display: flex; flex-direction: column; justify-content: center; }
-    .brand { font-size: 84px; font-weight: 800; letter-spacing: -0.07em; line-height: 0.86; }
-    .brand em { font-style: normal; color: var(--accent); }
-    .tag { margin-top: 22px; font-size: 22px; color: rgba(238,246,248,0.72); line-height: 1.4; max-width: 460px; }
-    .meta { margin-top: 28px; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(238,246,248,0.45); }
+    .brand { font-family: var(--display); font-size: 92px; font-weight: 900; letter-spacing: -0.05em; line-height: 0.82; }
+    .brand em { font-style: normal; color: var(--accent-deep); }
+    .tag { margin-top: 22px; font-size: 22px; color: #5c646a; line-height: 1.4; max-width: 460px; }
+    .meta { margin-top: 28px; font-family: var(--display); font-size: 15px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a9094; }
     .preview { display: grid; place-items: center; }
     .icon { width: 196px; height: 196px; border-radius: 44px; }
   </style>
 </head>
 <body class="poster">
-  <div class="photo mist" style="background-image:url('bg/blades.jpg')"></div>
+  <div class="photo mist" style="background-image:url('bg/daylight.jpg')"></div>
   <div class="veil"></div>
   <div class="grain"></div>
   <div class="mat">

@@ -7,26 +7,25 @@
   <style>
     body { width: 1400px; height: 720px; }
     .mat { height: 100%; padding: 72px 80px; display: flex; flex-direction: column; }
-    .kicker { font-size: 13px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); }
-    h1 { font-size: 58px; font-weight: 800; letter-spacing: -0.05em; margin: 12px 0 52px; }
+    .kicker { font-family: var(--display); font-size: 15px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent-deep); }
+    h1 { font-size: 58px; font-weight: 800; letter-spacing: -0.04em; margin: 10px 0 52px; }
     .steps { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 48px; position: relative; }
     .steps::before {
-      content: ""; position: absolute; top: 18px; left: 6%; right: 6%; height: 1px;
-      background: linear-gradient(90deg, var(--accent), var(--amber)); opacity: 0.55;
+      content: ""; position: absolute; top: 18px; left: 6%; right: 6%; height: 2px;
+      background: #16181b; opacity: 0.18;
     }
     .n {
       width: 36px; height: 36px; display: grid; place-items: center;
-      font-size: 14px; font-weight: 800; color: #051014; background: var(--accent);
+      font-family: var(--display); font-size: 16px; font-weight: 800; color: #16181b; background: var(--accent);
       margin-bottom: 22px; position: relative;
     }
-    .s2 .n { background: #1aa7c4; }
-    .s3 .n { background: var(--amber); color: #1a1208; }
+    .s3 .n { background: var(--coral); color: #f3f4f2; }
     h2 { font-size: 28px; font-weight: 750; margin-bottom: 12px; }
-    p { font-size: 17px; color: rgba(238,246,248,0.7); line-height: 1.55; max-width: 300px; }
+    p { font-size: 17px; color: #5c646a; line-height: 1.55; max-width: 300px; }
   </style>
 </head>
 <body class="poster">
-  <div class="photo mist" style="background-image:url('bg/wide.jpg')"></div>
+  <div class="photo mist" style="background-image:url('bg/studio.jpg')"></div>
   <div class="veil"></div>
   <div class="grain"></div>
   <div class="mat">

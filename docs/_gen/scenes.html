@@ -8,34 +8,33 @@
     body { width: 1400px; height: 900px; }
     .mat { height: 100%; padding: 56px 72px 40px; display: flex; flex-direction: column; }
     header { display: flex; justify-content: space-between; align-items: end; margin-bottom: 28px; }
-    .kicker { font-size: 13px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 10px; }
-    h1 { font-size: 56px; font-weight: 800; letter-spacing: -0.05em; }
-    header p { font-size: 17px; color: rgba(238,246,248,0.68); max-width: 300px; line-height: 1.5; }
+    .kicker { font-family: var(--display); font-size: 15px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent-deep); display: block; margin-bottom: 10px; }
+    h1 { font-size: 56px; font-weight: 800; letter-spacing: -0.04em; }
+    header p { font-size: 17px; color: #5c646a; max-width: 300px; line-height: 1.5; }
     .list { display: flex; flex-direction: column; flex: 1; }
     .row {
       display: grid; grid-template-columns: 64px 1fr 240px 96px;
       align-items: center; gap: 18px;
-      padding: 20px 0; border-top: 1px solid rgba(255,255,255,0.12);
+      padding: 20px 0; border-top: 1px solid rgba(22,24,27,0.14);
     }
-    .id { font-size: 13px; font-weight: 700; letter-spacing: 0.14em; color: rgba(238,246,248,0.42); }
+    .id { font-family: var(--display); font-size: 15px; font-weight: 800; letter-spacing: 0.08em; color: #8a9094; }
     h2 { font-size: 24px; font-weight: 700; }
-    .row p { font-size: 15px; color: rgba(238,246,248,0.62); }
-    .pct { font-size: 16px; font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
-    .bar { height: 3px; background: rgba(255,255,255,0.12); }
+    .row p { font-size: 15px; color: #5c646a; }
+    .pct { font-family: var(--display); font-size: 18px; font-weight: 800; text-align: right; font-variant-numeric: tabular-nums; }
+    .bar { height: 4px; background: rgba(22,24,27,0.12); }
     .bar i { display: block; height: 100%; }
     .h-low .bar i { background: var(--good); }
     .h-low .pct { color: var(--good); }
     .h-mid .bar i { background: var(--accent); }
-    .h-mid .pct { color: var(--accent); }
-    .h-high .bar i { background: var(--amber); }
-    .h-high .pct { color: var(--amber); }
-    .h-max { border-color: rgba(224,114,98,0.4); }
+    .h-mid .pct { color: var(--accent-deep); }
+    .h-high .bar i { background: #8a5a10; }
+    .h-high .pct { color: #8a5a10; }
     .h-max .bar i { background: var(--coral); }
     .h-max .pct, .h-max h2 { color: var(--coral); }
   </style>
 </head>
 <body class="poster">
-  <div class="photo mist" style="background-image:url('bg/desk.jpg')"></div>
+  <div class="photo mist" style="background-image:url('bg/studio.jpg')"></div>
   <div class="veil"></div>
   <div class="grain"></div>
   <div class="mat">

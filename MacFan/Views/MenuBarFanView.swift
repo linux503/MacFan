@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit
 
 struct MenuBarFanView: View {
     @Environment(FanDashboardViewModel.self) private var viewModel
@@ -65,6 +66,9 @@ struct MenuBarFanView: View {
                 }
                 MenuActionRow(title: l10n.t("website"), symbol: "globe", selected: false) {
                     updater.openWebsite()
+                }
+                MenuActionRow(title: l10n.t("menubar.quit"), symbol: "power", selected: false) {
+                    NSApp.terminate(nil)
                 }
             }
 

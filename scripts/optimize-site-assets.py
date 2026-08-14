@@ -14,6 +14,7 @@ JPEG_TARGETS = [
     "poster-scenes",
     "poster-og",
     "poster-dashboard",
+    "poster-start",
 ]
 
 QUALITY = 90

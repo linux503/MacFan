@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8" />
+  <title>MacFan Start</title>
+  <link rel="stylesheet" href="base.css" />
+  <style>
+    body {
+      width: 1400px; height: 720px; padding: 72px 80px;
+      background:
+        radial-gradient(ellipse 50% 60% at 100% 50%, rgba(62,200,220,0.12), transparent 55%),
+        linear-gradient(160deg, #0b1419 0%, #05090d 100%);
+    }
+    .kicker { font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+    h1 { font-size: 48px; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 56px; }
+    .steps { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 48px; position: relative; }
+    .steps::before {
+      content: ""; position: absolute; top: 18px; left: 8%; right: 8%; height: 1px;
+      background: linear-gradient(90deg, var(--accent), var(--amber)); opacity: 0.35;
+    }
+    .n { width: 36px; height: 36px; display: grid; place-items: center; font-size: 14px; font-weight: 800; color: #051014; background: var(--accent); margin-bottom: 22px; position: relative; }
+    .s2 .n { background: var(--sky, #1aa7c4); }
+    .s3 .n { background: var(--amber); color: #1a1208; }
+    h2 { font-size: 26px; font-weight: 700; margin-bottom: 10px; }
+    p { font-size: 16px; color: var(--mist); line-height: 1.55; max-width: 280px; }
+  </style>
+</head>
+<body>
+  <div class="kicker">Get Started</div>
+  <h1>三步上手</h1>
+  <div class="steps">
+    <article>
+      <div class="n">01</div>
+      <h2>下载</h2>
+      <p>从官网获取 Universal Binary，支持 Apple Silicon 与 Intel。</p>
+    </article>
+    <article class="s2">
+      <div class="n">02</div>
+      <h2>拖到应用程序</h2>
+      <p>放到 /Applications，去掉隔离属性后打开。</p>
+    </article>
+    <article class="s3">
+      <div class="n">03</div>
+      <h2>授权</h2>
+      <p>输入系统密码。助手以 LaunchDaemon 运行，真正写入 SMC。</p>
+    </article>
+  </div>
+</body>
+</html>

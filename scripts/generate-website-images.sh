@@ -40,11 +40,12 @@ shot() {
 }
 
 refresh_logos
-shot hero.html hero-home.png 1400 900
+shot hero.html hero-home.png 1600 1000
 shot modes.html poster-modes.png 1400 900
 shot scenes.html poster-scenes.png 1400 900
 shot og.html poster-og.png 1200 630
 shot hero.html poster-dashboard.png 1600 1000
+shot start.html poster-start.png 1400 720
 
 echo "Done."
 python3 "$ROOT/scripts/optimize-site-assets.py"

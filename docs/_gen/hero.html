@@ -6,123 +6,72 @@
   <link rel="stylesheet" href="base.css" />
   <style>
     body {
-      width: 1400px;
-      height: 900px;
+      width: 1600px;
+      height: 1000px;
       background:
-        radial-gradient(ellipse 75% 55% at 72% 18%, rgba(46, 196, 214, 0.16), transparent 58%),
-        radial-gradient(ellipse 45% 40% at 8% 92%, rgba(224, 163, 90, 0.08), transparent 52%),
+        radial-gradient(ellipse 70% 50% at 78% 12%, rgba(62, 200, 220, 0.18), transparent 55%),
+        radial-gradient(ellipse 40% 38% at 8% 92%, rgba(232, 168, 92, 0.10), transparent 50%),
         linear-gradient(165deg, #0b1419 0%, #05090d 100%);
     }
     .window {
-      width: 1340px;
-      height: 840px;
-      margin: 30px;
-      border-radius: 16px;
+      width: 1520px; height: 920px; margin: 40px;
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.10);
-      box-shadow: 0 48px 120px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
-      display: grid;
-      grid-template-rows: 40px 1fr;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 4px;
+      display: grid; grid-template-rows: 38px 1fr;
       background: var(--canvas);
     }
     .titlebar {
-      display: flex;
-      align-items: center;
-      padding: 0 16px;
-      background: rgba(7, 11, 18, 0.92);
-      border-bottom: 1px solid var(--line);
-      gap: 8px;
+      display: flex; align-items: center; padding: 0 16px; gap: 8px;
+      background: #05090d; border-bottom: 1px solid var(--line);
     }
-    .dot { width: 12px; height: 12px; border-radius: 50%; }
-    .dot.r { background: #ff5f57; }
-    .dot.y { background: #febc2e; }
-    .dot.g { background: #28c840; }
-    .titlebar span { margin-left: 10px; font-size: 12px; color: var(--mist); font-weight: 600; }
-    .layout { display: grid; grid-template-columns: 252px 1fr; height: 100%; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot.r { background: #ff5f57; } .dot.y { background: #febc2e; } .dot.g { background: #28c840; }
+    .titlebar span { margin-left: 10px; font-size: 12px; color: var(--mist); font-weight: 600; letter-spacing: 0.04em; }
+    .layout { display: grid; grid-template-columns: 248px 1fr; height: 100%; }
     .sidebar {
-      background: rgba(11, 20, 25, 0.96);
-      border-right: 1px solid var(--line);
-      padding: 20px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+      background: #0b1419; border-right: 1px solid var(--line);
+      padding: 22px 16px; display: flex; flex-direction: column; gap: 22px;
     }
-    .brand { display: flex; align-items: center; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
-    .brand img { width: 44px; height: 44px; border-radius: 11px; border: 1px solid var(--line-strong); }
-    .brand h1 { font-family: var(--display); font-size: 17px; font-weight: 700; }
+    .brand { display: flex; align-items: center; gap: 12px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+    .brand img { width: 42px; height: 42px; border-radius: 10px; }
+    .brand h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.03em; }
     .brand p { font-size: 10px; color: var(--mist-dim); margin-top: 3px; }
-    .section-title { font-size: 10px; font-weight: 700; letter-spacing: 1.4px; color: var(--mist-dim); text-transform: uppercase; margin-bottom: 8px; }
-    .mode {
-      display: flex; align-items: center; gap: 10px; padding: 10px 11px; border-radius: 11px;
-      font-size: 13px; font-weight: 600; margin-bottom: 3px;
-    }
-    .mode.on { background: var(--accent-soft); color: var(--sand); box-shadow: inset 0 0 0 1px rgba(46, 196, 214, 0.18); }
-    .mode.off { color: rgba(238, 242, 248, 0.82); }
-    .mode .ico {
-      width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; font-size: 12px;
-    }
-    .mode.on .ico { background: var(--accent); color: #071018; }
-    .mode.off .ico { background: rgba(33, 48, 68, 0.9); color: var(--mist); }
-    .mode .sub { font-size: 10px; font-weight: 500; color: var(--mist-dim); display: block; margin-top: 2px; }
-    .mode.on .sub { color: rgba(46, 196, 214, 0.9); }
-    .main { padding: 22px 28px; display: flex; flex-direction: column; gap: 16px; }
+    .section-title { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; color: var(--mist-dim); text-transform: uppercase; margin-bottom: 10px; }
+    .mode { display: flex; align-items: center; gap: 10px; padding: 9px 10px; margin-bottom: 2px; }
+    .mode.on { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--accent); }
+    .mode .ico { width: 24px; height: 24px; display: grid; place-items: center; color: var(--mist); }
+    .mode.on .ico { color: var(--accent); }
+    .mode .t { font-size: 13px; font-weight: 650; }
+    .mode .sub { display: block; font-size: 10px; color: var(--mist-dim); margin-top: 2px; font-weight: 500; }
+    .main { padding: 24px 28px; display: flex; flex-direction: column; gap: 16px; background:
+      radial-gradient(ellipse 60% 40% at 100% 0%, rgba(62,200,220,0.08), transparent 50%); }
     .admin {
-      display: flex; align-items: center; gap: 18px; padding: 18px 22px;
-      background: linear-gradient(135deg, rgba(46, 196, 214, 0.08), rgba(22, 34, 40, 0.92));
-      border: 1px solid rgba(46, 196, 214, 0.22); border-radius: 16px;
+      display: flex; align-items: center; gap: 16px; padding: 18px 20px;
+      background: linear-gradient(90deg, rgba(232,168,92,0.12), rgba(22,34,40,0.4));
+      border-left: 3px solid var(--amber);
     }
-    .admin .lock {
-      width: 46px; height: 46px; border-radius: 14px; background: rgba(46, 196, 214, 0.12);
-      display: grid; place-items: center; font-size: 20px; flex-shrink: 0;
-      border: 1px solid rgba(46, 196, 214, 0.2);
-    }
-    .admin h2 { font-family: var(--display); font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-    .admin p { font-size: 12px; color: var(--mist); line-height: 1.5; max-width: 480px; }
-    .admin .btn {
-      margin-left: auto; padding: 10px 18px; border-radius: 11px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-deep)); color: #fff;
-      font-size: 12px; font-weight: 700; white-space: nowrap;
-      box-shadow: 0 8px 24px rgba(46, 196, 214, 0.28);
-    }
-    .hero-panel {
-      padding: 20px 24px; border-radius: 16px; border: 1px solid var(--line-strong);
-      background: linear-gradient(145deg, rgba(22, 34, 40, 0.98), rgba(11, 20, 25, 0.94));
-      display: flex; align-items: center; gap: 24px;
-    }
-    .hero-panel h3 { font-family: var(--display); font-size: 26px; font-weight: 700; }
-    .hero-panel .desc { font-size: 12px; color: var(--mist); margin-top: 4px; }
-    .metrics { display: flex; gap: 0; margin-top: 14px; }
-    .metric { padding-right: 18px; margin-right: 18px; border-right: 1px solid var(--line); }
-    .metric:last-child { border-right: none; }
-    .metric .k { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: var(--mist-dim); text-transform: uppercase; }
-    .metric .v { font-family: var(--display); font-size: 19px; font-weight: 700; margin-top: 4px; }
-    .gauge {
-      width: 112px; height: 112px; margin-left: auto; position: relative; flex-shrink: 0;
-    }
+    .admin h2 { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+    .admin p { font-size: 12px; color: var(--mist); max-width: 520px; line-height: 1.5; }
+    .admin .btn { margin-left: auto; padding: 10px 18px; background: var(--accent); color: #051014; font-size: 12px; font-weight: 700; }
+    .panel { padding: 20px 22px; border: 1px solid var(--line); background: rgba(22,34,40,0.55); display: flex; align-items: center; gap: 24px; }
+    .panel h3 { font-size: 28px; font-weight: 700; letter-spacing: -0.03em; }
+    .panel .desc { font-size: 13px; color: var(--mist); margin-top: 4px; }
+    .metrics { display: flex; gap: 28px; margin-top: 16px; }
+    .metric .k { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; color: var(--mist-dim); text-transform: uppercase; }
+    .metric .v { font-size: 22px; font-weight: 700; margin-top: 4px; font-variant-numeric: tabular-nums; }
+    .gauge { margin-left: auto; width: 108px; height: 108px; position: relative; flex-shrink: 0; }
     .gauge svg { width: 100%; height: 100%; transform: rotate(-90deg); }
-    .gauge .center {
-      position: absolute; inset: 0; display: grid; place-items: center; text-align: center;
-    }
-    .gauge .fan { font-size: 28px; color: var(--accent); }
-    .gauge .pct { font-family: var(--display); font-size: 13px; font-weight: 700; color: var(--sand); margin-top: 2px; }
-    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; flex: 1; min-height: 0; }
-    .fan-card {
-      padding: 16px 18px; border-radius: 14px; border: 1px solid var(--line);
-      background: rgba(22, 34, 40, 0.78);
-    }
-    .fan-card header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
-    .fan-card h4 { font-size: 13px; font-weight: 600; }
-    .fan-card .rpm { font-family: var(--display); font-size: 21px; font-weight: 700; color: var(--accent); }
-    .fan-card .sub { font-size: 10px; color: var(--mist-dim); margin-top: 2px; }
-    .slider { height: 5px; border-radius: 99px; background: rgba(255,255,255,0.06); margin-top: 8px; position: relative; }
-    .slider i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--accent-deep), var(--accent)); }
-    .slider b { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 12px; height: 12px; border-radius: 50%; background: var(--sand); box-shadow: 0 0 0 3px var(--accent); }
-    .chart {
-      padding: 14px 18px; border-radius: 14px; border: 1px solid var(--line);
-      background: rgba(22, 34, 40, 0.55);
-    }
-    .chart h4 { font-size: 11px; font-weight: 600; color: var(--mist); margin-bottom: 8px; }
-    .chart svg { width: 100%; height: 88px; }
+    .gauge .pct { position: absolute; inset: 0; display: grid; place-items: center; font-size: 18px; font-weight: 700; color: var(--accent); }
+    .fans { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .fan { padding: 16px 18px; border: 1px solid var(--line); background: rgba(11,20,25,0.5); }
+    .fan header { display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; margin-bottom: 12px; }
+    .fan .rpm { color: var(--accent); font-size: 20px; font-weight: 700; }
+    .slider { height: 4px; background: rgba(255,255,255,0.08); position: relative; }
+    .slider i { display: block; height: 100%; background: linear-gradient(90deg, var(--accent-deep), var(--accent)); }
+    .chart { padding: 14px 18px; border: 1px solid var(--line); }
+    .chart h4 { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mist-dim); margin-bottom: 8px; }
+    .chart svg { width: 100%; height: 92px; }
   </style>
 </head>
 <body>
@@ -135,68 +84,55 @@
       <aside class="sidebar">
         <div class="brand">
           <img src="../assets/logo-512.png" alt="" />
-          <div>
-            <h1>MacFan</h1>
-            <p>精准控制 Mac 风扇</p>
-          </div>
+          <div><h1>MacFan</h1><p>Arctic Ice · Intel / Apple Silicon</p></div>
         </div>
         <div>
-          <div class="section-title">控制</div>
-          <div class="mode off"><div class="ico">⚡</div><div><div>最大转速</div><span class="sub">全部风扇拉满</span></div></div>
-          <div class="mode off"><div class="ico">◎</div><div><div>手动调节</div><span class="sub">逐风扇设定 RPM</span></div></div>
-          <div class="mode off"><div class="ico">↺</div><div><div>系统自动</div><span class="sub">交还 macOS SMC</span></div></div>
-          <div class="mode on"><div class="ico">★</div><div><div>场景模式</div><span class="sub">智能温度曲线</span></div></div>
-        </div>
-        <div>
-          <div class="section-title">扩展</div>
-          <div style="font-size:11px;color:var(--mist);padding:8px 10px;line-height:1.5;">App 联动<br/>夜间调度</div>
+          <div class="section-title">Control</div>
+          <div class="mode"><div class="ico">▲</div><div><div class="t">最大转速</div><span class="sub">全部风扇拉满</span></div></div>
+          <div class="mode"><div class="ico">≡</div><div><div class="t">手动调节</div><span class="sub">逐风扇设定 RPM</span></div></div>
+          <div class="mode"><div class="ico">↻</div><div><div class="t">系统自动</div><span class="sub">交还 macOS SMC</span></div></div>
+          <div class="mode on"><div class="ico">◇</div><div><div class="t">场景模式</div><span class="sub">智能温度曲线</span></div></div>
         </div>
       </aside>
       <main class="main">
         <div class="admin">
-          <div class="lock">🔐</div>
           <div>
             <h2>需要管理员权限</h2>
-            <p>写入 SMC 才能真正调速。点击后输入密码授权，界面不用重启。</p>
+            <p>写入 SMC 才能真正调速。把 App 放到「应用程序」后点授权即可。</p>
           </div>
           <div class="btn">授权管理员权限</div>
         </div>
-        <div class="hero-panel">
+        <div class="panel">
           <div>
             <h3>创作渲染</h3>
             <div class="desc">Xcode / Final Cut 自动加压散热</div>
             <div class="metrics">
               <div class="metric"><div class="k">CPU</div><div class="v" style="color:var(--good)">47°</div></div>
               <div class="metric"><div class="k">GPU</div><div class="v" style="color:var(--good)">52°</div></div>
-              <div class="metric"><div class="k">机身</div><div class="v" style="color:var(--amber)">58°</div></div>
-              <div class="metric"><div class="k">热状态</div><div class="v" style="color:var(--amber)">偏热</div></div>
+              <div class="metric"><div class="k">Chassis</div><div class="v" style="color:var(--amber)">58°</div></div>
+              <div class="metric"><div class="k">Thermal</div><div class="v" style="color:var(--amber)">Warm</div></div>
             </div>
           </div>
           <div class="gauge">
             <svg viewBox="0 0 120 120">
               <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#e8a85c"/><stop offset="100%" stop-color="#3ec8dc"/></linearGradient></defs>
-              <circle cx="60" cy="60" r="52" fill="none" stroke="#1e2e36" stroke-width="7"/>
-              <circle cx="60" cy="60" r="52" fill="none" stroke="url(#g)" stroke-width="7" stroke-linecap="round" stroke-dasharray="245 327"/>
+              <circle cx="60" cy="60" r="50" fill="none" stroke="#1e2e36" stroke-width="8"/>
+              <circle cx="60" cy="60" r="50" fill="none" stroke="url(#g)" stroke-width="8" stroke-linecap="round" stroke-dasharray="196 314"/>
             </svg>
-            <div class="center"><div class="fan">◐</div><div class="pct">62%</div></div>
+            <div class="pct">62%</div>
           </div>
         </div>
-        <div class="row">
-          <div class="fan-card">
-            <header><div><h4>风扇 1</h4><div class="sub">CPU 侧</div></div><div class="rpm">2,460</div></header>
-            <div class="slider"><i style="width:62%"></i><b style="left:62%"></b></div>
-          </div>
-          <div class="fan-card">
-            <header><div><h4>风扇 2</h4><div class="sub">GPU 侧</div></div><div class="rpm">2,180</div></header>
-            <div class="slider"><i style="width:55%"></i><b style="left:55%"></b></div>
-          </div>
+        <div class="fans">
+          <div class="fan"><header><span>左排气风扇</span><span class="rpm">2,460</span></header><div class="slider"><i style="width:62%"></i></div></div>
+          <div class="fan"><header><span>右排气风扇</span><span class="rpm">2,180</span></header><div class="slider"><i style="width:55%"></i></div></div>
         </div>
         <div class="chart">
-          <h4>温度曲线 · 最近 30 分钟</h4>
+          <h4>Thermal trail</h4>
           <svg viewBox="0 0 900 88" preserveAspectRatio="none">
-            <defs><linearGradient id="fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(46,196,214,0.35)"/><stop offset="100%" stop-color="rgba(46,196,214,0)"/></linearGradient></defs>
+            <defs><linearGradient id="fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(62,200,220,0.32)"/><stop offset="100%" stop-color="rgba(62,200,220,0)"/></linearGradient></defs>
             <path d="M0,66 L60,60 L120,56 L180,62 L240,52 L300,46 L360,42 L420,48 L480,40 L540,36 L600,38 L660,32 L720,36 L780,30 L840,28 L900,24 L900,88 L0,88 Z" fill="url(#fill)"/>
             <path d="M0,66 L60,60 L120,56 L180,62 L240,52 L300,46 L360,42 L420,48 L480,40 L540,36 L600,38 L660,32 L720,36 L780,30 L840,28 L900,24" fill="none" stroke="#3ec8dc" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M0,70 L60,68 L120,64 L180,66 L240,60 L300,58 L360,54 L420,56 L480,50 L540,48 L600,46 L660,44 L720,42 L780,40 L840,38 L900,36" fill="none" stroke="#e8a85c" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
           </svg>
         </div>
       </main>

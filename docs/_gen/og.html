@@ -3,42 +3,45 @@
 <head>
   <meta charset="utf-8" />
   <title>MacFan OG</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="base.css" />
   <style>
     body {
       width: 1200px; height: 630px;
-      display: grid; grid-template-columns: 1fr 420px;
+      display: grid; grid-template-columns: 1.1fr 0.9fr;
       background:
-        radial-gradient(ellipse 80% 70% at 20% 50%, rgba(79, 156, 255, 0.18), transparent 60%),
+        radial-gradient(ellipse 80% 70% at 18% 50%, rgba(79, 156, 255, 0.20), transparent 62%),
         radial-gradient(ellipse 50% 50% at 95% 80%, rgba(224, 163, 90, 0.10), transparent 55%),
         linear-gradient(135deg, #070b12 0%, #0d1420 50%, #121a28 100%);
     }
     .copy {
-      padding: 72px 64px;
+      padding: 68px 60px;
       display: flex; flex-direction: column; justify-content: center;
     }
     .badge {
       display: inline-flex; align-items: center; gap: 8px;
       padding: 7px 14px; border-radius: 99px;
-      background: rgba(79, 156, 255, 0.12); border: 1px solid rgba(79, 156, 255, 0.25);
-      font-size: 13px; font-weight: 600; color: var(--accent); width: fit-content;
-      margin-bottom: 24px;
+      background: rgba(79, 156, 255, 0.12); border: 1px solid rgba(79, 156, 255, 0.28);
+      font-size: 12px; font-weight: 700; color: var(--accent); width: fit-content;
+      margin-bottom: 22px; letter-spacing: 0.04em;
     }
-    .badge i { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+    .badge i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
     h1 {
-      font-family: Outfit, Noto Sans SC, sans-serif;
-      font-size: 64px; font-weight: 800; letter-spacing: -0.04em; line-height: 1.05;
+      font-family: var(--display);
+      font-size: 58px; font-weight: 800; letter-spacing: -0.04em; line-height: 1.06;
     }
-    h1 span { color: var(--accent); }
+    h1 em {
+      font-style: normal;
+      background: linear-gradient(115deg, var(--accent), #6bb5ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
     .tagline {
-      font-size: 24px; color: var(--mist); margin-top: 18px; line-height: 1.45; max-width: 520px;
+      font-size: 22px; color: var(--mist); margin-top: 16px; line-height: 1.45; max-width: 500px;
     }
-    .chips { display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap; }
+    .chips { display: flex; gap: 10px; margin-top: 26px; flex-wrap: wrap; }
     .chip {
-      padding: 8px 14px; border-radius: 10px; font-size: 13px; font-weight: 600;
+      padding: 8px 14px; border-radius: 10px; font-size: 12px; font-weight: 700;
       background: rgba(255,255,255,0.05); border: 1px solid var(--line-strong); color: var(--sand);
     }
     .preview {
@@ -46,38 +49,37 @@
       display: flex; align-items: center; justify-content: center; position: relative;
     }
     .glow {
-      position: absolute; width: 320px; height: 320px; border-radius: 50%;
-      background: rgba(79, 156, 255, 0.22); filter: blur(60px);
+      position: absolute; width: 340px; height: 340px; border-radius: 50%;
+      background: rgba(79, 156, 255, 0.24); filter: blur(70px);
     }
     .app-icon {
-      width: 180px; height: 180px; border-radius: 38px;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.08);
+      width: 168px; height: 168px; border-radius: 36px;
+      box-shadow: 0 32px 88px rgba(0,0,0,0.48), 0 0 0 1px rgba(255,255,255,0.08);
       position: relative; z-index: 1;
     }
     .stats {
-      position: absolute; bottom: 72px; right: 56px; z-index: 2;
+      position: absolute; bottom: 68px; right: 52px; z-index: 2;
       display: flex; gap: 12px;
     }
     .stat {
       padding: 14px 18px; border-radius: 14px;
-      background: rgba(24, 34, 51, 0.92); border: 1px solid var(--line-strong);
-      backdrop-filter: blur(12px);
+      background: rgba(24, 34, 51, 0.94); border: 1px solid var(--line-strong);
     }
-    .stat .k { font-size: 10px; font-weight: 600; letter-spacing: 1px; color: var(--mist-dim); text-transform: uppercase; }
-    .stat .v { font-family: Outfit, sans-serif; font-size: 24px; font-weight: 700; margin-top: 4px; color: var(--accent); }
-    .stat.w .v { color: #5ec4a8; }
+    .stat .k { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: var(--mist-dim); text-transform: uppercase; }
+    .stat .v { font-family: var(--display); font-size: 22px; font-weight: 700; margin-top: 4px; color: var(--accent); }
+    .stat.w .v { color: var(--good); }
   </style>
 </head>
 <body>
   <div class="copy">
-    <div class="badge"><i></i> v1.1 · Universal Binary</div>
-    <h1>MacFan<br><span>让 Mac 的风扇听你的</span></h1>
+    <div class="badge"><i></i> v1.1.2 · Universal Binary</div>
+    <h1>MacFan<br><em>让 Mac 的风扇听你的</em></h1>
     <p class="tagline">原生 SwiftUI 风扇控制 · 实机读数 · 一键授权写入 SMC</p>
     <div class="chips">
       <span class="chip">Apple Silicon</span>
       <span class="chip">Intel</span>
       <span class="chip">场景模式</span>
-      <span class="chip">深浅主题</span>
+      <span class="chip">菜单栏</span>
     </div>
   </div>
   <div class="preview">

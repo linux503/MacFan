@@ -3,52 +3,53 @@
 <head>
   <meta charset="utf-8" />
   <title>MacFan Scenes</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="base.css" />
   <style>
     body {
       width: 1400px; height: 900px;
-      padding: 48px 56px;
+      padding: 52px 60px;
       background:
-        radial-gradient(ellipse 60% 45% at 15% 10%, rgba(79, 156, 255, 0.12), transparent 55%),
-        radial-gradient(ellipse 45% 40% at 90% 85%, rgba(224, 163, 90, 0.10), transparent 50%),
+        radial-gradient(ellipse 55% 45% at 12% 8%, rgba(79, 156, 255, 0.14), transparent 58%),
+        radial-gradient(ellipse 42% 38% at 92% 88%, rgba(224, 163, 90, 0.12), transparent 52%),
         linear-gradient(165deg, #0a1019 0%, #070b12 100%);
     }
-    header { margin-bottom: 32px; }
+    header { margin-bottom: 36px; }
+    header .label { color: var(--accent); margin-bottom: 12px; display: block; }
     header h1 {
-      font-family: Outfit, Noto Sans SC, sans-serif;
-      font-size: 42px; font-weight: 800; letter-spacing: -0.03em;
+      font-family: var(--display);
+      font-size: 44px; font-weight: 800; letter-spacing: -0.035em;
     }
-    header p { font-size: 16px; color: var(--mist); margin-top: 10px; }
+    header p { font-size: 15px; color: var(--mist); margin-top: 10px; }
     .grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
     }
     .card {
       border-radius: 18px; padding: 22px 24px; border: 1px solid var(--line-strong);
-      background: linear-gradient(155deg, rgba(24, 34, 51, 0.92), rgba(13, 20, 32, 0.86));
-      min-height: 200px; display: flex; flex-direction: column;
+      background: linear-gradient(155deg, rgba(24, 34, 51, 0.94), rgba(13, 20, 32, 0.88));
+      min-height: 210px; display: flex; flex-direction: column;
     }
     .card.hot {
-      border-color: rgba(224, 122, 106, 0.35);
-      background: linear-gradient(155deg, rgba(224, 122, 106, 0.10), rgba(24, 34, 51, 0.92));
+      border-color: rgba(224, 122, 106, 0.38);
+      background: linear-gradient(155deg, rgba(224, 122, 106, 0.12), rgba(24, 34, 51, 0.94));
+      box-shadow: 0 0 40px rgba(224, 122, 106, 0.08);
     }
-    .card header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .card header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
     .id {
-      font-family: Outfit, sans-serif; font-size: 12px; font-weight: 700;
-      color: var(--accent); letter-spacing: 0.06em;
+      font-family: var(--display); font-size: 11px; font-weight: 800;
+      color: var(--accent); letter-spacing: 0.08em;
     }
     .card.hot .id { color: var(--coral); }
     .card h2 {
-      font-family: Outfit, Noto Sans SC, sans-serif;
-      font-size: 22px; font-weight: 700;
+      font-family: var(--display);
+      font-size: 20px; font-weight: 700;
     }
-    .card p { font-size: 14px; color: var(--mist); line-height: 1.5; flex: 1; margin-bottom: 16px; }
+    .card p { font-size: 13px; color: var(--mist); line-height: 1.5; flex: 1; margin-bottom: 14px; }
+    .foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
     .pct {
-      font-family: Outfit, sans-serif; font-size: 13px; font-weight: 600;
-      color: var(--mist-dim); margin-top: 8px;
+      font-family: var(--display); font-size: 12px; font-weight: 700;
+      color: var(--mist-dim);
     }
+    .foot .bar { flex: 1; }
     .card:nth-child(4) .bar > i { width: 78%; background: linear-gradient(90deg, #b8862e, var(--amber)); }
     .card:nth-child(5) .bar > i { width: 100%; background: linear-gradient(90deg, #c45a4a, var(--coral)); }
     .card:nth-child(1) .bar > i { width: 28%; }
@@ -59,6 +60,7 @@
 </head>
 <body>
   <header>
+    <span class="label">Scenes</span>
     <h1>六种智能场景</h1>
     <p>从静音办公到极速散热，覆盖 Mac 全天热负载。</p>
   </header>
@@ -66,38 +68,32 @@
     <article class="card">
       <header><span class="id">01</span><h2>静音办公</h2></header>
       <p>文档与会议，优先低噪</p>
-      <div class="bar"><i></i></div>
-      <div class="pct">28%</div>
+      <div class="foot"><div class="bar"><i></i></div><div class="pct">28%</div></div>
     </article>
     <article class="card">
       <header><span class="id">02</span><h2>影音观影</h2></header>
       <p>安静优先，温度略升也可</p>
-      <div class="bar"><i></i></div>
-      <div class="pct">32%</div>
+      <div class="foot"><div class="bar"><i></i></div><div class="pct">32%</div></div>
     </article>
     <article class="card">
       <header><span class="id">03</span><h2>创作渲染</h2></header>
       <p>Xcode / Final Cut 自动加压</p>
-      <div class="bar"><i></i></div>
-      <div class="pct">62%</div>
+      <div class="foot"><div class="bar"><i></i></div><div class="pct">62%</div></div>
     </article>
     <article class="card">
       <header><span class="id">04</span><h2>游戏竞技</h2></header>
       <p>高风量压制帧率掉温</p>
-      <div class="bar warn"><i></i></div>
-      <div class="pct">78%</div>
+      <div class="foot"><div class="bar warn"><i></i></div><div class="pct">78%</div></div>
     </article>
     <article class="card hot">
       <header><span class="id">05</span><h2>极速散热</h2></header>
       <p>全风扇最大，极限降温</p>
-      <div class="bar hot"><i></i></div>
-      <div class="pct">100%</div>
+      <div class="foot"><div class="bar hot"><i></i></div><div class="pct">100%</div></div>
     </article>
     <article class="card">
       <header><span class="id">06</span><h2>夜间静音</h2></header>
       <p>23:00–07:00 自动压转速</p>
-      <div class="bar"><i></i></div>
-      <div class="pct">22%</div>
+      <div class="foot"><div class="bar"><i></i></div><div class="pct">22%</div></div>
     </article>
   </div>
 </body>

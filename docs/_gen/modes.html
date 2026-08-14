@@ -3,62 +3,60 @@
 <head>
   <meta charset="utf-8" />
   <title>MacFan Modes</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="base.css" />
   <style>
     body {
       width: 1400px; height: 900px;
-      padding: 48px 56px;
+      padding: 52px 60px;
       background:
-        radial-gradient(ellipse 70% 50% at 85% 15%, rgba(79, 156, 255, 0.14), transparent 55%),
-        radial-gradient(ellipse 40% 35% at 5% 95%, rgba(224, 122, 106, 0.08), transparent 50%),
-        linear-gradient(160deg, #0a1019 0%, #070b12 45%, #0d1420 100%);
+        radial-gradient(ellipse 65% 50% at 88% 12%, rgba(79, 156, 255, 0.18), transparent 58%),
+        radial-gradient(ellipse 40% 35% at 4% 96%, rgba(224, 122, 106, 0.10), transparent 52%),
+        linear-gradient(160deg, #0a1019 0%, #070b12 50%, #0d1420 100%);
     }
-    header { margin-bottom: 36px; }
+    header { margin-bottom: 40px; }
+    header .label { color: var(--accent); margin-bottom: 12px; display: block; }
     header h1 {
-      font-family: Outfit, Noto Sans SC, sans-serif;
-      font-size: 42px; font-weight: 800; letter-spacing: -0.03em;
+      font-family: var(--display);
+      font-size: 44px; font-weight: 800; letter-spacing: -0.035em;
     }
-    header p { font-size: 16px; color: var(--mist); margin-top: 10px; }
+    header p { font-size: 15px; color: var(--mist); margin-top: 10px; }
     .grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 22px; height: calc(100% - 130px);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
     }
     .card {
-      border-radius: 22px; padding: 28px 30px; border: 1px solid var(--line-strong);
-      background: linear-gradient(155deg, rgba(24, 34, 51, 0.95), rgba(13, 20, 32, 0.88));
-      display: flex; flex-direction: column; position: relative; overflow: hidden;
+      border-radius: 20px; padding: 28px 30px; border: 1px solid var(--line-strong);
+      background: linear-gradient(155deg, rgba(24, 34, 51, 0.96), rgba(13, 20, 32, 0.90));
+      display: flex; flex-direction: column; min-height: 320px;
+      position: relative; overflow: hidden;
     }
-    .card::after {
-      content: ""; position: absolute; width: 220px; height: 220px; border-radius: 50%;
-      top: -80px; right: -60px; opacity: 0.12; filter: blur(2px);
+    .card::before {
+      content: ""; position: absolute; inset: 0 auto auto 0; width: 100%; height: 3px;
+      background: var(--stripe, var(--accent));
     }
-    .card.c1::after { background: var(--accent); }
-    .card.c2::after { background: #6bb5ff; }
-    .card.c3::after { background: var(--amber); }
-    .card.c4::after { background: var(--coral); }
+    .card.c1 { --stripe: linear-gradient(90deg, var(--accent-deep), var(--accent)); }
+    .card.c2 { --stripe: linear-gradient(90deg, #3d8ae8, #6bb5ff); }
+    .card.c3 { --stripe: linear-gradient(90deg, #b8862e, var(--amber)); }
+    .card.c4 { --stripe: linear-gradient(90deg, #c45a4a, var(--coral)); }
     .num {
-      font-family: Outfit, sans-serif; font-size: 13px; font-weight: 700;
-      letter-spacing: 0.08em; margin-bottom: 18px;
+      font-family: var(--display); font-size: 12px; font-weight: 800;
+      letter-spacing: 0.1em; margin-bottom: 16px; color: var(--accent);
     }
-    .c1 .num { color: var(--accent); }
     .c2 .num { color: #6bb5ff; }
     .c3 .num { color: var(--amber); }
     .c4 .num { color: var(--coral); }
     .icon {
-      width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center;
-      font-size: 26px; margin-bottom: 18px;
+      width: 52px; height: 52px; border-radius: 15px; display: grid; place-items: center;
+      font-size: 24px; margin-bottom: 16px;
+      background: rgba(79, 156, 255, 0.12); border: 1px solid rgba(79, 156, 255, 0.18);
     }
-    .c1 .icon { background: rgba(79, 156, 255, 0.16); }
-    .c2 .icon { background: rgba(107, 181, 255, 0.16); }
-    .c3 .icon { background: rgba(224, 163, 90, 0.16); }
-    .c4 .icon { background: rgba(224, 122, 106, 0.16); }
+    .c2 .icon { background: rgba(107, 181, 255, 0.12); border-color: rgba(107, 181, 255, 0.18); }
+    .c3 .icon { background: rgba(224, 163, 90, 0.12); border-color: rgba(224, 163, 90, 0.18); }
+    .c4 .icon { background: rgba(224, 122, 106, 0.12); border-color: rgba(224, 122, 106, 0.18); }
     .card h2 {
-      font-family: Outfit, Noto Sans SC, sans-serif;
-      font-size: 28px; font-weight: 700; margin-bottom: 10px;
+      font-family: var(--display);
+      font-size: 26px; font-weight: 700; margin-bottom: 10px;
     }
-    .card p { font-size: 15px; color: var(--mist); line-height: 1.55; flex: 1; }
+    .card p { font-size: 14px; color: var(--mist); line-height: 1.58; flex: 1; }
     .card .bar { margin-top: auto; }
     .c1 .bar > i { width: 100%; }
     .c2 .bar > i { width: 68%; }
@@ -68,33 +66,34 @@
 </head>
 <body>
   <header>
+    <span class="label">Control</span>
     <h1>四种控制方式</h1>
     <p>One palette. Instant airflow.</p>
   </header>
   <div class="grid">
     <article class="card c1">
-      <div class="num">01</div>
+      <div class="num">01 · MAX</div>
       <div class="icon">⚡</div>
       <h2>最大转速</h2>
       <p>编译、导出、游戏掉温——一键拉满全部风扇，立刻加压散热。</p>
       <div class="bar"><i></i></div>
     </article>
     <article class="card c2">
-      <div class="num">02</div>
+      <div class="num">02 · MANUAL</div>
       <div class="icon">◎</div>
       <h2>手动调节</h2>
       <p>逐风扇滑动设定 RPM，读数与滑杆实时对应。</p>
       <div class="bar"><i></i></div>
     </article>
     <article class="card c3">
-      <div class="num">03</div>
+      <div class="num">03 · AUTO</div>
       <div class="icon">↺</div>
       <h2>系统自动</h2>
       <p>随时交还 macOS SMC 温控，安全收尾。</p>
       <div class="bar"><i></i></div>
     </article>
     <article class="card c4">
-      <div class="num">04</div>
+      <div class="num">04 · SCENES</div>
       <div class="icon">★</div>
       <h2>场景模式</h2>
       <p>按温度曲线运行，支持 App 联动与夜间调度。</p>

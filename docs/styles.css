@@ -815,6 +815,11 @@ main { position: relative; z-index: 1; }
 
 /* Reveal */
 .reveal {
+  opacity: 1;
+  transform: none;
+}
+
+.js-ready .reveal:not(.visible) {
   opacity: 0;
   transform: translateY(22px);
   transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);

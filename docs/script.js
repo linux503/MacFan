@@ -1,6 +1,16 @@
 (() => {
   "use strict";
 
+  document.documentElement.classList.add("js-ready");
+
+  const storage = {
+    get(key, fallback) {
+      try { return localStorage.getItem(key) ?? fallback; } catch { return fallback; }
+    },
+    set(key, value) {
+      try { localStorage.setItem(key, value); } catch { /* file:// or private mode */ }
+    }
+  };
   const revealNodes = document.querySelectorAll(".reveal");
   const io = new IntersectionObserver(
     (entries) => {
@@ -195,7 +205,7 @@
     }
   };
 
-  let lang = localStorage.getItem("macfan.siteLang") || "zh";
+  let lang = storage.get("macfan.siteLang", "zh");
   const apply = () => {
     const table = dict[lang] || dict.zh;
     document.documentElement.lang = lang === "zh" ? "zh-Hans" : "en";
@@ -213,7 +223,7 @@
 
   document.getElementById("langToggle")?.addEventListener("click", () => {
     lang = lang === "zh" ? "en" : "zh";
-    localStorage.setItem("macfan.siteLang", lang);
+    storage.set("macfan.siteLang", lang);
     apply();
   });
 

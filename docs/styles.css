@@ -81,7 +81,7 @@ h1, h2, h3, .hero-brand, .kicker, .btn, .nav .brand, .mode-list span, .heat-list
   font-size: 1.35rem;
   letter-spacing: -0.03em;
 }
-.brand img { border-radius: 6px; }
+.brand img { border-radius: 8px; }
 .nav-links {
   display: flex;
   align-items: center;
@@ -270,10 +270,12 @@ h1, h2, h3, .hero-brand, .kicker, .btn, .nav .brand, .mode-list span, .heat-list
 }
 
 .bleed {
-  margin: 0;
+  width: min(var(--max), calc(100% - 48px));
+  margin: 0 auto 8px;
   position: relative;
   overflow: hidden;
   background: #eef0f2;
+  border-radius: 22px;
 }
 .bleed img {
   width: 100%;
@@ -287,6 +289,7 @@ h1, h2, h3, .hero-brand, .kicker, .btn, .nav .brand, .mode-list span, .heat-list
   position: absolute;
   inset: 0;
   pointer-events: none;
+  border-radius: inherit;
   background: linear-gradient(180deg, transparent 70%, rgba(22, 24, 27, 0.08));
 }
 .split-visuals {
@@ -296,7 +299,11 @@ h1, h2, h3, .hero-brand, .kicker, .btn, .nav .brand, .mode-list span, .heat-list
   padding-top: 36px;
   padding-bottom: 24px;
 }
-.split-visuals figure { margin: 0; overflow: hidden; background: #eef0f2; }
+.split-visuals figure { margin: 0; }
+.split-visuals img {
+  width: 100%;
+  border-radius: 22px;
+}
 .split-visuals figcaption {
   margin-top: 12px;
   font-size: 1.15rem;

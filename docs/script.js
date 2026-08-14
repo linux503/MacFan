@@ -229,3 +229,16 @@
 
   apply();
 })();
+
+(() => {
+  const el = document.getElementById("heroVersion");
+  if (!el) return;
+  fetch("version.json")
+    .then((r) => (r.ok ? r.json() : null))
+    .then((data) => {
+      if (!data?.version) return;
+      const macos = data.min_macos ? ` · macOS ${data.min_macos}+` : "";
+      el.textContent = `v${data.version}${macos}`;
+    })
+    .catch(() => {});
+})();

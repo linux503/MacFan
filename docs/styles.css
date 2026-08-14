@@ -258,8 +258,25 @@ main { position: relative; z-index: 1; }
 .hero-btns {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
   gap: 12px;
   margin-top: 28px;
+}
+
+.hero-download {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.hero-version {
+  margin: 0;
+  padding-left: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--muted-dim);
 }
 
 .btn {

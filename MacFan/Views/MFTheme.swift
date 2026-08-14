@@ -230,22 +230,22 @@ private struct MFMenuButtonBody: View {
 
     var body: some View {
         configuration.label
-            .padding(.horizontal, 10)
-            .padding(.vertical, compact ? 8 : 9)
+            .padding(.horizontal, compact ? 6 : 10)
+            .padding(.vertical, compact ? 3 : 9)
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(
-                RoundedRectangle(cornerRadius: 11, style: .continuous)
+                RoundedRectangle(cornerRadius: compact ? 6 : 11, style: .continuous)
                     .fill(fillColor)
             )
             .overlay(
-                RoundedRectangle(cornerRadius: 11, style: .continuous)
+                RoundedRectangle(cornerRadius: compact ? 6 : 11, style: .continuous)
                     .strokeBorder(strokeColor, lineWidth: 1)
             )
             .scaleEffect(configuration.isPressed ? 0.985 : 1)
             .animation(.easeOut(duration: 0.14), value: hovering)
             .animation(.easeOut(duration: 0.12), value: selected)
             .animation(.easeOut(duration: 0.08), value: configuration.isPressed)
-            .contentShape(RoundedRectangle(cornerRadius: 11, style: .continuous))
+            .contentShape(RoundedRectangle(cornerRadius: compact ? 6 : 11, style: .continuous))
             .onHover { hovering = $0 }
     }
 

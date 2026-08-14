@@ -7,18 +7,23 @@
   <meta name="description" content="MacFan 是原生 macOS 风扇控制工具。最大转速、单风扇手动调节、场景模式，支持 Apple Silicon 与 Intel。" />
   <meta property="og:title" content="MacFan — 精准控制 Mac 风扇" />
   <meta property="og:description" content="原生 SwiftUI 风扇控制 · 实机读数 · 一键授权写入 SMC" />
-  <meta property="og:image" content="assets/poster-og.jpg?v=14" />
-  <link rel="icon" href="assets/logo-512.png?v=14" />
-  <link rel="stylesheet" href="styles.css?v=14" />
-  <link rel="stylesheet" href="more-apps.css?v=14" />
+  <meta property="og:image" content="assets/poster-og.jpg?v=15" />
+  <link rel="icon" href="assets/logo-512.png?v=15" />
+  <link rel="stylesheet" href="styles.css?v=15" />
+  <link rel="stylesheet" href="more-apps.css?v=15" />
 </head>
 <body>
   <div class="mesh" aria-hidden="true"></div>
+  <div class="aurora" aria-hidden="true">
+    <div class="aurora-orb aurora-orb-a"></div>
+    <div class="aurora-orb aurora-orb-b"></div>
+    <div class="aurora-orb aurora-orb-c"></div>
+  </div>
   <div class="grain" aria-hidden="true"></div>
 
   <header class="nav nav-light" id="nav">
     <a class="brand" href="#top">
-      <img src="assets/logo-512.png?v=14" alt="" width="30" height="30" class="brand-logo" />
+      <img src="assets/logo-512.png?v=15" alt="" width="30" height="30" class="brand-logo" />
       <span>MacFan</span>
     </a>
     <nav class="nav-links">
@@ -26,7 +31,7 @@
       <a href="#features" data-i18n="nav.features">功能</a>
       <a href="#scenes" data-i18n="nav.scenes">场景</a>
       <a href="#start" data-i18n="nav.start">开始</a>
-              <details class="more-apps" data-more-apps="macfan">
+      <details class="more-apps" data-more-apps="macfan">
           <summary>
             <span class="more-apps-ico" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
             <span class="more-apps-label">更多软件</span>
@@ -75,7 +80,7 @@
         <div class="hero-text">
           <div class="chip">
             <span class="chip-dot"></span>
-            <span data-i18n="hero.badge">v1.1 · 原生 macOS</span>
+            <span data-i18n="hero.badge" id="heroBadge">原生 macOS</span>
           </div>
           <h1>
             <span data-i18n="hero.title1">让 Mac 的风扇</span>
@@ -109,7 +114,10 @@
         </div>
         <div class="hero-media">
           <div class="hero-glow"></div>
-          <img src="assets/hero-home.jpg?v=14" alt="MacFan 应用界面" width="1400" height="900" class="hero-img" decoding="async" />
+          <div class="hero-frame">
+            <img src="assets/hero-home.jpg?v=15" alt="MacFan 应用界面" width="1400" height="900" class="hero-img" decoding="async" />
+            <div class="hero-shine" aria-hidden="true"></div>
+          </div>
           <div class="float-card float-a">
             <span class="float-k">CPU</span>
             <span class="float-v" id="liveCpu">47°</span>
@@ -137,21 +145,21 @@
       </div>
       <div class="gallery reveal">
         <figure class="gallery-main glass-card">
-          <img src="assets/hero-home.jpg?v=14" alt="Dashboard" loading="lazy" decoding="async" />
+          <img src="assets/hero-home.jpg?v=15" alt="Dashboard" loading="lazy" decoding="async" />
           <figcaption>
             <span data-i18n="gallery.dash">主界面 · 实机读数</span>
             <em data-i18n="gallery.dashHint">Dashboard</em>
           </figcaption>
         </figure>
         <figure class="gallery-side glass-card">
-          <img src="assets/poster-modes.jpg?v=14" alt="Modes" loading="lazy" decoding="async" />
+          <img src="assets/poster-modes.jpg?v=15" alt="Modes" loading="lazy" decoding="async" />
           <figcaption>
             <span data-i18n="gallery.modes">四种控制方式</span>
             <em>Control</em>
           </figcaption>
         </figure>
         <figure class="gallery-side glass-card">
-          <img src="assets/poster-scenes.jpg?v=14" alt="Scenes" loading="lazy" decoding="async" />
+          <img src="assets/poster-scenes.jpg?v=15" alt="Scenes" loading="lazy" decoding="async" />
           <figcaption>
             <span data-i18n="gallery.scenes">六种开箱场景</span>
             <em>Scenes</em>
@@ -215,32 +223,32 @@
         <article class="glass-card scene-item" data-level="28">
           <header><span class="scene-id">01</span><h3 data-i18n="s1.t">静音办公</h3></header>
           <p data-i18n="s1.p">文档与会议，优先低噪</p>
-          <div class="bar"><i style="width:28%"></i></div>
+          <div class="bar"><i style="--bar-w:28%"></i></div>
         </article>
         <article class="glass-card scene-item" data-level="32">
           <header><span class="scene-id">02</span><h3 data-i18n="s2.t">影音观影</h3></header>
           <p data-i18n="s2.p">安静优先，温度略升也可</p>
-          <div class="bar"><i style="width:32%"></i></div>
+          <div class="bar"><i style="--bar-w:32%"></i></div>
         </article>
         <article class="glass-card scene-item" data-level="62">
           <header><span class="scene-id">03</span><h3 data-i18n="s3.t">创作渲染</h3></header>
           <p data-i18n="s3.p">Xcode / Final Cut 自动加压</p>
-          <div class="bar"><i style="width:62%"></i></div>
+          <div class="bar"><i style="--bar-w:62%"></i></div>
         </article>
         <article class="glass-card scene-item" data-level="78">
           <header><span class="scene-id">04</span><h3 data-i18n="s4.t">游戏竞技</h3></header>
           <p data-i18n="s4.p">高风量压制帧率掉温</p>
-          <div class="bar"><i style="width:78%"></i></div>
+          <div class="bar"><i style="--bar-w:78%"></i></div>
         </article>
         <article class="glass-card scene-item scene-hot" data-level="100">
           <header><span class="scene-id">05</span><h3 data-i18n="s5.t">极速散热</h3></header>
           <p data-i18n="s5.p">全风扇最大，极限降温</p>
-          <div class="bar bar-hot"><i style="width:100%"></i></div>
+          <div class="bar bar-hot"><i style="--bar-w:100%"></i></div>
         </article>
         <article class="glass-card scene-item" data-level="22">
           <header><span class="scene-id">06</span><h3 data-i18n="s6.t">夜间静音</h3></header>
           <p data-i18n="s6.p">23:00–07:00 自动压转速</p>
-          <div class="bar"><i style="width:22%"></i></div>
+          <div class="bar"><i style="--bar-w:22%"></i></div>
         </article>
       </div>
     </section>
@@ -295,7 +303,7 @@ cd MacFan && open MacFan.xcodeproj</code></pre>
     <!-- CTA -->
     <section class="section">
       <div class="glass-card cta reveal">
-        <img src="assets/logo-512.png?v=14" alt="" width="56" height="56" class="cta-logo" />
+        <img src="assets/logo-512.png?v=15" alt="" width="56" height="56" class="cta-logo" />
         <div class="cta-text">
           <h2 data-i18n="cta.title">让 Mac 凉下来</h2>
           <p data-i18n="cta.sub">免费开源 · MIT · Intel &amp; Apple Silicon</p>
@@ -307,7 +315,7 @@ cd MacFan && open MacFan.xcodeproj</code></pre>
 
   <footer class="footer">
     <div class="footer-left">
-      <img src="assets/logo-512.png?v=14" alt="" width="22" height="22" />
+      <img src="assets/logo-512.png?v=15" alt="" width="22" height="22" />
       <span>MacFan</span>
       <span class="footer-sep">·</span>
       <span>MIT · v1.1.2</span>
@@ -318,7 +326,7 @@ cd MacFan && open MacFan.xcodeproj</code></pre>
     </div>
   </footer>
 
-  <script src="script.js?v=14"></script>
-  <script src="more-apps.js?v=14" defer></script>
+  <script src="script.js?v=15"></script>
+  <script src="more-apps.js?v=15" defer></script>
 </body>
 </html>

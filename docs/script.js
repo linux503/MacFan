@@ -12,6 +12,14 @@
     }
   };
   const revealNodes = document.querySelectorAll(".reveal");
+  revealNodes.forEach((el, i) => {
+    const parent = el.parentElement;
+    const siblings = parent ? [...parent.querySelectorAll(":scope > .reveal")] : [];
+    const idx = siblings.indexOf(el);
+    if (idx >= 0) {
+      el.style.setProperty("--reveal-delay", `${Math.min(idx * 80, 320)}ms`);
+    }
+  });
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -81,7 +89,7 @@
       "nav.scenes": "场景",
       "nav.start": "开始",
       "nav.download": "下载",
-      "hero.badge": "v1.1 · 原生 macOS",
+      "hero.badge": "原生 macOS",
       "hero.title1": "让 Mac 的风扇",
       "hero.title2": "听你的",
       "hero.lede": "原生 SwiftUI 风扇控制。最大转速、逐风扇手调、六种智能场景——实机读数，一键授权，真正写入 SMC。",
@@ -145,7 +153,7 @@
       "nav.scenes": "Scenes",
       "nav.start": "Start",
       "nav.download": "Download",
-      "hero.badge": "v1.1 · Native macOS",
+      "hero.badge": "Native macOS",
       "hero.title1": "Make your Mac's fans",
       "hero.title2": "obey you",
       "hero.lede": "Native SwiftUI fan control. Max speed, per-fan tuning, six smart scenes — live readings, one-tap auth, real SMC writes.",
@@ -221,24 +229,40 @@
     if (window.Linux503MoreApps) window.Linux503MoreApps.refresh();
   };
 
+  apply();
+
   document.getElementById("langToggle")?.addEventListener("click", () => {
     lang = lang === "zh" ? "en" : "zh";
     storage.set("macfan.siteLang", lang);
     apply();
+    fetch("version.json")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        const badgeEl = document.getElementById("heroBadge");
+        if (!badgeEl || !data?.version) return;
+        const suffix = lang === "zh" ? "原生 macOS" : "Native macOS";
+        badgeEl.textContent = `v${data.version} · ${suffix}`;
+      })
+      .catch(() => {});
   });
-
-  apply();
 })();
 
 (() => {
-  const el = document.getElementById("heroVersion");
-  if (!el) return;
+  const versionEl = document.getElementById("heroVersion");
+  const badgeEl = document.getElementById("heroBadge");
+  if (!versionEl && !badgeEl) return;
   fetch("version.json")
     .then((r) => (r.ok ? r.json() : null))
     .then((data) => {
       if (!data?.version) return;
       const macos = data.min_macos ? ` · macOS ${data.min_macos}+` : "";
-      el.textContent = `v${data.version}${macos}`;
+      if (versionEl) versionEl.textContent = `v${data.version}${macos}`;
+      if (badgeEl) {
+        const lang = document.documentElement.lang.startsWith("zh") ? "zh" : "en";
+        const prefix = lang === "zh" ? "v" + data.version + " · " : "v" + data.version + " · ";
+        const suffix = lang === "zh" ? "原生 macOS" : "Native macOS";
+        badgeEl.textContent = prefix + suffix;
+      }
     })
     .catch(() => {});
 })();

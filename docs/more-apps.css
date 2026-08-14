@@ -1,4 +1,4 @@
-/* 各官网共用：「更多软件」引流菜单 */
+/* 各官网共用：「更多软件」引流菜单 — MacFan Signal Day 色系 */
 .more-apps {
   position: relative;
   display: inline-flex;
@@ -12,7 +12,7 @@
   cursor: pointer;
   user-select: none;
   font: inherit;
-  color: #1e293b;
+  color: var(--ink, #171e2e);
   position: relative;
   isolation: isolate;
   display: inline-flex;
@@ -20,15 +20,13 @@
   gap: 0.55rem;
   padding: 0.42rem 0.72rem 0.42rem 0.5rem;
   border-radius: 999px;
-  border: 1px solid rgba(30, 41, 59, 0.12);
-  background: #ffffff;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05), 0 4px 14px rgba(15, 23, 42, 0.06);
-  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  border: 1px solid var(--border, rgba(23, 30, 46, 0.10));
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 2px 8px rgba(23, 30, 46, 0.05);
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.more-apps > summary::-webkit-details-marker {
-  display: none;
-}
+.more-apps > summary::-webkit-details-marker { display: none; }
 
 .more-apps-ico {
   display: grid;
@@ -36,8 +34,8 @@
   gap: 3px;
   padding: 5px;
   border-radius: 10px;
-  background: linear-gradient(145deg, rgba(37, 99, 235, 0.08), rgba(14, 165, 233, 0.06));
-  box-shadow: inset 0 0 0 1px rgba(30, 41, 59, 0.06);
+  background: linear-gradient(145deg, rgba(37, 107, 227, 0.10), rgba(79, 156, 255, 0.06));
+  box-shadow: inset 0 0 0 1px rgba(23, 30, 46, 0.05);
   flex: 0 0 auto;
 }
 
@@ -46,20 +44,20 @@
   width: 6px;
   height: 6px;
   border-radius: 2px;
-  background: var(--dot, #2563eb);
+  background: var(--dot, #256be3);
 }
 
 .more-apps-ico i:nth-child(1) { --dot: #059669; }
-.more-apps-ico i:nth-child(2) { --dot: #2563eb; }
-.more-apps-ico i:nth-child(3) { --dot: #dc2626; }
-.more-apps-ico i:nth-child(4) { --dot: #d97706; }
+.more-apps-ico i:nth-child(2) { --dot: #256be3; }
+.more-apps-ico i:nth-child(3) { --dot: #d15c52; }
+.more-apps-ico i:nth-child(4) { --dot: #c7852e; }
 
 .more-apps-label {
   font-size: 0.84rem;
   font-weight: 700;
   letter-spacing: -0.01em;
   white-space: nowrap;
-  color: #1e293b;
+  color: var(--ink, #171e2e);
 }
 
 .more-apps-chevron {
@@ -69,8 +67,8 @@
   width: 1.25rem;
   height: 1.25rem;
   border-radius: 999px;
-  background: rgba(30, 41, 59, 0.07);
-  color: #475569;
+  background: rgba(23, 30, 46, 0.06);
+  color: var(--muted, #616f85);
   flex: 0 0 auto;
   transition: transform 0.22s ease, background 0.22s ease, color 0.22s ease;
 }
@@ -85,26 +83,24 @@
 }
 
 .more-apps > summary:hover {
-  border-color: rgba(37, 99, 235, 0.22);
-  background: #ffffff;
-  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.10);
+  border-color: rgba(37, 107, 227, 0.24);
+  box-shadow: 0 8px 22px rgba(37, 107, 227, 0.10);
   transform: translateY(-1px);
 }
 
 .more-apps > summary:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.22);
+  box-shadow: 0 0 0 3px rgba(79, 156, 255, 0.25);
 }
 
 .more-apps[open] > summary {
-  border-color: rgba(37, 99, 235, 0.28);
-  background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10), 0 10px 24px rgba(15, 23, 42, 0.08);
+  border-color: rgba(37, 107, 227, 0.30);
+  box-shadow: 0 0 0 3px rgba(37, 107, 227, 0.08), 0 10px 28px rgba(23, 30, 46, 0.08);
 }
 
 .more-apps[open] .more-apps-chevron {
-  background: rgba(37, 99, 235, 0.12);
-  color: #2563eb;
+  background: rgba(37, 107, 227, 0.12);
+  color: var(--accent, #256be3);
   transform: rotate(180deg);
 }
 
@@ -115,17 +111,18 @@
   min-width: 300px;
   padding: 0.5rem;
   border-radius: 16px;
-  border: 1px solid rgba(30, 41, 59, 0.10);
-  background: #ffffff;
-  color: #0f172a;
-  box-shadow: 0 16px 48px rgba(15, 23, 42, 0.14), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+  border: 1px solid rgba(23, 30, 46, 0.10);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(20px) saturate(1.4);
+  color: var(--ink, #171e2e);
+  box-shadow: 0 20px 56px rgba(23, 30, 46, 0.14), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
   z-index: 60;
   transform-origin: top right;
-  animation: moreAppsIn 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: moreAppsIn 0.24s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @keyframes moreAppsIn {
-  from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+  from { opacity: 0; transform: translateY(-8px) scale(0.97); }
   to { opacity: 1; transform: none; }
 }
 
@@ -138,7 +135,7 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #64748b;
+  color: var(--muted-dim, #8590a2);
 }
 
 .more-apps-head::before {
@@ -146,7 +143,7 @@
   width: 1.1rem;
   height: 2px;
   border-radius: 999px;
-  background: linear-gradient(90deg, #059669, #2563eb, #dc2626, #d97706);
+  background: linear-gradient(90deg, #059669, #256be3, #d15c52, #c7852e);
 }
 
 .more-apps-panel a {
@@ -155,18 +152,19 @@
   gap: 0.12rem 0.7rem;
   align-items: center;
   text-decoration: none !important;
-  color: #0f172a !important;
+  color: var(--ink, #171e2e) !important;
   padding: 0.72rem 0.75rem !important;
   border-radius: 12px !important;
   background: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
   line-height: 1.3;
-  transition: background 0.18s ease;
+  transition: background 0.18s ease, transform 0.18s ease;
 }
 
 .more-apps-panel a:hover {
-  background: #f1f5f9 !important;
+  background: rgba(238, 244, 252, 0.95) !important;
+  transform: translateX(2px);
 }
 
 .more-apps-badge {
@@ -181,37 +179,34 @@
   font-weight: 800;
   letter-spacing: -0.03em;
   color: #ffffff;
-  background: var(--app-accent, #2563eb);
-  box-shadow: 0 4px 12px color-mix(in srgb, var(--app-accent, #2563eb) 30%, transparent);
+  background: var(--app-accent, #256be3);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--app-accent, #256be3) 28%, transparent);
 }
 
 .more-apps-panel .app-name {
   font-size: 0.94rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: #0f172a;
+  color: var(--ink, #171e2e);
 }
 
 .more-apps-panel .app-desc {
   grid-column: 2;
   font-size: 0.78rem;
   font-weight: 500;
-  color: #475569;
+  color: var(--muted, #616f85);
 }
 
 .more-apps-arrow {
   grid-row: span 2;
   opacity: 0.45;
   font-size: 0.72rem;
-  color: #64748b;
+  color: var(--muted-dim, #8590a2);
   transition: opacity 0.18s ease;
 }
 
-.more-apps-panel a:hover .more-apps-arrow {
-  opacity: 0.85;
-}
+.more-apps-panel a:hover .more-apps-arrow { opacity: 0.9; }
 
-/* 仅深色导航站启用（ZipX 等）— MacFan 用 .nav-light 不受影响 */
 .nav.nav-dark:not(.scrolled) .more-apps > summary,
 .topbar:not(.on) .more-apps > summary {
   color: rgba(255, 255, 255, 0.96);
@@ -221,9 +216,7 @@
 }
 
 .nav.nav-dark:not(.scrolled) .more-apps-label,
-.topbar:not(.on) .more-apps-label {
-  color: #ffffff;
-}
+.topbar:not(.on) .more-apps-label { color: #ffffff; }
 
 .nav.nav-dark:not(.scrolled) .more-apps > summary:hover,
 .nav.nav-dark:not(.scrolled) .more-apps[open] > summary,
@@ -250,7 +243,7 @@
   }
 
   @keyframes moreAppsIn {
-    from { opacity: 0; transform: translateX(-50%) translateY(-6px) scale(0.98); }
+    from { opacity: 0; transform: translateX(-50%) translateY(-8px) scale(0.97); }
     to { opacity: 1; transform: translateX(-50%); }
   }
 }

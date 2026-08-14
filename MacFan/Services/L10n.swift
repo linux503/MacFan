@@ -177,7 +177,7 @@ enum L10n {
         "toggle.appLink": "App linking",
         "toggle.schedule": "Night schedule",
         "admin.title": "Administrator required",
-        "admin.body": "Writing SMC needs admin rights. Enter your password once — the app stays open.",
+        "admin.body": "SMC writes need admin rights. Move MacFan to Applications first, then authorize (no app restart).",
         "admin.button": "Authorize Administrator",
         "admin.authorizing": "Requesting administrator password…",
         "admin.passwordHint": "Enter your password in the system dialog. If you don’t see it, it may be behind another window.",

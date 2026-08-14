@@ -1,7 +1,7 @@
 {
   "version": "1.1.0",
-  "notes": "Signal Night palette, clearer menu bar icon, admin helper without full root relaunch, marketing posters on the site.",
-  "notes_zh": "Signal Night 新配色、更清晰的菜单栏图标、无需整应用 root 重启的管理员授权、官网产品海报。",
+  "notes": "Light marketing site, offline-safe fonts, compressed images, admin helper without full root relaunch.",
+  "notes_zh": "官网浅色主题、离线可用字体、压缩图片、无需整应用 root 重启的管理员授权。",
   "website": "https://linux503.github.io/MacFan/",
   "release_url": "https://github.com/linux503/MacFan/releases/latest",
   "min_macos": "14.0"

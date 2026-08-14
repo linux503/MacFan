@@ -2,7 +2,7 @@
 
 **精准控制 Mac 风扇转速。**  
 原生 SwiftUI 工具，支持 **Apple Silicon（M 系列）** 与 **Intel** Universal Binary。  
-当前版本 **1.1.6** · [官网](https://linux503.github.io/MacFan/) · [下载](https://linux503.github.io/MacFan/assets/MacFan-1.1.6-macos.zip)
+当前版本 **1.1.7** · [官网](https://linux503.github.io/MacFan/) · [下载](https://linux503.github.io/MacFan/assets/MacFan-1.1.7-macos.zip)
 
 <p align="center">
   <img src="MacFan-logo.png" width="160" alt="MacFan logo" />
@@ -14,6 +14,11 @@
   <a href="#安装">安装</a> ·
   <a href="#权限说明">权限</a>
 </p>
+
+### 1.1.7
+- 新 Logo（程序坞 / 菜单栏 / 官网 / GitHub 统一）
+- 菜单栏增加 **退出 MacFan**
+- 菜单栏下拉面板更紧凑
 
 ### 1.1.6
 - 管理员助手改为 **LaunchDaemon** 安装（不再使用 `nohup` / python3 桩）
@@ -64,11 +69,11 @@
 - 实机调速需管理员权限（写入 SMC）
 
 ### 普通使用（推荐）
-1. 从[官网](https://linux503.github.io/MacFan/assets/MacFan-1.1.6-macos.zip)下载 **v1.1.6**
+1. 从[官网](https://linux503.github.io/MacFan/assets/MacFan-1.1.7-macos.zip)下载 **v1.1.7**
 2. 把 `MacFan.app` 拖到 **「应用程序」**
 3. 若提示无法打开：右键图标 → **打开**
 4. 在 App 内点 **「授权管理员权限」**，输入密码  
-   卡片上应显示 **MacFan v1.1.6**。不要用 Xcode / DerivedData 里的 Debug 包去授权。
+   卡片上应显示 **MacFan v1.1.7**。不要用 Xcode / DerivedData 里的 Debug 包去授权。
 
 ### 从源码运行
 ```bash
@@ -77,7 +82,7 @@ cd MacFan
 open MacFan.xcodeproj
 ```
 选择 **My Mac**，先 **Product → Clean Build Folder**，再 ⌘R。  
-请确认窗口里显示的是 **v1.1.6**，否则还是旧的 Debug 包。
+请确认窗口里显示的是 **v1.1.7**，否则还是旧的 Debug 包。
 
 ```bash
 xcodebuild -scheme MacFan -configuration Release -destination 'platform=macOS' build

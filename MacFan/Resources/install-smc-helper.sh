@@ -16,7 +16,7 @@ log() {
 }
 
 /bin/rm -f "$LOG" "$PIDF" "$SOCKET"
-/usr/bin/printf 'MacFan installer 1.1.6\n' >"$LOG"
+/usr/bin/printf 'MacFan installer 1.1.7\n' >"$LOG"
 /bin/chmod 666 "$LOG" 2>/dev/null || true
 
 if [ -z "$SRC" ] || [ ! -f "$SRC" ]; then

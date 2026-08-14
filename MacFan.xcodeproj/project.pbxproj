@@ -295,7 +295,7 @@
 				CODE_SIGN_ENTITLEMENTS = MacFan/MacFan.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MacFan/Info.plist;
@@ -303,7 +303,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.6;
+				MARKETING_VERSION = 1.1.7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macfan.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -335,7 +335,7 @@
 				CODE_SIGN_ENTITLEMENTS = MacFan/MacFan.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MacFan/Info.plist;
@@ -343,7 +343,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.6;
+				MARKETING_VERSION = 1.1.7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macfan.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";

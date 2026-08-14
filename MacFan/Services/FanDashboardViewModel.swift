@@ -48,17 +48,61 @@ final class FanDashboardViewModel {
     }
 
     func refreshLocalizedStatus() {
-        // Re-apply bootstrap-style status when language changes.
+        if !isLiveHardware {
+            fans = fans.map { fan in
+                var copy = fan
+                copy.name = SimulatedFanHardware.previewName(id: fan.id, architecture: machine.architecture)
+                return copy
+            }
+        }
+
+        scenes = scenes.map { scene in
+            var copy = scene
+            copy.name = scene.kind.title
+            return copy
+        }
+        if let active = activeScene, let updated = scenes.first(where: { $0.id == active.id }) {
+            activeScene = updated
+        }
+
+        if isBusy {
+            statusMessage = L10n.t("admin.authorizing")
+            lastError = L10n.t("admin.passwordHint")
+            return
+        }
+
         if isLiveHardware && isPrivileged {
-            statusMessage = L10n.t("status.liveAdmin")
-            if needsAdminToControl == false { lastError = nil }
+            switch mode {
+            case .automatic:
+                statusMessage = L10n.t("status.auto")
+            case .maximum:
+                statusMessage = L10n.t("status.max")
+            case .manual:
+                statusMessage = L10n.t("status.manual")
+            case .scene:
+                if let scene = activeScene {
+                    let percent = scene.fanPercent(for: thermal.peakCelsius)
+                    statusMessage = String(
+                        format: L10n.t("status.scene"),
+                        scene.kind.title,
+                        Int(percent * 100)
+                    )
+                } else {
+                    statusMessage = L10n.t("status.liveAdmin")
+                }
+            }
+            if !needsAdminToControl {
+                lastError = nil
+            }
         } else if isLiveHardware {
             statusMessage = L10n.t("status.liveNeedAdmin")
             lastError = L10n.t("error.needAdminHint")
         } else if fans.isEmpty {
             statusMessage = L10n.t("status.probing")
+            lastError = nil
         } else {
             statusMessage = L10n.t("status.preview")
+            lastError = nil
         }
     }
 

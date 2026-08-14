@@ -94,7 +94,12 @@ final class UpdateChecker {
         let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] ?? [:]
         let version = (json["version"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         guard !version.isEmpty else { throw URLError(.cannotParseResponse) }
-        let notes = json["notes"] as? String
+        let notes: String?
+        if L10n.currentLanguage == .zhHans {
+            notes = (json["notes_zh"] as? String) ?? (json["notes"] as? String)
+        } else {
+            notes = json["notes"] as? String
+        }
         let release = (json["release_url"] as? String).flatMap(URL.init(string:))
         let site = (json["website"] as? String).flatMap(URL.init(string:)) ?? AppLinks.website
         return AppVersionInfo(latestVersion: version, releaseNotes: notes, releaseURL: release, websiteURL: site)

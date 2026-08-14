@@ -110,7 +110,7 @@ final class AdaptiveFanController: FanControlling, @unchecked Sendable {
             }
         }
         guard usingLiveSMC else {
-            throw FanControlError.smcUnavailable("未读到本机风扇，无法实控")
+            throw FanControlError.smcUnavailable(L10n.t("error.noLiveFans"))
         }
         guard isPrivileged else {
             throw FanControlError.privilegeRequired
@@ -125,26 +125,60 @@ actor SimulatedFanHardware {
 
     init(architecture: ChipArchitecture) {
         self.architecture = architecture
+        self.fans = Self.makeFans(architecture: architecture)
+    }
+
+    static func previewName(id: String, architecture: ChipArchitecture) -> String {
         switch architecture {
         case .appleSilicon:
-            self.fans = [
-                FanInfo(id: "F0", name: "左排气风扇", currentRPM: 0, targetRPM: 0, minRPM: 1200, maxRPM: 6150, isManual: false),
-                FanInfo(id: "F1", name: "右排气风扇", currentRPM: 0, targetRPM: 0, minRPM: 1200, maxRPM: 6150, isManual: false)
+            switch id {
+            case "F0": return L10n.t("fan.leftExhaust")
+            case "F1": return L10n.t("fan.rightExhaust")
+            default: break
+            }
+        case .intel:
+            switch id {
+            case "F0": return L10n.t("fan.intake")
+            case "F1": return L10n.t("fan.cpu")
+            case "F2": return L10n.t("fan.exhaust")
+            default: break
+            }
+        case .unknown:
+            if id == "F0" { return L10n.t("fan.system") }
+        }
+        if id.hasPrefix("F"), let index = Int(id.dropFirst()) {
+            return String(format: L10n.t("fan.index"), index)
+        }
+        return id
+    }
+
+    private static func makeFans(architecture: ChipArchitecture) -> [FanInfo] {
+        switch architecture {
+        case .appleSilicon:
+            return [
+                FanInfo(id: "F0", name: "F0", currentRPM: 0, targetRPM: 0, minRPM: 1200, maxRPM: 6150, isManual: false),
+                FanInfo(id: "F1", name: "F1", currentRPM: 0, targetRPM: 0, minRPM: 1200, maxRPM: 6150, isManual: false)
             ]
         case .intel:
-            self.fans = [
-                FanInfo(id: "F0", name: "进气风扇", currentRPM: 2100, targetRPM: 2100, minRPM: 1400, maxRPM: 5800, isManual: false),
-                FanInfo(id: "F1", name: "CPU 风扇", currentRPM: 2400, targetRPM: 2400, minRPM: 1500, maxRPM: 6200, isManual: false),
-                FanInfo(id: "F2", name: "排气风扇", currentRPM: 2000, targetRPM: 2000, minRPM: 1400, maxRPM: 5600, isManual: false)
+            return [
+                FanInfo(id: "F0", name: "F0", currentRPM: 2100, targetRPM: 2100, minRPM: 1400, maxRPM: 5800, isManual: false),
+                FanInfo(id: "F1", name: "F1", currentRPM: 2400, targetRPM: 2400, minRPM: 1500, maxRPM: 6200, isManual: false),
+                FanInfo(id: "F2", name: "F2", currentRPM: 2000, targetRPM: 2000, minRPM: 1400, maxRPM: 5600, isManual: false)
             ]
         case .unknown:
-            self.fans = [
-                FanInfo(id: "F0", name: "系统风扇", currentRPM: 2000, targetRPM: 2000, minRPM: 1200, maxRPM: 6000, isManual: false)
+            return [
+                FanInfo(id: "F0", name: "F0", currentRPM: 2000, targetRPM: 2000, minRPM: 1200, maxRPM: 6000, isManual: false)
             ]
         }
     }
 
-    func discoverFans() -> [FanInfo] { fans }
+    func discoverFans() -> [FanInfo] {
+        fans.map { fan in
+            var copy = fan
+            copy.name = Self.previewName(id: fan.id, architecture: architecture)
+            return copy
+        }
+    }
 
     func readThermals() -> ThermalReading {
         ThermalReading(cpuCelsius: 45, gpuCelsius: 44, enclosureCelsius: 38)

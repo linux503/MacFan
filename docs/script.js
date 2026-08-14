@@ -147,7 +147,16 @@
       "cta.sub": "免费开源 · MIT · Intel & Apple Silicon",
       "cta.download": "立即下载",
       "footer.download": "下载",
-      langBtn: "EN"
+      langBtn: "EN",
+      "meta.title": "MacFan — 精准控制 Mac 风扇",
+      "meta.description": "MacFan 是原生 macOS 风扇控制工具。最大转速、单风扇手动调节、场景模式，支持 Apple Silicon 与 Intel。",
+      "meta.ogTitle": "MacFan — 精准控制 Mac 风扇",
+      "meta.ogDescription": "原生 SwiftUI 风扇控制 · 实机读数 · 一键授权写入 SMC",
+      "alt.hero": "MacFan 应用界面",
+      "alt.showcaseHome": "MacFan 主界面",
+      "alt.modes": "四种控制方式",
+      "alt.scenes": "六种智能场景",
+      "alt.dashboard": "Dashboard 全景"
     },
     en: {
       "nav.showcase": "UI",
@@ -213,7 +222,16 @@
       "cta.sub": "Free & open source · MIT · Intel & Apple Silicon",
       "cta.download": "Download now",
       "footer.download": "Download",
-      langBtn: "中文"
+      langBtn: "中文",
+      "meta.title": "MacFan — Precise Mac Fan Control",
+      "meta.description": "MacFan is a native macOS fan controller. Max speed, per-fan manual tuning, scene modes — Apple Silicon & Intel.",
+      "meta.ogTitle": "MacFan — Precise Mac Fan Control",
+      "meta.ogDescription": "Native SwiftUI fan control · live readings · one-tap SMC authorization",
+      "alt.hero": "MacFan app interface",
+      "alt.showcaseHome": "MacFan dashboard",
+      "alt.modes": "Four control modes",
+      "alt.scenes": "Six smart scenes",
+      "alt.dashboard": "Dashboard panorama"
     }
   };
 
@@ -221,9 +239,20 @@
   const apply = () => {
     const table = dict[lang] || dict.zh;
     document.documentElement.lang = lang === "zh" ? "zh-Hans" : "en";
+    document.title = table["meta.title"] || document.title;
+    const desc = document.querySelector('meta[name="description"]');
+    if (desc && table["meta.description"]) desc.setAttribute("content", table["meta.description"]);
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle && table["meta.ogTitle"]) ogTitle.setAttribute("content", table["meta.ogTitle"]);
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc && table["meta.ogDescription"]) ogDesc.setAttribute("content", table["meta.ogDescription"]);
     document.querySelectorAll("[data-i18n]").forEach((el) => {
       const key = el.getAttribute("data-i18n");
       if (table[key]) el.textContent = table[key];
+    });
+    document.querySelectorAll("[data-i18n-alt]").forEach((el) => {
+      const key = el.getAttribute("data-i18n-alt");
+      if (table[key]) el.setAttribute("alt", table[key]);
     });
     const btn = document.getElementById("langToggle");
     if (btn) btn.textContent = table.langBtn;

@@ -324,14 +324,14 @@ private struct ThermalHistorySection: View {
             MFSectionHeader(title: l10n.t("section.thermal"))
             Chart(viewModel.history) { sample in
                 LineMark(
-                    x: .value("时间", sample.timestamp),
-                    y: .value("CPU", sample.cpuCelsius)
+                    x: .value(l10n.t("chart.time"), sample.timestamp),
+                    y: .value(l10n.t("chart.cpu"), sample.cpuCelsius)
                 )
                 .foregroundStyle(MFTheme.accent)
                 .interpolationMethod(.catmullRom)
                 LineMark(
-                    x: .value("时间", sample.timestamp),
-                    y: .value("GPU", sample.gpuCelsius)
+                    x: .value(l10n.t("chart.time"), sample.timestamp),
+                    y: .value(l10n.t("chart.gpu"), sample.gpuCelsius)
                 )
                 .foregroundStyle(MFTheme.amber)
                 .interpolationMethod(.catmullRom)

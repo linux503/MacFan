@@ -37,7 +37,7 @@ final class SMCClient: @unchecked Sendable {
     }
 
     func readFans() throws -> [FanInfo] {
-        guard open() else { throw FanControlError.smcUnavailable("无法打开 AppleSMC") }
+        guard open() else { throw FanControlError.smcUnavailable(L10n.t("smc.openFailed")) }
         lock.lock()
         let count = Int(MacFanSMCFanCount(connection))
         lock.unlock()
@@ -57,9 +57,9 @@ final class SMCClient: @unchecked Sendable {
             let name: String
             if nameOK {
                 let parsed = String(cString: nameBuf).trimmingCharacters(in: .whitespacesAndNewlines)
-                name = parsed.isEmpty ? "风扇 \(index)" : parsed
+                name = parsed.isEmpty ? String(format: L10n.t("fan.index"), index) : parsed
             } else {
-                name = "风扇 \(index)"
+                name = String(format: L10n.t("fan.index"), index)
             }
             fans.append(
                 FanInfo(
@@ -100,18 +100,18 @@ final class SMCClient: @unchecked Sendable {
 
     func setManual(fanIndex: Int, rpm: Double) throws {
         guard geteuid() == 0 else { throw FanControlError.privilegeRequired }
-        guard open() else { throw FanControlError.smcUnavailable("无法打开 AppleSMC") }
+        guard open() else { throw FanControlError.smcUnavailable(L10n.t("smc.openFailed")) }
         lock.lock()
         let result = MacFanSMCSetFanRPM(connection, Int32(fanIndex), Int32(rpm.rounded()))
         lock.unlock()
         if result == kern_return_t(bitPattern: 0xe00002c1) { throw FanControlError.privilegeRequired }
         guard result == KERN_SUCCESS else {
-            throw FanControlError.smcUnavailable("设定风扇失败 (\(String(format: "%08x", UInt32(bitPattern: Int32(result)))))")
+            throw FanControlError.smcUnavailable(String(format: L10n.t("smc.setFanFailed"), String(format: "%08x", UInt32(bitPattern: Int32(result)))))
         }
     }
 
     func setMaximum(fanIndex: Int) throws {
-        guard open() else { throw FanControlError.smcUnavailable("无法打开 AppleSMC") }
+        guard open() else { throw FanControlError.smcUnavailable(L10n.t("smc.openFailed")) }
         lock.lock()
         let maxRPM = MacFanSMCFanMax(connection, Int32(fanIndex))
         lock.unlock()
@@ -120,13 +120,13 @@ final class SMCClient: @unchecked Sendable {
 
     func setAutomatic(fanIndex: Int) throws {
         guard geteuid() == 0 else { throw FanControlError.privilegeRequired }
-        guard open() else { throw FanControlError.smcUnavailable("无法打开 AppleSMC") }
+        guard open() else { throw FanControlError.smcUnavailable(L10n.t("smc.openFailed")) }
         lock.lock()
         let result = MacFanSMCSetFanAuto(connection, Int32(fanIndex))
         lock.unlock()
         if result == kern_return_t(bitPattern: 0xe00002c1) { throw FanControlError.privilegeRequired }
         guard result == KERN_SUCCESS else {
-            throw FanControlError.smcUnavailable("恢复自动失败 (\(String(format: "%08x", UInt32(bitPattern: Int32(result)))))")
+            throw FanControlError.smcUnavailable(String(format: L10n.t("smc.restoreAutoFailed"), String(format: "%08x", UInt32(bitPattern: Int32(result)))))
         }
     }
 

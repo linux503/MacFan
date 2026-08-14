@@ -165,7 +165,19 @@ enum L10n {
         "alert.updateTitle": "检查更新",
         "ok": "好",
         "chart.cpu": "CPU",
-        "chart.gpu": "GPU"
+        "chart.gpu": "GPU",
+        "chart.time": "时间",
+        "fan.leftExhaust": "左排气风扇",
+        "fan.rightExhaust": "右排气风扇",
+        "fan.intake": "进气风扇",
+        "fan.cpu": "CPU 风扇",
+        "fan.exhaust": "排气风扇",
+        "fan.system": "系统风扇",
+        "fan.index": "风扇 %d",
+        "error.noLiveFans": "未读到本机风扇，无法实控",
+        "smc.openFailed": "无法打开 AppleSMC",
+        "smc.setFanFailed": "设定风扇失败 (%@)",
+        "smc.restoreAutoFailed": "恢复自动失败 (%@)"
     ]
 
     private static let english: [String: String] = [
@@ -258,6 +270,18 @@ enum L10n {
         "alert.updateTitle": "Updates",
         "ok": "OK",
         "chart.cpu": "CPU",
-        "chart.gpu": "GPU"
+        "chart.gpu": "GPU",
+        "chart.time": "Time",
+        "fan.leftExhaust": "Left exhaust",
+        "fan.rightExhaust": "Right exhaust",
+        "fan.intake": "Intake fan",
+        "fan.cpu": "CPU fan",
+        "fan.exhaust": "Exhaust fan",
+        "fan.system": "System fan",
+        "fan.index": "Fan %d",
+        "error.noLiveFans": "No local fans detected; live control unavailable",
+        "smc.openFailed": "Could not open AppleSMC",
+        "smc.setFanFailed": "Failed to set fan (%@)",
+        "smc.restoreAutoFailed": "Failed to restore auto mode (%@)"
     ]
 }

@@ -10,7 +10,7 @@
     { id: "zipx", name: "ZipX", short: "Zx", accent: "#e84d32", desc: { zh: "解压压缩", en: "Compress & extract" }, url: "https://linux503.github.io/ZipX/" },
     { id: "mactext", name: "MacText", short: "Mt", accent: "#3b5bdb", desc: { zh: "文本编辑", en: "Text editor" }, url: "https://linux503.github.io/MacText/" },
     { id: "suptools", name: "SupTools", short: "St", accent: "#0d7a6c", desc: { zh: "macOS 超级工具箱", en: "macOS super toolbox" }, url: "https://linux503.github.io/suptools/" },
-    { id: "macfan", name: "MacFan", short: "Mf", accent: "#0891b2", desc: { zh: "精准控制 Mac 风扇转速", en: "Precise Mac fan control" }, url: "https://linux503.github.io/MacFan/" }
+    { id: "macfan", name: "MacFan", short: "Mf", accent: "#0e8a9a", desc: { zh: "精准控制 Mac 风扇转速", en: "Precise Mac fan control" }, url: "https://linux503.github.io/MacFan/" }
   ];
 
   function detectLang(el) {

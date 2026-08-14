@@ -1,4 +1,4 @@
-/* 各官网共用：「更多软件」引流菜单 — MacFan Signal Day 色系 */
+/* 各官网共用：「更多软件」引流菜单 — MacFan Arctic Ice 色系 */
 .more-apps {
   position: relative;
   display: inline-flex;
@@ -34,7 +34,7 @@
   gap: 3px;
   padding: 5px;
   border-radius: 10px;
-  background: linear-gradient(145deg, rgba(37, 107, 227, 0.10), rgba(79, 156, 255, 0.06));
+  background: linear-gradient(145deg, rgba(14, 138, 154, 0.10), rgba(46, 196, 214, 0.06));
   box-shadow: inset 0 0 0 1px rgba(23, 30, 46, 0.05);
   flex: 0 0 auto;
 }
@@ -44,11 +44,11 @@
   width: 6px;
   height: 6px;
   border-radius: 2px;
-  background: var(--dot, #256be3);
+  background: var(--dot, #0e8a9a);
 }
 
 .more-apps-ico i:nth-child(1) { --dot: #059669; }
-.more-apps-ico i:nth-child(2) { --dot: #256be3; }
+.more-apps-ico i:nth-child(2) { --dot: #0e8a9a; }
 .more-apps-ico i:nth-child(3) { --dot: #d15c52; }
 .more-apps-ico i:nth-child(4) { --dot: #c7852e; }
 
@@ -83,24 +83,24 @@
 }
 
 .more-apps > summary:hover {
-  border-color: rgba(37, 107, 227, 0.24);
-  box-shadow: 0 8px 22px rgba(37, 107, 227, 0.10);
+  border-color: rgba(14, 138, 154, 0.24);
+  box-shadow: 0 8px 22px rgba(14, 138, 154, 0.10);
   transform: translateY(-1px);
 }
 
 .more-apps > summary:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(79, 156, 255, 0.25);
+  box-shadow: 0 0 0 3px rgba(46, 196, 214, 0.25);
 }
 
 .more-apps[open] > summary {
-  border-color: rgba(37, 107, 227, 0.30);
-  box-shadow: 0 0 0 3px rgba(37, 107, 227, 0.08), 0 10px 28px rgba(23, 30, 46, 0.08);
+  border-color: rgba(14, 138, 154, 0.30);
+  box-shadow: 0 0 0 3px rgba(14, 138, 154, 0.08), 0 10px 28px rgba(23, 30, 46, 0.08);
 }
 
 .more-apps[open] .more-apps-chevron {
-  background: rgba(37, 107, 227, 0.12);
-  color: var(--accent, #256be3);
+  background: rgba(14, 138, 154, 0.12);
+  color: var(--accent, #0e8a9a);
   transform: rotate(180deg);
 }
 
@@ -143,7 +143,7 @@
   width: 1.1rem;
   height: 2px;
   border-radius: 999px;
-  background: linear-gradient(90deg, #059669, #256be3, #d15c52, #c7852e);
+  background: linear-gradient(90deg, #059669, #0e8a9a, #d15c52, #c7852e);
 }
 
 .more-apps-panel a {
@@ -179,8 +179,8 @@
   font-weight: 800;
   letter-spacing: -0.03em;
   color: #ffffff;
-  background: var(--app-accent, #256be3);
-  box-shadow: 0 4px 12px color-mix(in srgb, var(--app-accent, #256be3) 28%, transparent);
+  background: var(--app-accent, #0e8a9a);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--app-accent, #0e8a9a) 28%, transparent);
 }
 
 .more-apps-panel .app-name {

@@ -31,51 +31,54 @@ struct ThemePalette: Sendable {
     let sand: Color
     let mist: Color
     let mistDim: Color
+    let coolMint: Color
     let warm: Color
     let atmosphereBottom: Color
     let hoverWash: Color
 
-    /// Signal Night — deep navy + electric sky blue
+    /// Arctic Ice Night — charcoal steel + ice cyan, heat in amber/coral
     static let dark = ThemePalette(
-        ink: Color(red: 0.027, green: 0.043, blue: 0.071),          // #070B12
-        inkLift: Color(red: 0.051, green: 0.078, blue: 0.125),       // #0D1420
-        canvas: Color(red: 0.071, green: 0.102, blue: 0.157),        // #121A28
-        surface: Color(red: 0.094, green: 0.133, blue: 0.200),       // #182233
-        surfaceLift: Color(red: 0.129, green: 0.188, blue: 0.267),   // #213044
+        ink: Color(red: 0.020, green: 0.035, blue: 0.051),          // #05090D
+        inkLift: Color(red: 0.043, green: 0.078, blue: 0.098),       // #0B1419
+        canvas: Color(red: 0.063, green: 0.102, blue: 0.125),        // #101A20
+        surface: Color(red: 0.086, green: 0.133, blue: 0.157),       // #162228
+        surfaceLift: Color(red: 0.118, green: 0.180, blue: 0.212),   // #1E2E36
         line: Color.white.opacity(0.07),
-        lineStrong: Color.white.opacity(0.12),
-        accent: Color(red: 0.310, green: 0.612, blue: 1.000),        // #4F9CFF
-        accentSoft: Color(red: 0.310, green: 0.612, blue: 1.000).opacity(0.14),
-        accentDeep: Color(red: 0.180, green: 0.420, blue: 0.769),    // #2E6BC4
-        amber: Color(red: 0.878, green: 0.639, blue: 0.353),         // #E0A35A
-        coral: Color(red: 0.878, green: 0.478, blue: 0.416),         // #E07A6A
-        sand: Color(red: 0.933, green: 0.949, blue: 0.973),          // #EEF2F8
-        mist: Color(red: 0.545, green: 0.592, blue: 0.671),          // #8B97AB
-        mistDim: Color(red: 0.400, green: 0.447, blue: 0.529),       // #667287
-        warm: Color(red: 0.820, green: 0.730, blue: 0.420),
-        atmosphereBottom: Color(red: 0.035, green: 0.050, blue: 0.090),
+        lineStrong: Color.white.opacity(0.13),
+        accent: Color(red: 0.243, green: 0.784, blue: 0.863),        // #3EC8DC
+        accentSoft: Color(red: 0.243, green: 0.784, blue: 0.863).opacity(0.14),
+        accentDeep: Color(red: 0.102, green: 0.561, blue: 0.639),    // #1A8FA3
+        amber: Color(red: 0.910, green: 0.659, blue: 0.361),         // #E8A85C
+        coral: Color(red: 0.878, green: 0.447, blue: 0.384),         // #E07262
+        sand: Color(red: 0.933, green: 0.965, blue: 0.973),          // #EEF6F8
+        mist: Color(red: 0.541, green: 0.604, blue: 0.643),          // #8A9AA4
+        mistDim: Color(red: 0.400, green: 0.463, blue: 0.502),       // #667680
+        coolMint: Color(red: 0.369, green: 0.812, blue: 0.722),      // #5ECFB8
+        warm: Color(red: 0.850, green: 0.710, blue: 0.380),
+        atmosphereBottom: Color(red: 0.016, green: 0.027, blue: 0.043),
         hoverWash: Color.white.opacity(0.045)
     )
 
-    /// Signal Day — cool paper + deeper sky blue (not cream / terracotta)
+    /// Arctic Ice Day — ice paper + teal-cyan (not cream / terracotta / purple)
     static let light = ThemePalette(
-        ink: Color(red: 0.953, green: 0.961, blue: 0.976),           // #F3F5F9
+        ink: Color(red: 0.949, green: 0.969, blue: 0.973),           // #F2F7F8
         inkLift: Color(red: 1.000, green: 1.000, blue: 1.000),       // #FFFFFF
-        canvas: Color(red: 0.914, green: 0.929, blue: 0.953),        // #E9EDF3
+        canvas: Color(red: 0.902, green: 0.941, blue: 0.949),        // #E6F0F2
         surface: Color(red: 1.000, green: 1.000, blue: 1.000),       // #FFFFFF
-        surfaceLift: Color(red: 0.890, green: 0.914, blue: 0.953),   // #E3E9F3
-        line: Color.black.opacity(0.08),
-        lineStrong: Color.black.opacity(0.14),
-        accent: Color(red: 0.145, green: 0.420, blue: 0.890),        // #256BE3
-        accentSoft: Color(red: 0.145, green: 0.420, blue: 0.890).opacity(0.12),
-        accentDeep: Color(red: 0.110, green: 0.320, blue: 0.700),    // #1C52B2
-        amber: Color(red: 0.780, green: 0.520, blue: 0.180),         // #C7852E
-        coral: Color(red: 0.820, green: 0.360, blue: 0.320),         // #D15C52
-        sand: Color(red: 0.090, green: 0.118, blue: 0.180),          // #171E2E
-        mist: Color(red: 0.380, green: 0.435, blue: 0.520),          // #616F85
-        mistDim: Color(red: 0.520, green: 0.565, blue: 0.635),       // #8590A2
-        warm: Color(red: 0.720, green: 0.580, blue: 0.220),
-        atmosphereBottom: Color(red: 0.890, green: 0.910, blue: 0.945),
+        surfaceLift: Color(red: 0.863, green: 0.925, blue: 0.937),   // #DCECF0
+        line: Color.black.opacity(0.07),
+        lineStrong: Color.black.opacity(0.13),
+        accent: Color(red: 0.055, green: 0.541, blue: 0.604),        // #0E8A9A
+        accentSoft: Color(red: 0.055, green: 0.541, blue: 0.604).opacity(0.12),
+        accentDeep: Color(red: 0.039, green: 0.420, blue: 0.471),    // #0A6B78
+        amber: Color(red: 0.784, green: 0.533, blue: 0.196),         // #C88832
+        coral: Color(red: 0.831, green: 0.353, blue: 0.322),         // #D45A52
+        sand: Color(red: 0.047, green: 0.094, blue: 0.133),          // #0C1822
+        mist: Color(red: 0.353, green: 0.427, blue: 0.463),          // #5A6D76
+        mistDim: Color(red: 0.478, green: 0.549, blue: 0.580),       // #7A8C94
+        coolMint: Color(red: 0.165, green: 0.604, blue: 0.510),      // #2A9A82
+        warm: Color(red: 0.745, green: 0.580, blue: 0.235),
+        atmosphereBottom: Color(red: 0.878, green: 0.941, blue: 0.949),
         hoverWash: Color.black.opacity(0.035)
     )
 }
@@ -132,7 +135,7 @@ enum MFTheme {
     @MainActor static var sand: Color { p.sand }
     @MainActor static var mist: Color { p.mist }
     @MainActor static var mistDim: Color { p.mistDim }
-    @MainActor static var cool: Color { accent }
+    @MainActor static var cool: Color { p.coolMint }
     @MainActor static var warm: Color { p.warm }
     @MainActor static var hot: Color { amber }
     @MainActor static var critical: Color { coral }
@@ -191,7 +194,13 @@ struct MFPanel<Content: View>: View {
             .padding(20)
             .background(
                 RoundedRectangle(cornerRadius: 18, style: .continuous)
-                    .fill(MFTheme.surface.opacity(0.92))
+                    .fill(
+                        LinearGradient(
+                            colors: [MFTheme.surface.opacity(0.96), MFTheme.canvas.opacity(0.88)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 18, style: .continuous)

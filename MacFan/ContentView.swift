@@ -59,10 +59,16 @@ private struct AtmosphereBackground: View {
                 endPoint: .bottom
             )
             RadialGradient(
-                colors: [MFTheme.accent.opacity(theme.appearance == .light ? 0.10 : 0.08), .clear],
-                center: UnitPoint(x: 0.88, y: 0.12),
-                startRadius: 20,
-                endRadius: 520
+                colors: [MFTheme.accent.opacity(theme.appearance == .light ? 0.12 : 0.10), .clear],
+                center: UnitPoint(x: 0.88, y: 0.10),
+                startRadius: 16,
+                endRadius: 540
+            )
+            RadialGradient(
+                colors: [MFTheme.amber.opacity(theme.appearance == .light ? 0.06 : 0.05), .clear],
+                center: UnitPoint(x: 0.08, y: 0.92),
+                startRadius: 10,
+                endRadius: 420
             )
         }
         .ignoresSafeArea()

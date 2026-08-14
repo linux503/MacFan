@@ -16,6 +16,7 @@ struct MacFanApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @State private var viewModel = FanDashboardViewModel()
     @State private var l10n = LocalizationStore.shared
+    @State private var theme = ThemeStore.shared
     @State private var updater = UpdateChecker()
 
     var body: some Scene {
@@ -23,6 +24,7 @@ struct MacFanApp: App {
             ContentView()
                 .environment(viewModel)
                 .environment(l10n)
+                .environment(theme)
                 .environment(updater)
                 .frame(minWidth: 980, minHeight: 640)
         }
@@ -51,6 +53,16 @@ struct MacFanApp: App {
                     l10n.language = .english
                     viewModel.refreshLocalizedStatus()
                 }
+
+                Divider()
+
+                Button(l10n.t("appearance.dark")) {
+                    theme.appearance = .dark
+                }
+                Button(l10n.t("appearance.light")) {
+                    theme.appearance = .light
+                }
+                .keyboardShortcut("l", modifiers: [.command, .shift])
             }
         }
 
@@ -58,6 +70,7 @@ struct MacFanApp: App {
             MenuBarFanView()
                 .environment(viewModel)
                 .environment(l10n)
+                .environment(theme)
                 .environment(updater)
         } label: {
             Group {
@@ -100,16 +113,7 @@ struct MacFanApp: App {
 final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.regular)
-
-        // Prefer asset-catalog AppIcon; fall back to bundled .icns.
-        if let named = NSImage(named: NSImage.Name("AppIcon")) {
-            NSApp.applicationIconImage = named
-        } else if let icns = Bundle.main.url(forResource: "AppIcon", withExtension: "icns"),
-                  let image = NSImage(contentsOf: icns) {
-            image.size = NSSize(width: 128, height: 128)
-            NSApp.applicationIconImage = image
-        }
-        NSApp.dockTile.display()
+        // Icon comes from AppIcon asset catalog — do not override applicationIconImage (breaks Dock).
         NSApp.activate(ignoringOtherApps: true)
     }
 

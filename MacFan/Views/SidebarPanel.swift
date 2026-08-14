@@ -58,6 +58,7 @@ struct SidebarPanel: View {
 
                     SidebarSection(title: l10n.t("section.more")) {
                         VStack(spacing: 0) {
+                            AppearancePicker(showDivider: true)
                             LanguagePicker(showDivider: true)
                             SidebarLinkButton(
                                 title: updater.isChecking ? l10n.t("update.checking") : l10n.t("update.check"),
@@ -90,10 +91,6 @@ struct SidebarPanel: View {
                             .padding(.top, 8)
                             .padding(.leading, 2)
                     }
-
-                    if viewModel.needsAdminToControl {
-                        AdminBanner()
-                    }
                 }
                 .padding(.horizontal, 16)
                 .padding(.top, 16)
@@ -111,6 +108,50 @@ struct SidebarPanel: View {
         }
         .background(MFTheme.inkLift.opacity(0.94))
         .id(l10n.language)
+    }
+}
+
+private struct AppearancePicker: View {
+    var showDivider: Bool = false
+    @Environment(ThemeStore.self) private var theme
+    @Environment(LocalizationStore.self) private var l10n
+    @State private var hovering = false
+
+    var body: some View {
+        VStack(spacing: 0) {
+            HStack(spacing: 10) {
+                Image(systemName: theme.appearance == .light ? "sun.max.fill" : "moon.fill")
+                    .font(.system(size: 11, weight: .semibold))
+                    .foregroundStyle(MFTheme.mist)
+                    .frame(width: 22)
+                Text(l10n.t("appearance"))
+                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                    .foregroundStyle(MFTheme.sand.opacity(0.9))
+                Spacer(minLength: 0)
+                Picker("", selection: Binding(
+                    get: { theme.appearance },
+                    set: { theme.appearance = $0 }
+                )) {
+                    Text(l10n.t("appearance.dark")).tag(AppAppearance.dark)
+                    Text(l10n.t("appearance.light")).tag(AppAppearance.light)
+                }
+                .labelsHidden()
+                .pickerStyle(.menu)
+                .tint(MFTheme.accent)
+                .controlSize(.small)
+            }
+            .padding(.horizontal, 10)
+            .padding(.vertical, 9)
+            .background(hovering ? MFTheme.hoverWash : Color.clear)
+            .onHover { hovering = $0 }
+
+            if showDivider {
+                Rectangle()
+                    .fill(MFTheme.line)
+                    .frame(height: 1)
+                    .padding(.leading, 12)
+            }
+        }
     }
 }
 
@@ -240,7 +281,7 @@ private struct LanguagePicker: View {
             }
             .padding(.horizontal, 10)
             .padding(.vertical, 9)
-            .background(hovering ? Color.white.opacity(0.04) : Color.clear)
+            .background(hovering ? MFTheme.hoverWash : Color.clear)
             .onHover { hovering = $0 }
 
             if showDivider {
@@ -281,7 +322,7 @@ private struct SidebarLinkButton: View {
                 .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
-            .background(hovering ? Color.white.opacity(0.04) : Color.clear)
+            .background(hovering ? MFTheme.hoverWash : Color.clear)
             .onHover { hovering = $0 }
 
             if showDivider {
@@ -315,7 +356,7 @@ private struct ToggleRow: View {
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 10)
-            .background(hovering ? Color.white.opacity(0.04) : Color.clear)
+            .background(hovering ? MFTheme.hoverWash : Color.clear)
             .onHover { hovering = $0 }
 
             if showDivider {
@@ -325,48 +366,6 @@ private struct ToggleRow: View {
                     .padding(.leading, 12)
             }
         }
-    }
-}
-
-private struct AdminBanner: View {
-    @Environment(FanDashboardViewModel.self) private var viewModel
-    @Environment(LocalizationStore.self) private var l10n
-    @State private var hovering = false
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(l10n.t("admin.title"))
-                .font(.system(size: 11, weight: .semibold, design: .rounded))
-                .foregroundStyle(MFTheme.amber)
-            Text(l10n.t("admin.body"))
-                .font(.system(size: 10, weight: .regular, design: .rounded))
-                .foregroundStyle(MFTheme.mist)
-                .fixedSize(horizontal: false, vertical: true)
-            Button {
-                viewModel.relaunchAsAdministrator()
-            } label: {
-                Text(l10n.t("admin.button"))
-                    .font(.system(size: 11, weight: .semibold, design: .rounded))
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 8)
-            }
-            .buttonStyle(.plain)
-            .foregroundStyle(MFTheme.ink)
-            .background(
-                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .fill(hovering ? MFTheme.accent.opacity(0.88) : MFTheme.accent)
-            )
-            .onHover { hovering = $0 }
-        }
-        .padding(11)
-        .background(
-            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .fill(MFTheme.amber.opacity(0.07))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .strokeBorder(MFTheme.amber.opacity(0.18), lineWidth: 1)
-        )
     }
 }
 

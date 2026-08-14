@@ -8,7 +8,10 @@ enum AppAppearance: String, CaseIterable, Identifiable, Sendable {
     var id: String { rawValue }
 
     var colorScheme: ColorScheme {
-        self == .light ? .light : .dark
+        switch self {
+        case .dark: return .dark
+        case .light: return .light
+        }
     }
 }
 
@@ -29,51 +32,51 @@ struct ThemePalette: Sendable {
     let mist: Color
     let mistDim: Color
     let warm: Color
-    let hoverFill: Color
     let atmosphereBottom: Color
+    let hoverWash: Color
 
     /// Signal Night — deep navy + electric sky blue
     static let dark = ThemePalette(
-        ink: Color(red: 0.027, green: 0.043, blue: 0.071),
-        inkLift: Color(red: 0.051, green: 0.078, blue: 0.125),
-        canvas: Color(red: 0.071, green: 0.102, blue: 0.157),
-        surface: Color(red: 0.094, green: 0.133, blue: 0.200),
-        surfaceLift: Color(red: 0.129, green: 0.188, blue: 0.267),
+        ink: Color(red: 0.027, green: 0.043, blue: 0.071),          // #070B12
+        inkLift: Color(red: 0.051, green: 0.078, blue: 0.125),       // #0D1420
+        canvas: Color(red: 0.071, green: 0.102, blue: 0.157),        // #121A28
+        surface: Color(red: 0.094, green: 0.133, blue: 0.200),       // #182233
+        surfaceLift: Color(red: 0.129, green: 0.188, blue: 0.267),   // #213044
         line: Color.white.opacity(0.07),
         lineStrong: Color.white.opacity(0.12),
-        accent: Color(red: 0.310, green: 0.612, blue: 1.000),
+        accent: Color(red: 0.310, green: 0.612, blue: 1.000),        // #4F9CFF
         accentSoft: Color(red: 0.310, green: 0.612, blue: 1.000).opacity(0.14),
-        accentDeep: Color(red: 0.180, green: 0.420, blue: 0.769),
-        amber: Color(red: 0.878, green: 0.639, blue: 0.353),
-        coral: Color(red: 0.878, green: 0.478, blue: 0.416),
-        sand: Color(red: 0.933, green: 0.949, blue: 0.973),
-        mist: Color(red: 0.545, green: 0.592, blue: 0.671),
-        mistDim: Color(red: 0.400, green: 0.447, blue: 0.529),
+        accentDeep: Color(red: 0.180, green: 0.420, blue: 0.769),    // #2E6BC4
+        amber: Color(red: 0.878, green: 0.639, blue: 0.353),         // #E0A35A
+        coral: Color(red: 0.878, green: 0.478, blue: 0.416),         // #E07A6A
+        sand: Color(red: 0.933, green: 0.949, blue: 0.973),          // #EEF2F8
+        mist: Color(red: 0.545, green: 0.592, blue: 0.671),          // #8B97AB
+        mistDim: Color(red: 0.400, green: 0.447, blue: 0.529),       // #667287
         warm: Color(red: 0.820, green: 0.730, blue: 0.420),
-        hoverFill: Color.white.opacity(0.045),
-        atmosphereBottom: Color(red: 0.035, green: 0.050, blue: 0.090)
+        atmosphereBottom: Color(red: 0.035, green: 0.050, blue: 0.090),
+        hoverWash: Color.white.opacity(0.045)
     )
 
-    /// Signal Day — cool paper + signal blue (not cream / terracotta)
+    /// Signal Day — cool paper + deeper sky blue (not cream / terracotta)
     static let light = ThemePalette(
-        ink: Color(red: 0.945, green: 0.957, blue: 0.973),           // #F1F4F8
-        inkLift: Color(red: 0.980, green: 0.984, blue: 0.992),        // #FAFBFD
-        canvas: Color(red: 0.910, green: 0.929, blue: 0.953),         // #E8EDF3
-        surface: Color(red: 1.000, green: 1.000, blue: 1.000),        // #FFFFFF
-        surfaceLift: Color(red: 0.890, green: 0.922, blue: 0.965),    // #E3EBF6
+        ink: Color(red: 0.953, green: 0.961, blue: 0.976),           // #F3F5F9
+        inkLift: Color(red: 1.000, green: 1.000, blue: 1.000),       // #FFFFFF
+        canvas: Color(red: 0.914, green: 0.929, blue: 0.953),        // #E9EDF3
+        surface: Color(red: 1.000, green: 1.000, blue: 1.000),       // #FFFFFF
+        surfaceLift: Color(red: 0.890, green: 0.914, blue: 0.953),   // #E3E9F3
         line: Color.black.opacity(0.08),
-        lineStrong: Color.black.opacity(0.12),
-        accent: Color(red: 0.184, green: 0.478, blue: 0.961),         // #2F7AF5
-        accentSoft: Color(red: 0.184, green: 0.478, blue: 0.961).opacity(0.12),
-        accentDeep: Color(red: 0.122, green: 0.353, blue: 0.753),     // #1F5AC0
-        amber: Color(red: 0.820, green: 0.540, blue: 0.180),          // #D18A2E
-        coral: Color(red: 0.820, green: 0.380, blue: 0.330),          // #D16154
-        sand: Color(red: 0.071, green: 0.102, blue: 0.157),           // #121A28
-        mist: Color(red: 0.360, green: 0.420, blue: 0.510),           // #5C6B82
-        mistDim: Color(red: 0.478, green: 0.529, blue: 0.600),        // #7A8799
-        warm: Color(red: 0.760, green: 0.580, blue: 0.220),
-        hoverFill: Color.black.opacity(0.04),
-        atmosphereBottom: Color(red: 0.880, green: 0.910, blue: 0.945)
+        lineStrong: Color.black.opacity(0.14),
+        accent: Color(red: 0.145, green: 0.420, blue: 0.890),        // #256BE3
+        accentSoft: Color(red: 0.145, green: 0.420, blue: 0.890).opacity(0.12),
+        accentDeep: Color(red: 0.110, green: 0.320, blue: 0.700),    // #1C52B2
+        amber: Color(red: 0.780, green: 0.520, blue: 0.180),         // #C7852E
+        coral: Color(red: 0.820, green: 0.360, blue: 0.320),         // #D15C52
+        sand: Color(red: 0.090, green: 0.118, blue: 0.180),          // #171E2E
+        mist: Color(red: 0.380, green: 0.435, blue: 0.520),          // #616F85
+        mistDim: Color(red: 0.520, green: 0.565, blue: 0.635),       // #8590A2
+        warm: Color(red: 0.720, green: 0.580, blue: 0.220),
+        atmosphereBottom: Color(red: 0.890, green: 0.910, blue: 0.945),
+        hoverWash: Color.black.opacity(0.035)
     )
 }
 
@@ -94,8 +97,6 @@ final class ThemeStore {
         appearance == .light ? .light : .dark
     }
 
-    var isLight: Bool { appearance == .light }
-
     private init() {
         if let raw = UserDefaults.standard.string(forKey: Self.defaultsKey),
            let value = AppAppearance(rawValue: raw) {
@@ -104,11 +105,15 @@ final class ThemeStore {
             appearance = .dark
         }
     }
+
+    func toggle() {
+        appearance = (appearance == .dark) ? .light : .dark
+    }
 }
 
-/// Convenience accessors — always follow `ThemeStore.shared`.
 enum MFTheme {
-    @MainActor private static var p: ThemePalette { ThemeStore.shared.palette }
+    @MainActor
+    private static var p: ThemePalette { ThemeStore.shared.palette }
 
     @MainActor static var ink: Color { p.ink }
     @MainActor static var inkLift: Color { p.inkLift }
@@ -120,21 +125,22 @@ enum MFTheme {
     @MainActor static var accent: Color { p.accent }
     @MainActor static var accentSoft: Color { p.accentSoft }
     @MainActor static var accentDeep: Color { p.accentDeep }
-    @MainActor static var mint: Color { p.accent }
-    @MainActor static var mintDeep: Color { p.accentDeep }
+    @MainActor static var mint: Color { accent }
+    @MainActor static var mintDeep: Color { accentDeep }
     @MainActor static var amber: Color { p.amber }
     @MainActor static var coral: Color { p.coral }
     @MainActor static var sand: Color { p.sand }
     @MainActor static var mist: Color { p.mist }
     @MainActor static var mistDim: Color { p.mistDim }
-    @MainActor static var cool: Color { p.accent }
+    @MainActor static var cool: Color { accent }
     @MainActor static var warm: Color { p.warm }
-    @MainActor static var hot: Color { p.amber }
-    @MainActor static var critical: Color { p.coral }
-    @MainActor static var hoverFill: Color { p.hoverFill }
+    @MainActor static var hot: Color { amber }
+    @MainActor static var critical: Color { coral }
     @MainActor static var atmosphereBottom: Color { p.atmosphereBottom }
+    @MainActor static var hoverWash: Color { p.hoverWash }
 
-    @MainActor static func thermal(_ celsius: Double) -> Color {
+    @MainActor
+    static func thermal(_ celsius: Double) -> Color {
         switch ThermalSeverity(celsius: celsius) {
         case .cool: return cool
         case .warm: return warm
@@ -237,7 +243,7 @@ private struct MFMenuButtonBody: View {
     private var fillColor: Color {
         if selected { return MFTheme.surfaceLift }
         if configuration.isPressed { return MFTheme.surface }
-        if hovering { return MFTheme.hoverFill }
+        if hovering { return MFTheme.hoverWash }
         return .clear
     }
 

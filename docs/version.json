@@ -1,7 +1,7 @@
 {
-  "version": "1.1.0",
-  "notes": "Light marketing site, offline-safe fonts, compressed images, admin helper without full root relaunch.",
-  "notes_zh": "官网浅色主题、离线可用字体、压缩图片、无需整应用 root 重启的管理员授权。",
+  "version": "1.1.1",
+  "notes": "Fix admin SMC helper launch on macOS 15+ (no nohup); Python daemon + home dashboard auth card.",
+  "notes_zh": "修复 macOS 15+ 管理员授权助手启动失败（移除 nohup）；Python 守护进程 + 首页授权卡片。",
   "website": "https://linux503.github.io/MacFan/",
   "release_url": "https://github.com/linux503/MacFan/releases/latest",
   "min_macos": "14.0"

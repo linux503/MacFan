@@ -27,6 +27,7 @@
 		A10000000000000000000011 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000016 /* L10n.swift */; };
 		A10000000000000000000012 /* UpdateChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000017 /* UpdateChecker.swift */; };
 		A10000000000000000000013 /* PrivilegedSMCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000018 /* PrivilegedSMCHelper.swift */; };
+		A10000000000000000000014 /* AdminAuthorizationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000019 /* AdminAuthorizationCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		A20000000000000000000016 /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
 		A20000000000000000000017 /* UpdateChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateChecker.swift; sourceTree = "<group>"; };
 		A20000000000000000000018 /* PrivilegedSMCHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivilegedSMCHelper.swift; sourceTree = "<group>"; };
+		A20000000000000000000019 /* AdminAuthorizationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminAuthorizationCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 				A20000000000000000000007 /* SidebarPanel.swift */,
 				A20000000000000000000008 /* MainDashboard.swift */,
 				A20000000000000000000009 /* MenuBarFanView.swift */,
+				A20000000000000000000019 /* AdminAuthorizationCard.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 				A10000000000000000000011 /* L10n.swift in Sources */,
 				A10000000000000000000012 /* UpdateChecker.swift in Sources */,
 				A10000000000000000000013 /* PrivilegedSMCHelper.swift in Sources */,
+				A10000000000000000000014 /* AdminAuthorizationCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,11 +288,10 @@
 		A80000000000000000000003 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MacFan/MacFan.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MacFan/Info.plist;
@@ -296,7 +299,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macfan.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -324,11 +327,10 @@
 		A80000000000000000000004 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MacFan/MacFan.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MacFan/Info.plist;
@@ -336,7 +338,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macfan.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;

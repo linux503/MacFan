@@ -8,6 +8,9 @@ struct MainDashboard: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(alignment: .leading, spacing: 26) {
+                if viewModel.needsAdminToControl {
+                    AdminAuthorizationCard()
+                }
                 HeroStatusRow()
                 if viewModel.mode == .scene {
                     SceneGallery()

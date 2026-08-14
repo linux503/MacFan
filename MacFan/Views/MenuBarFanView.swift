@@ -77,7 +77,7 @@ struct MenuBarFanView: View {
         .padding(14)
         .frame(width: 260)
         .background(MFTheme.inkLift)
-        .id(l10n.language)
+        .id("\(l10n.language.rawValue)")
         .onAppear {
             if viewModel.fans.isEmpty {
                 viewModel.start()

@@ -4,6 +4,7 @@ struct ContentView: View {
     @Environment(FanDashboardViewModel.self) private var viewModel
     @Environment(LocalizationStore.self) private var l10n
     @Environment(UpdateChecker.self) private var updater
+    @Environment(ThemeStore.self) private var theme
 
     var body: some View {
         ZStack {
@@ -17,8 +18,8 @@ struct ContentView: View {
                 MainDashboard()
             }
         }
-        .preferredColorScheme(.dark)
-        .id(l10n.language)
+        .preferredColorScheme(theme.appearance.colorScheme)
+        .id("\(l10n.language.rawValue)-\(theme.appearance.rawValue)")
         .onAppear { viewModel.start() }
         .onDisappear { viewModel.stop() }
         .alert(updater.alertTitle, isPresented: Binding(
@@ -43,6 +44,8 @@ struct ContentView: View {
 }
 
 private struct AtmosphereBackground: View {
+    @Environment(ThemeStore.self) private var theme
+
     var body: some View {
         ZStack {
             MFTheme.ink
@@ -50,13 +53,13 @@ private struct AtmosphereBackground: View {
                 colors: [
                     MFTheme.inkLift,
                     MFTheme.ink,
-                    Color(red: 0.035, green: 0.050, blue: 0.090)
+                    MFTheme.atmosphereBottom
                 ],
                 startPoint: .top,
                 endPoint: .bottom
             )
             RadialGradient(
-                colors: [MFTheme.accent.opacity(0.08), .clear],
+                colors: [MFTheme.accent.opacity(theme.appearance == .light ? 0.10 : 0.08), .clear],
                 center: UnitPoint(x: 0.88, y: 0.12),
                 startRadius: 20,
                 endRadius: 520
@@ -70,6 +73,7 @@ private struct AtmosphereBackground: View {
     ContentView()
         .environment(FanDashboardViewModel())
         .environment(LocalizationStore.shared)
+        .environment(ThemeStore.shared)
         .environment(UpdateChecker())
         .frame(width: 1120, height: 740)
 }

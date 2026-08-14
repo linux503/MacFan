@@ -34,19 +34,19 @@ enum FanControlMode: String, Codable, CaseIterable, Identifiable, Sendable {
 
     var title: String {
         switch self {
-        case .automatic: return "系统自动"
-        case .manual: return "手动调节"
-        case .maximum: return "最大转速"
-        case .scene: return "场景模式"
+        case .automatic: return L10n.t("mode.automatic")
+        case .manual: return L10n.t("mode.manual")
+        case .maximum: return L10n.t("mode.maximum")
+        case .scene: return L10n.t("mode.scene")
         }
     }
 
     var subtitle: String {
         switch self {
-        case .automatic: return "交还给 macOS SMC 温控"
-        case .manual: return "逐风扇精确设定 RPM"
-        case .maximum: return "立即拉满全部风扇"
-        case .scene: return "按场景与温度曲线运行"
+        case .automatic: return L10n.t("mode.automatic.sub")
+        case .manual: return L10n.t("mode.manual.sub")
+        case .maximum: return L10n.t("mode.maximum.sub")
+        case .scene: return L10n.t("mode.scene.sub")
         }
     }
 
@@ -119,10 +119,10 @@ enum ThermalSeverity: String, Sendable {
 
     var title: String {
         switch self {
-        case .cool: return "凉爽"
-        case .warm: return "适中"
-        case .hot: return "偏热"
-        case .critical: return "过热"
+        case .cool: return L10n.t("severity.cool")
+        case .warm: return L10n.t("severity.warm")
+        case .hot: return L10n.t("severity.hot")
+        case .critical: return L10n.t("severity.critical")
         }
     }
 }
@@ -152,25 +152,25 @@ enum FanSceneKind: String, Codable, CaseIterable, Identifiable, Sendable {
 
     var title: String {
         switch self {
-        case .silentOffice: return "静音办公"
-        case .mediaLounge: return "影音观影"
-        case .creatorBurst: return "创作渲染"
-        case .gameArena: return "游戏竞技"
-        case .arcticMax: return "极速散热"
-        case .nightOwl: return "夜间静音"
-        case .custom: return "自定义"
+        case .silentOffice: return L10n.t("scene.silentOffice")
+        case .mediaLounge: return L10n.t("scene.mediaLounge")
+        case .creatorBurst: return L10n.t("scene.creatorBurst")
+        case .gameArena: return L10n.t("scene.gameArena")
+        case .arcticMax: return L10n.t("scene.arcticMax")
+        case .nightOwl: return L10n.t("scene.nightOwl")
+        case .custom: return L10n.t("scene.custom")
         }
     }
 
     var blurb: String {
         switch self {
-        case .silentOffice: return "键盘低噪，适合文档与会议"
-        case .mediaLounge: return "优先安静，温度略升也可接受"
-        case .creatorBurst: return "导出/编译时主动加压散热"
-        case .gameArena: return "保持高风量，压制帧率掉温"
-        case .arcticMax: return "全风扇最大，极限降温"
-        case .nightOwl: return "深夜自动压低转速"
-        case .custom: return "你自己的曲线与联动规则"
+        case .silentOffice: return L10n.t("scene.silentOffice.blurb")
+        case .mediaLounge: return L10n.t("scene.mediaLounge.blurb")
+        case .creatorBurst: return L10n.t("scene.creatorBurst.blurb")
+        case .gameArena: return L10n.t("scene.gameArena.blurb")
+        case .arcticMax: return L10n.t("scene.arcticMax.blurb")
+        case .nightOwl: return L10n.t("scene.nightOwl.blurb")
+        case .custom: return L10n.t("scene.custom.blurb")
         }
     }
 

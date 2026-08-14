@@ -20,13 +20,13 @@ enum FanControlError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .unsupported:
-            return "当前机型暂不支持直接写入风扇转速。"
+            return L10n.t("error.unsupported")
         case .privilegeRequired:
-            return "需要管理员权限才能修改真实风扇转速。请点击「以管理员身份启动」。"
+            return L10n.t("error.privilege")
         case .fanNotFound(let id):
-            return "未找到风扇：\(id)"
+            return String(format: L10n.t("error.fanMissing"), id)
         case .smcUnavailable(let detail):
-            return "SMC 不可用：\(detail)"
+            return String(format: L10n.t("error.smc"), detail)
         }
     }
 }
@@ -42,11 +42,11 @@ final class AdaptiveFanController: FanControlling, @unchecked Sendable {
     init(architecture: ChipArchitecture = .current) {
         self.architecture = architecture
         self.simulator = SimulatedFanHardware(architecture: architecture)
-        self.isPrivileged = geteuid() == 0
+        self.isPrivileged = geteuid() == 0 || SMCHelperClient.isReady
     }
 
     func refreshPrivilege() {
-        isPrivileged = geteuid() == 0
+        isPrivileged = geteuid() == 0 || SMCHelperClient.isReady
     }
 
     func discoverFans() async throws -> [FanInfo] {
@@ -67,17 +67,25 @@ final class AdaptiveFanController: FanControlling, @unchecked Sendable {
 
     func setAutomatic() async throws {
         try await ensureLiveWritable()
-        let fans = try smc.readFans()
-        for index in fans.indices {
-            try smc.setAutomatic(fanIndex: index)
+        if geteuid() == 0 {
+            let fans = try smc.readFans()
+            for index in fans.indices {
+                try smc.setAutomatic(fanIndex: index)
+            }
+        } else {
+            try SMCHelperClient.send("AUTO")
         }
     }
 
     func setMaximum() async throws {
         try await ensureLiveWritable()
-        let fans = try smc.readFans()
-        for index in fans.indices {
-            try smc.setMaximum(fanIndex: index)
+        if geteuid() == 0 {
+            let fans = try smc.readFans()
+            for index in fans.indices {
+                try smc.setMaximum(fanIndex: index)
+            }
+        } else {
+            try SMCHelperClient.send("MAX")
         }
     }
 
@@ -86,7 +94,11 @@ final class AdaptiveFanController: FanControlling, @unchecked Sendable {
         guard let index = smc.fanIndex(from: fanID) else {
             throw FanControlError.fanNotFound(fanID)
         }
-        try smc.setManual(fanIndex: index, rpm: rpm)
+        if geteuid() == 0 {
+            try smc.setManual(fanIndex: index, rpm: rpm)
+        } else {
+            try SMCHelperClient.send("SET \(index) \(Int(rpm.rounded()))")
+        }
     }
 
     private func ensureLiveWritable() async throws {

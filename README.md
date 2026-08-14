@@ -1,7 +1,8 @@
 # MacFan
 
 **精准控制 Mac 风扇转速。**  
-原生 SwiftUI 工具，支持 **Apple Silicon（M 系列）** 与 **Intel** Universal Binary。
+原生 SwiftUI 工具，支持 **Apple Silicon（M 系列）** 与 **Intel** Universal Binary。  
+当前版本 **1.1.0** · [官网](https://linux503.github.io/MacFan/) · [下载](https://linux503.github.io/MacFan/assets/MacFan-1.1.0-macos.zip)
 
 <p align="center">
   <img src="MacFan-logo.png" width="160" alt="MacFan logo" />
@@ -13,6 +14,12 @@
   <a href="#安装与运行">安装</a> ·
   <a href="#权限说明">权限</a>
 </p>
+
+### 1.1 更新
+- **Signal Night** 全新深蓝 + 信号蓝配色  
+- 菜单栏图标更大更清晰  
+- 管理员授权改为后台 SMC 助手（无需整应用以 root 重启）  
+- 官网海报与直接下载包  
 
 ---
 
@@ -40,6 +47,14 @@
 - **温度轨迹**：CPU / GPU 历史曲线  
 - **菜单栏常驻**：快捷最大转速 / 自动 / 静音办公  
 - **程序坞图标 + 自定义菜单栏图标**
+
+---
+
+## 语言与更新
+
+- **中英双语**：App 内可切换，**默认中文**（不跟随系统语言）
+- **检查更新**：读取官网 `version.json`，失败时回退 GitHub Releases
+- **访问官网**：侧栏 / 菜单栏 / ⌘0 可打开 https://linux503.github.io/MacFan/
 
 ---
 

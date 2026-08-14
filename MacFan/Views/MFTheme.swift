@@ -1,31 +1,31 @@
 import SwiftUI
 
 enum MFTheme {
-    // Graphite + muted ice — quieter than neon mint
-    static let ink = Color(red: 0.059, green: 0.067, blue: 0.082)           // #0F1115
-    static let inkLift = Color(red: 0.086, green: 0.098, blue: 0.118)        // #16191E
-    static let canvas = Color(red: 0.110, green: 0.122, blue: 0.145)         // #1C1F25
-    static let surface = Color(red: 0.133, green: 0.149, blue: 0.176)        // #22262D
-    static let surfaceLift = Color(red: 0.165, green: 0.184, blue: 0.216)    // #2A2F37
-    static let line = Color.white.opacity(0.06)
-    static let lineStrong = Color.white.opacity(0.10)
+    // Signal Night — deep navy + electric sky blue
+    static let ink = Color(red: 0.027, green: 0.043, blue: 0.071)           // #070B12
+    static let inkLift = Color(red: 0.051, green: 0.078, blue: 0.125)        // #0D1420
+    static let canvas = Color(red: 0.071, green: 0.102, blue: 0.157)         // #121A28
+    static let surface = Color(red: 0.094, green: 0.133, blue: 0.200)        // #182233
+    static let surfaceLift = Color(red: 0.129, green: 0.188, blue: 0.267)    // #213044
+    static let line = Color.white.opacity(0.07)
+    static let lineStrong = Color.white.opacity(0.12)
 
-    /// Primary accent (muted ice teal)
-    static let accent = Color(red: 0.455, green: 0.690, blue: 0.675)         // #74B0AC
-    static let accentSoft = Color(red: 0.455, green: 0.690, blue: 0.675).opacity(0.14)
-    static let accentDeep = Color(red: 0.290, green: 0.455, blue: 0.447)     // #4A7472
+    /// Primary accent (signal sky blue)
+    static let accent = Color(red: 0.310, green: 0.612, blue: 1.000)         // #4F9CFF
+    static let accentSoft = Color(red: 0.310, green: 0.612, blue: 1.000).opacity(0.14)
+    static let accentDeep = Color(red: 0.180, green: 0.420, blue: 0.769)     // #2E6BC4
     /// Compat alias used across views
     static let mint = accent
     static let mintDeep = accentDeep
 
-    static let amber = Color(red: 0.780, green: 0.620, blue: 0.400)          // #C79E66
-    static let coral = Color(red: 0.820, green: 0.450, blue: 0.420)          // #D1736B
-    static let sand = Color(red: 0.945, green: 0.949, blue: 0.961)           // #F1F2F5
-    static let mist = Color(red: 0.565, green: 0.592, blue: 0.647)           // #9097A5
-    static let mistDim = Color(red: 0.420, green: 0.443, blue: 0.494)        // #6B717E
+    static let amber = Color(red: 0.878, green: 0.639, blue: 0.353)          // #E0A35A
+    static let coral = Color(red: 0.878, green: 0.478, blue: 0.416)          // #E07A6A
+    static let sand = Color(red: 0.933, green: 0.949, blue: 0.973)           // #EEF2F8
+    static let mist = Color(red: 0.545, green: 0.592, blue: 0.671)           // #8B97AB
+    static let mistDim = Color(red: 0.400, green: 0.447, blue: 0.529)        // #667287
 
     static let cool = accent
-    static let warm = Color(red: 0.820, green: 0.710, blue: 0.420)
+    static let warm = Color(red: 0.820, green: 0.730, blue: 0.420)
     static let hot = amber
     static let critical = coral
 

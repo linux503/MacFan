@@ -3,6 +3,7 @@ import SwiftUI
 
 struct MainDashboard: View {
     @Environment(FanDashboardViewModel.self) private var viewModel
+    @Environment(LocalizationStore.self) private var l10n
 
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -23,13 +24,14 @@ struct MainDashboard: View {
 
 private struct HeroStatusRow: View {
     @Environment(FanDashboardViewModel.self) private var viewModel
+    @Environment(LocalizationStore.self) private var l10n
 
     var body: some View {
         MFPanel {
             HStack(alignment: .center, spacing: 22) {
                 VStack(alignment: .leading, spacing: 16) {
                     VStack(alignment: .leading, spacing: 5) {
-                        Text(viewModel.activeScene?.name ?? viewModel.mode.title)
+                        Text(viewModel.activeScene?.kind.title ?? viewModel.mode.title)
                             .font(MFTheme.displayFont(28))
                             .foregroundStyle(MFTheme.sand)
                         Text(viewModel.activeScene?.kind.blurb ?? viewModel.mode.subtitle)
@@ -38,13 +40,13 @@ private struct HeroStatusRow: View {
                     }
 
                     HStack(spacing: 0) {
-                        MetricCell(title: "CPU", value: String(format: "%.0f°", viewModel.thermal.cpuCelsius), tone: MFTheme.thermal(viewModel.thermal.cpuCelsius))
+                        MetricCell(title: l10n.t("metric.cpu"), value: String(format: "%.0f°", viewModel.thermal.cpuCelsius), tone: MFTheme.thermal(viewModel.thermal.cpuCelsius))
                         metricDivider
-                        MetricCell(title: "GPU", value: String(format: "%.0f°", viewModel.thermal.gpuCelsius), tone: MFTheme.thermal(viewModel.thermal.gpuCelsius))
+                        MetricCell(title: l10n.t("metric.gpu"), value: String(format: "%.0f°", viewModel.thermal.gpuCelsius), tone: MFTheme.thermal(viewModel.thermal.gpuCelsius))
                         metricDivider
-                        MetricCell(title: "机身", value: String(format: "%.0f°", viewModel.thermal.enclosureCelsius), tone: MFTheme.thermal(viewModel.thermal.enclosureCelsius))
+                        MetricCell(title: l10n.t("metric.enclosure"), value: String(format: "%.0f°", viewModel.thermal.enclosureCelsius), tone: MFTheme.thermal(viewModel.thermal.enclosureCelsius))
                         metricDivider
-                        MetricCell(title: "热况", value: viewModel.severity.title, tone: MFTheme.thermal(viewModel.thermal.peakCelsius))
+                        MetricCell(title: l10n.t("metric.thermal"), value: viewModel.severity.title, tone: MFTheme.thermal(viewModel.thermal.peakCelsius))
                     }
                 }
                 Spacer(minLength: 8)
@@ -127,10 +129,11 @@ private struct TurbineGauge: View {
 
 private struct SceneGallery: View {
     @Environment(FanDashboardViewModel.self) private var viewModel
+    @Environment(LocalizationStore.self) private var l10n
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            MFSectionHeader(title: "特色场景")
+            MFSectionHeader(title: l10n.t("section.scenes"))
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 148), spacing: 10)], spacing: 10) {
                 ForEach(viewModel.scenes) { scene in
                     SceneCard(
@@ -170,7 +173,7 @@ private struct SceneCard: View {
                             .foregroundStyle(MFTheme.accent)
                     }
                 }
-                Text(scene.name)
+                Text(scene.kind.title)
                     .font(.system(size: 13, weight: .semibold, design: .rounded))
                     .foregroundStyle(MFTheme.sand)
                 Text(scene.kind.blurb)
@@ -212,12 +215,13 @@ private struct SceneCard: View {
 
 private struct FanControlSection: View {
     @Environment(FanDashboardViewModel.self) private var viewModel
+    @Environment(LocalizationStore.self) private var l10n
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             MFSectionHeader(
-                title: "风扇",
-                trailing: viewModel.mode == .maximum ? "最大转速已锁定" : nil
+                title: l10n.t("section.fans"),
+                trailing: viewModel.mode == .maximum ? l10n.t("fan.maxLocked") : nil
             )
 
             VStack(spacing: 10) {
@@ -310,10 +314,11 @@ private struct FanRow: View {
 
 private struct ThermalHistorySection: View {
     @Environment(FanDashboardViewModel.self) private var viewModel
+    @Environment(LocalizationStore.self) private var l10n
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            MFSectionHeader(title: "温度轨迹")
+            MFSectionHeader(title: l10n.t("section.thermal"))
             Chart(viewModel.history) { sample in
                 LineMark(
                     x: .value("时间", sample.timestamp),
@@ -357,8 +362,8 @@ private struct ThermalHistorySection: View {
             )
 
             HStack(spacing: 16) {
-                legendDot(MFTheme.accent, "CPU")
-                legendDot(MFTheme.amber, "GPU")
+                legendDot(MFTheme.accent, l10n.t("chart.cpu"))
+                legendDot(MFTheme.amber, l10n.t("chart.gpu"))
             }
             .font(.system(size: 11, weight: .medium, design: .rounded))
             .foregroundStyle(MFTheme.mist)

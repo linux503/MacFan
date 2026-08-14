@@ -2,6 +2,8 @@ import SwiftUI
 
 struct MenuBarFanView: View {
     @Environment(FanDashboardViewModel.self) private var viewModel
+    @Environment(LocalizationStore.self) private var l10n
+    @Environment(UpdateChecker.self) private var updater
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -31,21 +33,21 @@ struct MenuBarFanView: View {
 
             VStack(spacing: 2) {
                 MenuActionRow(
-                    title: "最大转速",
+                    title: l10n.t("menubar.max"),
                     symbol: "bolt.fill",
                     selected: viewModel.mode == .maximum
                 ) {
                     Task { await viewModel.selectMode(.maximum) }
                 }
                 MenuActionRow(
-                    title: "系统自动",
+                    title: l10n.t("menubar.auto"),
                     symbol: "gearshape.2",
                     selected: viewModel.mode == .automatic
                 ) {
                     Task { await viewModel.selectMode(.automatic) }
                 }
                 MenuActionRow(
-                    title: "静音办公",
+                    title: l10n.t("menubar.silent"),
                     symbol: "building.2",
                     selected: viewModel.mode == .scene && viewModel.activeScene?.kind == .silentOffice
                 ) {
@@ -56,14 +58,26 @@ struct MenuBarFanView: View {
             }
 
             Divider().overlay(MFTheme.lineStrong)
+
+            VStack(spacing: 2) {
+                MenuActionRow(title: l10n.t("update.check"), symbol: "arrow.triangle.2.circlepath", selected: false) {
+                    Task { await updater.checkForUpdates(l10n: l10n) }
+                }
+                MenuActionRow(title: l10n.t("website"), symbol: "globe", selected: false) {
+                    updater.openWebsite()
+                }
+            }
+
+            Divider().overlay(MFTheme.lineStrong)
             Text(viewModel.statusMessage)
                 .font(.system(size: 10, weight: .regular, design: .rounded))
                 .foregroundStyle(MFTheme.mistDim)
                 .lineLimit(2)
         }
         .padding(14)
-        .frame(width: 250)
+        .frame(width: 260)
         .background(MFTheme.inkLift)
+        .id(l10n.language)
         .onAppear {
             if viewModel.fans.isEmpty {
                 viewModel.start()

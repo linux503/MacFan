@@ -14,7 +14,7 @@ final class FanDashboardViewModel {
     var activeScene: FanScene?
     var appLinkEnabled: Bool = true
     var scheduleEnabled: Bool = true
-    var statusMessage: String = "正在探测风扇…"
+    var statusMessage: String = L10n.t("status.probing")
     var lastError: String?
     var machine: MachineProfile = MachineIdentity.profile()
     var isLiveHardware: Bool = false
@@ -28,7 +28,7 @@ final class FanDashboardViewModel {
     init(controller: AdaptiveFanController = AdaptiveFanController()) {
         self.controller = controller
         self.selectedSceneID = scenes.first(where: { $0.kind == .silentOffice })?.id
-        self.isPrivileged = geteuid() == 0
+        self.isPrivileged = geteuid() == 0 || SMCHelperClient.isReady
     }
 
     var selectedScene: FanScene? {
@@ -45,6 +45,21 @@ final class FanDashboardViewModel {
 
     var needsAdminToControl: Bool {
         isLiveHardware && !isPrivileged
+    }
+
+    func refreshLocalizedStatus() {
+        // Re-apply bootstrap-style status when language changes.
+        if isLiveHardware && isPrivileged {
+            statusMessage = L10n.t("status.liveAdmin")
+            if needsAdminToControl == false { lastError = nil }
+        } else if isLiveHardware {
+            statusMessage = L10n.t("status.liveNeedAdmin")
+            lastError = L10n.t("error.needAdminHint")
+        } else if fans.isEmpty {
+            statusMessage = L10n.t("status.probing")
+        } else {
+            statusMessage = L10n.t("status.preview")
+        }
     }
 
     func start() {
@@ -73,16 +88,16 @@ final class FanDashboardViewModel {
             isLiveHardware = controller.usingLiveSMC
             thermal = try await controller.readThermals()
             if isLiveHardware && isPrivileged {
-                statusMessage = "实机控制已启用（管理员）"
+                statusMessage = L10n.t("status.liveAdmin")
             } else if isLiveHardware {
-                statusMessage = "已读到真实风扇，但写入需要管理员权限"
-                lastError = "点击下方按钮，输入密码后以管理员身份启动，才能真正调速。"
+                statusMessage = L10n.t("status.liveNeedAdmin")
+                lastError = L10n.t("error.needAdminHint")
             } else {
-                statusMessage = "未读到 SMC 风扇，当前为预览数据"
+                statusMessage = L10n.t("status.preview")
             }
         } catch {
             lastError = error.localizedDescription
-            statusMessage = "初始化失败"
+            statusMessage = L10n.t("status.initFailed")
         }
     }
 
@@ -109,13 +124,13 @@ final class FanDashboardViewModel {
             case .automatic:
                 try await controller.setAutomatic()
                 activeScene = nil
-                statusMessage = "已恢复系统自动温控"
+                statusMessage = L10n.t("status.auto")
             case .maximum:
                 try await controller.setMaximum()
                 activeScene = nil
-                statusMessage = "全部风扇已设为最大转速"
+                statusMessage = L10n.t("status.max")
             case .manual:
-                statusMessage = "手动模式：拖动滑杆调节单风扇"
+                statusMessage = L10n.t("status.manual")
             case .scene:
                 await applySceneLogic(force: true)
             }
@@ -134,7 +149,7 @@ final class FanDashboardViewModel {
                 fans[index].targetRPM = rpm
                 fans[index].isManual = true
             }
-            statusMessage = "已设定 \(id) → \(Int(rpm)) RPM"
+            statusMessage = String(format: L10n.t("status.fanSet"), id, Int(rpm))
             lastError = nil
         } catch {
             lastError = error.localizedDescription
@@ -148,20 +163,45 @@ final class FanDashboardViewModel {
     }
 
     func relaunchAsAdministrator() {
-        guard let exe = Bundle.main.executableURL?.path else {
-            lastError = "找不到可执行文件路径"
+        if isPrivileged {
+            statusMessage = L10n.t("status.liveAdmin")
+            lastError = nil
             return
         }
-        let escaped = exe.replacingOccurrences(of: "'", with: "'\\''")
-        let appleScript = "do shell script \"'\\(escaped)' >/dev/null 2>&1 &\" with administrator privileges"
-        var error: NSDictionary?
-        if let script = NSAppleScript(source: appleScript) {
-            script.executeAndReturnError(&error)
-            if let error {
-                lastError = error[NSAppleScript.errorMessage] as? String ?? "提权失败"
-                return
+
+        statusMessage = L10n.t("admin.authorizing")
+        lastError = L10n.t("admin.passwordHint")
+        isBusy = true
+        NSApp.activate(ignoringOtherApps: true)
+
+        Task { [weak self] in
+            guard let self else { return }
+            do {
+                try await Task.detached(priority: .userInitiated) {
+                    try PrivilegedElevator.startHelper()
+                }.value
+                controller.refreshPrivilege()
+                isPrivileged = controller.isPrivileged
+                if isPrivileged {
+                    lastError = nil
+                    statusMessage = L10n.t("status.liveAdmin")
+                    // Re-apply current mode so the first click actually writes SMC.
+                    await selectMode(mode)
+                } else {
+                    lastError = L10n.t("admin.helperNotReady")
+                    statusMessage = L10n.t("admin.failed")
+                }
+            } catch {
+                lastError = error.localizedDescription
+                statusMessage = L10n.t("admin.failed")
+                let alert = NSAlert()
+                alert.messageText = L10n.t("admin.title")
+                alert.informativeText = error.localizedDescription + "\n\n" + L10n.t("admin.passwordHint")
+                alert.alertStyle = .warning
+                alert.addButton(withTitle: L10n.t("ok"))
+                alert.runModal()
             }
-            NSApp.terminate(nil)
+            isBusy = false
         }
     }
 
@@ -188,7 +228,11 @@ final class FanDashboardViewModel {
             }
             fans = try await controller.discoverFans()
             if force || changed {
-                statusMessage = "场景「\(scene.name)」· 目标 \(Int(percent * 100))%"
+                statusMessage = String(
+                    format: L10n.t("status.scene"),
+                    scene.kind.title,
+                    Int(percent * 100)
+                )
             }
             lastError = nil
         } catch {

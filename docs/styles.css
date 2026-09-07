@@ -499,3 +499,9 @@ h1, h2, h3, .hero-brand, .kicker, .btn, .nav .brand, .mode-list span, .heat-list
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* homepage refine */
+html { text-rendering: optimizeLegibility; }
+h1, .hero h1, .hero-title { text-wrap: balance; letter-spacing: -0.03em; }
+nav, .site-header, .topbar { backdrop-filter: blur(18px); }
